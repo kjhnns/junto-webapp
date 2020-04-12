@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Formik, Form } from 'formik'
+import firebase from 'gatsby-plugin-firebase'
 import * as Yup from 'yup'
 
 import { SecondaryButton } from '@components/Button'
@@ -24,17 +25,31 @@ const validationSchema = Yup.object().shape({
     }),
 })
 
-const send = async ({ username, password, email }) => {
-  const response = await axios.post(`${process.env.SERVER_URL}/user/signup`, {
-    username,
-    password,
-    email,
-  })
-  return response
-}
+const SubmitHandler = async ({ username, password, email }) => {
+  try {
+    await axios.post(`${process.env.SERVER_URL}/user/signup`, {
+      username,
+      password,
+      email,
+    })
 
-const SubmitHandler = async values => {
-  await send(values)
+    const response = await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+    const idToken = await response.user.getIdToken()
+    const sessionCookie = await axios.post(
+      `${process.env.SERVER_URL}/user/signin`,
+      {
+        id_token: idToken,
+      }
+    )
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem('sessionCookie', sessionCookie.data.cookie)
+      window.localStorage.setItem('userID', sessionCookie.data.id)
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const SignUp = () => {
