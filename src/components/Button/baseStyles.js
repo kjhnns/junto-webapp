@@ -1,3 +1,4 @@
+/* stylelint-disable */
 import { space, width, fontSize } from 'styled-system'
 import { css, themeGet } from '@style'
 

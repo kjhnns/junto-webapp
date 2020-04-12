@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* stylelint-disable */
 import React from 'react'
 import PropTypes from 'prop-types'
 

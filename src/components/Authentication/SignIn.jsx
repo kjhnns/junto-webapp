@@ -1,50 +1,48 @@
 import React from 'react'
+import firebase from 'gatsby-plugin-firebase'
 import axios from 'axios'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 
 import { SecondaryButton } from '@components/Button'
-import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Text'
+import { Flex, Box } from '@components/Grid'
 import { TextInput } from '@components/Form'
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().required('Mandatory Field'),
   email: Yup.string()
-    .email('Please provide a valid email address')
+    .email('Not a valid email address')
     .required('Mandatory Field'),
   password: Yup.string()
     .required('Mandatory Field')
-    .min(6, 'Must be at least 6 characters long'),
-  confirmPassword: Yup.string()
-    .required('Mandatory Field')
-    // eslint-disable-next-line func-names
-    .test('passwords-match', 'Passwords must match', function(value) {
-      return this.parent.password === value
-    }),
+    .min(6, 'At least 6 characters long'),
 })
 
-const send = async ({ username, password, email }) => {
-  const response = await axios.post(`${process.env.SERVER_URL}/user/signup`, {
-    username,
-    password,
-    email,
+const send = async idToken => {
+  const response = await axios.post(`${process.env.SERVER_URL}/user/signin`, {
+    id_token: idToken,
   })
   return response
 }
 
-const SubmitHandler = async values => {
-  await send(values)
+const SubmitHandler = async ({ email, password }) => {
+  const response = await firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+  const idToken = await response.user.getIdToken()
+  const sessionCookie = await send(idToken)
+  if (typeof window !== 'undefined' && window.localStorage) {
+    window.localStorage.setItem('sessionCookie', sessionCookie.data.cookie)
+    window.localStorage.setItem('userID', sessionCookie.data.id)
+  }
 }
 
-const SignUp = () => {
+const SignIn = () => {
   return (
     <Formik
       initialValues={{
-        username: '',
         email: '',
         password: '',
-        confirmPassword: '',
       }}
       validationSchema={validationSchema}
       onSubmit={SubmitHandler}
@@ -56,31 +54,21 @@ const SignUp = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <Text as="h1">Create a new account</Text>
+            <Text as="h1">Sign In</Text>
             <Flex
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
             >
-              <Box width={['90%', '350px', '350px']} mx={4}>
-                <TextInput name="username" label="Username" />
-              </Box>
               <Box width={['90%', '350px', '350px']} mx={4} mt={[4, 0, 0]}>
                 <TextInput name="email" label="Email" />
               </Box>
               <Box width={['90%', '350px', '350px']} mx={4} mt={[4, 0, 0]}>
                 <TextInput type="password" name="password" label="Password" />
               </Box>
-              <Box width={['90%', '350px', '350px']} mx={4} mt={[4, 0, 0]}>
-                <TextInput
-                  type="password"
-                  name="confirmPassword"
-                  label="Password confirmation"
-                />
-              </Box>
               <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
                 <SecondaryButton width="100%" type="submit">
-                  Get Started
+                  Sign In
                 </SecondaryButton>
               </Box>
             </Flex>
@@ -91,4 +79,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignIn

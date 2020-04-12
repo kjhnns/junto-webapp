@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* stylelint-disable */
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { themeGet } from '@style'
@@ -11,7 +13,6 @@ const StyledButton = styled.button`
 
   &:hover,
   &:focus {
-    /* stylelint-disable */
     background: linear-gradient(
       180deg,
       ${themeGet('colors.primary.400')} 0%,
