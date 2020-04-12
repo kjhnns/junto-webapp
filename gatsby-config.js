@@ -1,4 +1,7 @@
 const website = require('./config/website')
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 const pathPrefix = website.pathPrefix === `/` ? `` : website.pathPrefix
 
