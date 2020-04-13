@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from '@components/Link'
 import { Flex } from '@components/Grid'
 import styled from '@style'
+import LogoImage from './logo.svg'
 
 const LogoLink = styled(Link)`
   min-height: 100%;
@@ -27,7 +28,7 @@ const LogoWrapper = styled(Flex)`
 const Logo = ({ href }) => (
   <LogoWrapper>
     <LogoLink to={href} from="layout header logo">
-      junto
+      <img height="50px" src={LogoImage} alt="Stryde" />
     </LogoLink>
   </LogoWrapper>
 )

@@ -66,12 +66,11 @@ const SignUp = () => {
       render={() => (
         <Form>
           <Flex
-            m={[3, 5, 5]}
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
           >
-            <Text as="h1">Create a new account</Text>
+            <Text as="h1">Sign Up</Text>
             <Flex
               flexDirection="column"
               justifyContent="center"

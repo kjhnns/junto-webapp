@@ -104,12 +104,8 @@ const SignIn = () => {
   }
 
   return (
-    <Flex
-      m={[3, 5, 5]}
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-    >
+    <Flex flexDirection="column" alignItems="center" justifyContent="center">
+      <Text as="h1">Sign In</Text>
       {state <= 0 ? (
         <SignInForm submitHandler={submitHandler} errorMessage={errorMessage} />
       ) : (
