@@ -87,7 +87,7 @@ const SignIn = () => {
         .signInWithEmailAndPassword(email, password)
       const idToken = await response.user.getIdToken()
       const sessionCookie = await axios.post(
-        `${process.env.SERVER_URL}/user/signin`,
+        `${process.env.GATSBY_API_URL}/user/signin`,
         {
           id_token: idToken,
         }

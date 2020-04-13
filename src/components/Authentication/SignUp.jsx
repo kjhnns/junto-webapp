@@ -27,7 +27,7 @@ const validationSchema = Yup.object().shape({
 
 const SubmitHandler = async ({ username, password, email }) => {
   try {
-    await axios.post(`${process.env.SERVER_URL}/user/signup`, {
+    await axios.post(`${process.env.GATSBY_API_URL}/user/signup`, {
       username,
       password,
       email,
@@ -38,7 +38,7 @@ const SubmitHandler = async ({ username, password, email }) => {
       .signInWithEmailAndPassword(email, password)
     const idToken = await response.user.getIdToken()
     const sessionCookie = await axios.post(
-      `${process.env.SERVER_URL}/user/signin`,
+      `${process.env.GATSBY_API_URL}/user/signin`,
       {
         id_token: idToken,
       }
