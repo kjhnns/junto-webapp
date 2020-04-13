@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
     .min(6, 'At least 6 characters long'),
 })
 
-const SignInForm = ({ submitHandler }) => {
+const SignInForm = ({ submitHandler, errorMessage }) => {
   return (
     <Formik
       initialValues={{
@@ -44,6 +44,13 @@ const SignInForm = ({ submitHandler }) => {
             <Box width={['90%', '350px', '350px']} mx={4} mt={[4, 0, 0]}>
               <TextInput type="password" name="password" label="Password" />
             </Box>
+            {errorMessage !== '' ? (
+              <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
+                <ErrorMessage>{errorMessage}</ErrorMessage>
+              </Box>
+            ) : (
+              ''
+            )}
             <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
               <SecondaryButton width="100%" type="submit">
                 Sign In
@@ -58,14 +65,11 @@ const SignInForm = ({ submitHandler }) => {
 
 SignInForm.propTypes = {
   submitHandler: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
 }
 
-const UnableToLogin = ({ errorMessage }) => (
-  <ErrorMessage>{errorMessage}</ErrorMessage>
-)
-
-UnableToLogin.propTypes = {
-  errorMessage: PropTypes.string.isRequired,
+SignInForm.defaultProps = {
+  errorMessage: null,
 }
 
 const Success = () => <Text>Success</Text>
@@ -106,9 +110,11 @@ const SignIn = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <Text as="h1">Sign In</Text>
-      {state === -1 ? <UnableToLogin errorMessage={errorMessage} /> : ''}
-      {state <= 0 ? <SignInForm submitHandler={submitHandler} /> : ''}
+      {state <= 0 ? (
+        <SignInForm submitHandler={submitHandler} errorMessage={errorMessage} />
+      ) : (
+        ''
+      )}
       {state === 2 ? <Loading /> : ''}
       {state === 1 ? <Success /> : ''}
     </Flex>
