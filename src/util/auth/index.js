@@ -4,7 +4,7 @@ import firebase from 'gatsby-plugin-firebase'
 import { navigate } from 'gatsby'
 
 const isLoggedIn = () => {
-  if (firebase.auth !== null) {
+  if (firebase.auth) {
     return firebase.auth().currentUser !== null
   }
 
