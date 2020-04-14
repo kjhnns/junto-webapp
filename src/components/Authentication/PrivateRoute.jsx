@@ -1,23 +1,15 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { navigate } from 'gatsby'
-
-const isLoggedIn = () => {
-  return true
-}
+import { isLoggedIn } from '../../util/auth'
 
 const PrivateRoute = ({ component, location, ...rest }) => {
-  if (!isLoggedIn() && location.pathname !== `/app/login`) {
-    navigate('/app/login')
+  if (!isLoggedIn() && location.pathname !== `/app/signin`) {
+    navigate('/app/signin')
     return null
   }
-  return <component {...rest} />
-}
-
-PrivateRoute.propTypes = {
-  component: PropTypes.node.isRequired,
-  location: PropTypes.object.isRequired,
+  return <Component {...rest} />
 }
 
 export default PrivateRoute

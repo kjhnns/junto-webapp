@@ -2,24 +2,31 @@ import styled, { themeGet } from '@style'
 
 const Item = styled.div`
   display: flex;
-  justify-content: center;
-  flex: 0 0 auto;
+  margin: 0;
+  text-decoration: none;
   cursor: pointer;
-  padding-top: ${themeGet('space.5')};
+  font-family: 'Montserrat', sans-serif;
   font-style: normal;
   font-weight: normal;
-  line-height: normal;
-  font-size: ${themeGet('fontSizes.3')};
-  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 29px;
   text-transform: uppercase;
 
   a,
   a:link,
   a:visited,
   a:active {
-    text-decoration: none !important;
+    text-decoration: none;
     padding: 6px 8px;
     color: ${themeGet('colors.grey.700')} !important;
+  }
+
+  @media (min-width: ${themeGet('breakpoints.0')}) {
+    margin: 0 11px;
+  }
+
+  @media (min-width: ${themeGet('breakpoints.2')}) {
+    margin: 0 22px;
   }
 `
 

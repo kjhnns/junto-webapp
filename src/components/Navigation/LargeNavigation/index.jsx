@@ -3,10 +3,10 @@ import React from 'react'
 import Container from './Container'
 import MenuBar from './MenuBar'
 
-const Header = () => (
+const LargeNavigation = () => (
   <Container>
     <MenuBar />
   </Container>
 )
 
-export default Header
+export default LargeNavigation

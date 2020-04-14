@@ -6,7 +6,7 @@ import Menu from './Menu'
 
 const MenuBar = () => (
   <Wrapper>
-    <Logo href="/" />
+    <Logo href="/app" />
     <Menu />
   </Wrapper>
 )

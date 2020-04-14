@@ -1,11 +1,10 @@
 import React from 'react'
 import { Link } from '@components/Link'
-
 import Item from './Item'
 import Wrapper from './Wrapper'
 import MenuButton from './MenuButton'
 
-const LargeScreenMenu = () => (
+const Menu = () => (
   <Wrapper>
     <MenuButton>
       <Link to="/app" from="layout header navigation">
@@ -25,4 +24,4 @@ const LargeScreenMenu = () => (
   </Wrapper>
 )
 
-export default LargeScreenMenu
+export default Menu

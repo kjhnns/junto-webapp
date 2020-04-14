@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
-import { Layout } from '@components/Layout/Website'
+import { Layout } from '@components/Layout'
 import { SEO } from '@components/SEO'
 import { Text } from '@components/Text'
 import { Br } from '@components/Grid'

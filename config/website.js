@@ -1,5 +1,5 @@
 module.exports = {
-  pathPrefix: `/`,
+  pathPrefix: `/app`,
   url: `https://gatsby-starter-styled.netlify.com/`,
   title: `junto – social habit tracking`,
   titleTemplate: `%s — junto`,
