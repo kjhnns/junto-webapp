@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Formik, Form } from 'formik'
 import firebase from 'gatsby-plugin-firebase'
 import * as Yup from 'yup'
-
+import { navigate } from 'gatsby'
 import { SecondaryButton } from '@components/Button'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Text'
@@ -47,6 +47,7 @@ const SubmitHandler = async ({ username, password, email }) => {
       window.localStorage.setItem('sessionCookie', sessionCookie.data.cookie)
       window.localStorage.setItem('userID', sessionCookie.data.id)
     }
+    navigate('/app/signin')
   } catch (error) {
     console.log(error)
   }

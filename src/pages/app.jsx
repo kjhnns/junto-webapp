@@ -13,7 +13,7 @@ const AppPage = () => (
   <Layout>
     <SEO />
     <Router basepath="/app">
-      {/* <PrivateRoute path="/" component={Dashboard} /> */}
+      <PrivateRoute path="/dashboard" component={Dashboard} />
       <SignIn path="/signin" />
       <SignUp path="/signup" />
       <Home path="/" />

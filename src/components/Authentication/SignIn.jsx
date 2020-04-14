@@ -4,7 +4,7 @@ import firebase from 'gatsby-plugin-firebase'
 import axios from 'axios'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
-
+import { navigate } from 'gatsby'
 import { SecondaryButton } from '@components/Button'
 import { Text } from '@components/Text'
 import { Flex, Box } from '@components/Grid'
@@ -97,6 +97,7 @@ const SignIn = () => {
         window.localStorage.setItem('userID', sessionCookie.data.id)
       }
       setState(1)
+      navigate('/app/dashboard')
     } catch (error) {
       setErrorMessage(error.message)
       setState(-1)
