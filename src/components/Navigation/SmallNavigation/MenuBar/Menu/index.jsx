@@ -20,9 +20,6 @@ const MenuLoggedIn = () => (
     <MenuButton>
       <Link to="/app/dashboard">Dashboard</Link>
     </MenuButton>
-    {/* <Item>
-      <Link onClick={signOut}>Sign Out</Link>
-    </Item> */}
   </Wrapper>
 )
 

@@ -1,13 +1,11 @@
 import React from 'react'
-import axios from 'axios'
+import PropTypes from 'prop-types'
 import { Formik, Form } from 'formik'
-import firebase from 'gatsby-plugin-firebase'
 import * as Yup from 'yup'
-import { navigate } from 'gatsby'
 import { SecondaryButton } from '@components/Button'
 import { Flex, Box } from '@components/Grid'
-import { Text } from '@components/Text'
 import { TextInput } from '@components/Form'
+import ErrorMessage from '@components/Form/ErrorMessage'
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('Mandatory Field'),
@@ -25,35 +23,7 @@ const validationSchema = Yup.object().shape({
     }),
 })
 
-const SubmitHandler = async ({ username, password, email }) => {
-  try {
-    await axios.post(`${process.env.GATSBY_API_URL}/user/signup`, {
-      username,
-      password,
-      email,
-    })
-
-    const response = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-    const idToken = await response.user.getIdToken()
-    const sessionCookie = await axios.post(
-      `${process.env.GATSBY_API_URL}/user/signin`,
-      {
-        id_token: idToken,
-      }
-    )
-    if (typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.setItem('sessionCookie', sessionCookie.data.cookie)
-      window.localStorage.setItem('userID', sessionCookie.data.id)
-    }
-    navigate('/app/signin')
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const SignUp = () => {
+const SignUpForm = ({ submitHandler, errorMessage }) => {
   return (
     <Formik
       initialValues={{
@@ -63,7 +33,9 @@ const SignUp = () => {
         confirmPassword: '',
       }}
       validationSchema={validationSchema}
-      onSubmit={SubmitHandler}
+      onSubmit={async values => {
+        await submitHandler(values)
+      }}
       render={() => (
         <Form>
           <Flex
@@ -71,7 +43,6 @@ const SignUp = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <Text as="h1">Sign Up</Text>
             <Flex
               flexDirection="column"
               justifyContent="center"
@@ -93,6 +64,14 @@ const SignUp = () => {
                   label="Password confirmation"
                 />
               </Box>
+
+            {errorMessage !== '' ? (
+              <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
+                <ErrorMessage>{errorMessage}</ErrorMessage>
+              </Box>
+            ) : (
+              ''
+            )}
               <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
                 <SecondaryButton width="100%" type="submit">
                   Get Started
@@ -106,4 +85,13 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+SignUpForm.propTypes = {
+  submitHandler: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
+}
+
+SignUpForm.defaultProps = {
+  errorMessage: null,
+}
+
+export default SignUpForm
