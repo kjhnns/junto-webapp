@@ -1,10 +1,9 @@
-import React from 'react'
-import firebase from 'gatsby-plugin-firebase'
+import React, { useEffect, useState } from 'react'
 import { SecondaryButton } from '@components/Button'
 import { Text } from '@components/Text'
 import { Flex } from '@components/Grid'
 import styled, { themeGet } from '@style'
-import { signOut } from '../../util/auth'
+import { isLoggedIn, signOut, getUser } from '../../util/auth'
 import Wrapper from './Wrapper'
 
 const Card = styled.div`
@@ -28,21 +27,30 @@ const Motivation = styled.p`
   margin: 0;
 `
 
-const Dashboard = () => (
-  <Wrapper>
-    <Text as="h1">Your Habits</Text>
-    <Card>
+const Dashboard = () => {
+  const [loggedIn, setLoggedIn] = useState(false)
+  useEffect(() => {
+    // eslint-disable-next-line func-names
+    ;(async function() {
+      const res = await isLoggedIn()
+      setLoggedIn(res)
+    })()
+  })
+
+  return (
+    <Wrapper>
+      <Text as="h1">Your Habits</Text>
+      <Card>
         <Flex flexDirection="column">
-            <Title>Run or Exercise</Title>
-            <Motivation>to live a healthier life</Motivation>    
+          <Title>Run or Exercise</Title>
+          <Motivation>to live a healthier life</Motivation>
         </Flex>
-    </Card>
-    {firebase.auth().currentUser !== null
-      ? `Hello ${firebase.auth().currentUser.displayName}`
-      : ''}
-    <SecondaryButton width="100%" onClick={signOut}>
-      Sign Out
-    </SecondaryButton>
-  </Wrapper>
-)
+      </Card>
+      {loggedIn !== null ? `Hello ${getUser().displayName}` : ''}
+      <SecondaryButton width="100%" onClick={signOut}>
+        Sign Out
+      </SecondaryButton>
+    </Wrapper>
+  )
+}
 export default Dashboard

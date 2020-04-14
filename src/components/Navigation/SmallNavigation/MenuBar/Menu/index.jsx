@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from '@reach/router'
 import Item from './Item'
 import Wrapper from './Wrapper'
@@ -24,7 +24,14 @@ const MenuLoggedIn = () => (
 )
 
 const Menu = () => {
-  const loggedIn = isLoggedIn()
+  const [loggedIn, setLoggedIn] = useState(false)
+  useEffect(() => {
+    // eslint-disable-next-line func-names
+    ;(async function() {
+      const res = await isLoggedIn()
+      setLoggedIn(res)
+    })()
+  })
   return <Wrapper>{loggedIn ? <MenuLoggedIn /> : <MenuLoggedOut />}</Wrapper>
 }
 
