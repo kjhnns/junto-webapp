@@ -18,7 +18,7 @@ breakpoints.xl = breakpoints[3]
 const colors = {
   pageBackground: 'hsl(228, 33%, 97%)',
   white: 'hsl(0, 0%, 100%)',
-  black: 'hsl(0, 0%, 0%)',
+  black: 'hsl(10, 64%, 5%)',
   primary: {
     100: 'hsl(11, 100%, 97%)',
     200: 'hsl(11, 100%, 90%)',
