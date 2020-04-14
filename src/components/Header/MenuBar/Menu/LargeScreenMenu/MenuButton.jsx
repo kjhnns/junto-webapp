@@ -7,7 +7,7 @@ const MenuButton = styled.div`
   cursor: pointer;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 16px;
   line-height: 29px;
   text-transform: uppercase;

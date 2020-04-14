@@ -7,7 +7,7 @@ const ItemHighlighted = styled.div`
   cursor: pointer;
   padding-top: ${themeGet('space.5')};
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   line-height: normal;
   font-size: ${themeGet('fontSizes.3')};
   font-family: 'Montserrat', sans-serif;
@@ -19,6 +19,7 @@ const ItemHighlighted = styled.div`
   a:active {
     text-decoration: none !important;
     padding: 6px 8px;
+    font-weight: 400;
     color: ${themeGet('colors.secondary.400')} !important;
   }
 `
