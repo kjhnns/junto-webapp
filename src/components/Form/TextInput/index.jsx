@@ -7,7 +7,7 @@ import { Box } from '@components/Grid'
 import ErrorMessage from '../ErrorMessage'
 import { Label, Hint } from '../Label'
 
-import Input from './Input'
+import { Input } from './Input'
 
 const TextInput = ({ label, hint, ...props }) => {
   const [field, meta] = useField(props)
@@ -15,9 +15,17 @@ const TextInput = ({ label, hint, ...props }) => {
 
   return (
     <Box width="100%">
-      {label ? <Label htmlFor={name}>{label}</Label> : null}
-      <Input id={name} {...field} {...props} meta={meta} />
-      {hint !== null && <Hint>{hint}</Hint>}
+      {label ? (
+        <Label htmlFor={name}>
+          {label} {hint && <Hint>{hint}</Hint>}
+        </Label>
+      ) : null}
+      <Input
+        id={name}
+        hasError={meta.touched && meta.error}
+        {...field}
+        {...props}
+      />
       {meta.touched && meta.error ? (
         <ErrorMessage>{meta.error}</ErrorMessage>
       ) : null}
@@ -27,16 +35,19 @@ const TextInput = ({ label, hint, ...props }) => {
 
 TextInput.defaultProps = {
   label: '',
-  hint: null,
+  hint: '',
+  disabled: false,
 }
 
 TextInput.propTypes = {
-  /* Name specifies for which value within a form this input is */
+  /** Name specifies for which value within a form this input is */
   name: PropTypes.string.isRequired,
-  /* The label to display above the input */
+  /** The label to display above the input */
   label: PropTypes.string,
-  /* Smaller text inside the label */
+  /** Smaller text inside the label */
   hint: PropTypes.string,
+  /** Whether the TextInput is disabled */
+  disabled: PropTypes.bool,
 }
 
 export default TextInput

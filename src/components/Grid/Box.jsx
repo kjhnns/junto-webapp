@@ -1,3 +1,4 @@
+/* stylelint-disable */
 import styled, {
   space,
   color,

@@ -1,3 +1,4 @@
+/* stylelint-disable */
 import styled, { flexbox, propTypes } from '@style'
 
 import Box from './Box'

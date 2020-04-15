@@ -1,26 +1,4 @@
-import styled, { css, themeGet } from '@style'
-
-const defaultStyles = css`
-  color: ${themeGet(`colors.grey.500`)};
-`
-
-const errorStyles = css`
-  color: ${themeGet(`colors.form.common.error.hintTextColor`)};
-`
-
-const disabledStyles = css`
-  color: ${themeGet(`colors.form.common.disabled.hintTextColor`)};
-`
-
-const getVariantStyles = ({ variant }) => {
-  if (variant === 'error') {
-    return errorStyles
-  }
-  if (variant === 'disabled') {
-    return disabledStyles
-  }
-  return defaultStyles
-}
+import styled, { themeGet } from '@style'
 
 const Hint = styled.small`
   display: inline-block;
@@ -28,7 +6,7 @@ const Hint = styled.small`
   font-weight: ${themeGet('fontWeights.normal')};
   margin-bottom: 0;
   margin-left: ${themeGet('space.2')};
-  ${props => getVariantStyles(props)}
+  color: ${themeGet(`colors.grey.500`)};
 `
 
-export default Hint
+export { Hint }

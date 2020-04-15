@@ -1,3 +1,4 @@
+/* stylelint-disable */
 import styled, { display, propTypes } from '@style'
 
 const Br = styled.br`

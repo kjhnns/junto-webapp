@@ -1,53 +1,93 @@
 import React, { useState } from 'react'
-import firebase from 'gatsby-plugin-firebase'
 import axios from 'axios'
+import { Formik, Form } from 'formik'
 import { navigate } from 'gatsby'
-import { Text } from '@components/Text'
-import { Flex } from '@components/Grid'
+import firebase from 'gatsby-plugin-firebase'
+import * as Yup from 'yup'
 
-import Success from './Success'
-import Form from './Form'
-import Loading from './Loading'
+import { Text } from '@components/Text'
+import { SecondaryButton } from '@components/Button'
+import { Flex, Box } from '@components/Grid'
+import { TextInput } from '@components/Form'
+import ErrorMessage from '@components/Form/ErrorMessage'
+
+const initialValues = {
+  email: '',
+  password: '',
+}
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Not a valid email address')
+    .required('Mandatory Field'),
+  password: Yup.string().required('Mandatory Field'),
+})
 
 const SignIn = () => {
-  const [state, setState] = useState(0)
   const [errorMessage, setErrorMessage] = useState('')
-
-  const submitHandler = async ({ email, password }) => {
-    setState(2)
-    try {
-      const response = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-      const idToken = await response.user.getIdToken()
-      const sessionCookie = await axios.post(
-        `${process.env.GATSBY_API_URL}/user/signin`,
-        {
-          id_token: idToken,
-        }
-      )
-      if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.setItem('sessionCookie', sessionCookie.data.cookie)
-        window.localStorage.setItem('userID', sessionCookie.data.id)
-      }
-      setState(1)
-      navigate('/app/dashboard')
-    } catch (error) {
-      setErrorMessage(error.message)
-      setState(-1)
-    }
-  }
 
   return (
     <Flex flexDirection="column" alignItems="center" justifyContent="center">
       <Text as="h1">Sign In</Text>
-      {state <= 0 ? (
-        <Form submitHandler={submitHandler} errorMessage={errorMessage} />
-      ) : (
-        ''
-      )}
-      {state === 2 ? <Loading /> : ''}
-      {state === 1 ? <Success /> : ''}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={async (values, { setSubmitting }) => {
+          setSubmitting(true)
+          try {
+            console.info('START')
+            const response = await firebase
+              .auth()
+              .signInWithEmailAndPassword(values.email, values.password)
+            console.info(response)
+            const idToken = await response.user.getIdToken()
+            const sessionCookie = await axios.post(
+              `${process.env.GATSBY_API_URL}/user/signin`,
+              {
+                id_token: idToken,
+              }
+            )
+            if (typeof window !== 'undefined' && window.localStorage) {
+              window.localStorage.setItem(
+                'sessionCookie',
+                sessionCookie.data.cookie
+              )
+              window.localStorage.setItem('userID', sessionCookie.data.id)
+            }
+            navigate('/app/dashboard')
+          } catch (error) {
+            setErrorMessage(error.message)
+          }
+          setSubmitting(false)
+        }}
+      >
+        {({ handleSubmit, isSubmitting }) => (
+          <Form onSubmit={handleSubmit}>
+            <Flex
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Box width={['90%', '350px', '350px']} mx={4} mt={[4, 0, 0]}>
+                <TextInput name="email" label="Email" />
+              </Box>
+              <Box width={['90%', '350px', '350px']} mx={4} mt={[4, 0, 0]}>
+                <TextInput type="password" name="password" label="Password" />
+              </Box>
+              {errorMessage && (
+                <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
+                  <ErrorMessage>{errorMessage}</ErrorMessage>
+                </Box>
+              )}
+              <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
+                <SecondaryButton width="100%" type="submit">
+                  {isSubmitting ? `Signing In...` : `Sign In`}
+                </SecondaryButton>
+              </Box>
+            </Flex>
+          </Form>
+        )}
+      </Formik>
     </Flex>
   )
 }

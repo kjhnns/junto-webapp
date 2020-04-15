@@ -1,3 +1,4 @@
+/* stylelint-disable */
 import React from 'react'
 import PropTypes from 'prop-types'
 import GoogleAnalytics from 'react-ga'
