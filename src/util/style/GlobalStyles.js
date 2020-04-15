@@ -3,6 +3,7 @@ import { createGlobalStyle } from './index'
 const GlobalStyles = createGlobalStyle`
   * {
     box-sizing: border-box;
+    position: relative;
   }
 
   html,
