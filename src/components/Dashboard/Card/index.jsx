@@ -10,6 +10,8 @@ const Wrapper = styled.div`
   border: 1px solid ${themeGet('colors.grey.500')};
   border-radius: 6px;
   padding: ${themeGet('space.3')};
+  min-height: 93px;
+  flex: 1;
 `
 
 const Title = styled.h2`

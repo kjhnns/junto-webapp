@@ -1,22 +1,19 @@
 import React from 'react'
 import { Text } from '@components/Text'
+import { SecondaryButton } from '@components/Button'
 import Wrapper from './Wrapper'
-import Card from './Card'
+import { signOut } from '../../util/auth'
+
+import Habits from './Habits'
 
 const Dashboard = () => {
-
   return (
     <Wrapper>
       <Text as="h1">Your Habits</Text>
-      <Card title="Hallo Welt" id="asd-asd" checked="123" />
-      <Card title="Run" motivation="to live a healthier live" id="asd-asd" />
-      <Card
-        title="Run"
-        motivation="to live a healthier live"
-        id="asd-asd"
-        follower="12"
-        checked="123"
-      />
+      <Habits />
+      <SecondaryButton width="100%" onClick={signOut}>
+        Sign Out
+      </SecondaryButton>
     </Wrapper>
   )
 }
