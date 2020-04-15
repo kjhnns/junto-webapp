@@ -1,12 +1,12 @@
 {
-  "name": "junto-webappp",
+  "name": "junto-webapp",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby and styled-system",
   "version": "1.0.0",
   "author": "Johannes Klumpe <johannesklumpe@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kjhnns/junto-webappp"
+    "url": "https://github.com/kjhnns/junto-webapp"
   },
   "scripts": {
     "start": "gatsby develop -o",
