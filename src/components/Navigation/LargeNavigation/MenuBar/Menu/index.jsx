@@ -3,7 +3,7 @@ import { Link } from '@reach/router'
 import Item from './Item'
 import Wrapper from './Wrapper'
 import MenuButton from './MenuButton'
-import { isLoggedIn } from '../../../../../util/auth'
+import { isLoggedIn, getUser } from '../../../../../util/auth'
 
 const MenuLoggedOut = () => (
   <Wrapper>
@@ -17,6 +17,7 @@ const MenuLoggedOut = () => (
 )
 const MenuLoggedIn = () => (
   <Wrapper>
+    {`Hello, ${getUser().displayName}`}
     <MenuButton>
       <Link to="/app/dashboard">Dashboard</Link>
     </MenuButton>

@@ -65,13 +65,13 @@ const SignUpForm = ({ submitHandler, errorMessage }) => {
                 />
               </Box>
 
-            {errorMessage !== '' ? (
-              <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
-                <ErrorMessage>{errorMessage}</ErrorMessage>
-              </Box>
-            ) : (
-              ''
-            )}
+              {errorMessage !== '' ? (
+                <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
+                  <ErrorMessage>{errorMessage}</ErrorMessage>
+                </Box>
+              ) : (
+                ''
+              )}
               <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
                 <SecondaryButton width="100%" type="submit">
                   Get Started
