@@ -26,7 +26,7 @@ const IndexPage = () => (
         <Text mb={3} fontSize={4} color="gray.600">
           social habit tracking
         </Text>
-        <Text fontSize={3}>
+        <Text fontSize={3} lineHeight="1.4">
           Good resolutions don’t work — social mechanisms do. Junto levarages
           behavioral science to help users achieve their personal goals by
           building good habits and breaking bad habits —{' '}
