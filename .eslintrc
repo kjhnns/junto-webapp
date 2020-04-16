@@ -45,7 +45,8 @@
         "map": [
           ["@style", "./src/util/style"],
           ["@components", "./src/components"],
-          ["@test", "./src/util/test"]
+          ["@test", "./src/util/test"],
+          ["@auth", "./src/util/auth"]
         ],
         "extensions": [".js", ".jsx"]
       }

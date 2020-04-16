@@ -8,10 +8,10 @@ import { isLoggedIn, getUser } from '../../../../util/auth'
 const MenuLoggedOut = () => (
   <Wrapper>
     <MenuButton>
-      <Link to="/app/signin">Sign In</Link>
+      <Link to="/login">Sign In</Link>
     </MenuButton>
     <Item>
-      <Link to="/app/signup">Sign Up</Link>
+      <Link to="/signup">Sign Up</Link>
     </Item>
   </Wrapper>
 )

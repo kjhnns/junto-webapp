@@ -46,13 +46,6 @@ module.exports = {
     `gatsby-plugin-catch-links`,
     `gatsby-plugin-sitemap`,
     {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: website.googleAnalyticsId,
-        anonymize: true,
-      },
-    },
-    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: website.title,
@@ -82,7 +75,7 @@ module.exports = {
     `gatsby-plugin-theme-ui`,
     {
       resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/app/*`, `/account/*`] },
+      options: { prefixes: [`/dashboard/*`] },
     },
   ],
 }

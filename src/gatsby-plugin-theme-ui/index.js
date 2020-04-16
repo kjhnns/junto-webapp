@@ -105,6 +105,7 @@ const lineHeights = {
 
 const buttons = {
   primary: {
+    fontFamily: 'body',
     fontSize: 2,
     fontWeight: '600',
     color: 'white',
@@ -135,6 +136,13 @@ const shadows = {
   xlarge:
     '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
   xxlarge: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+}
+
+const variants = {
+  link: {
+    fontFamily: 'body',
+    color: 'black',
+  },
 }
 
 const styles = {
@@ -172,5 +180,6 @@ export default {
   buttons,
   shadows,
   styles,
+  variants,
   text,
 }
