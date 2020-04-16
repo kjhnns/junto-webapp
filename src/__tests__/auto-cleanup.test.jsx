@@ -6,6 +6,7 @@ import { render } from '@test'
  * automatic cleanup between tests. See:
  * https://testing-library.com/docs/react-testing-library/setup#skipping-auto-cleanup
  */
+// eslint-disable-next-line jest/expect-expect
 test('first', () => {
   render(<div>hello</div>)
 })

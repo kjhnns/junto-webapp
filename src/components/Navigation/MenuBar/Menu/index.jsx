@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Link } from '@reach/router'
 import Item from './Item'
 import Wrapper from './Wrapper'
