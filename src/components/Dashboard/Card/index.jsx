@@ -48,12 +48,8 @@ const CheckMarkContainer = styled.div`
 const UnCheckCard = async (id, timestamp) => {
   try {
     const sessionCookie = window.localStorage.getItem('sessionCookie')
-    const result = await axios.post(
-      `${process.env.GATSBY_API_URL}/action/event/${id}`,
-      {
-        type: 2,
-        date: timestamp,
-      },
+    const result = await axios.delete(
+      `${process.env.GATSBY_API_URL}/action/${id}/event/${timestamp}`,
       {
         headers: {
           Bearer: sessionCookie,
@@ -70,9 +66,8 @@ const CheckCard = async (id, timestamp) => {
   try {
     const sessionCookie = window.localStorage.getItem('sessionCookie')
     const result = await axios.post(
-      `${process.env.GATSBY_API_URL}/action/event/${id}`,
+      `${process.env.GATSBY_API_URL}/action/${id}/event`,
       {
-        type: 1,
         date: timestamp,
       },
       {
