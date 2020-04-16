@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import axios from 'axios'
+import moment from 'moment'
 import { Flex } from '@components/Grid'
 import styled, { themeGet } from '@style'
 import checkedIcon from './checked.svg'
@@ -43,13 +45,72 @@ const CheckMarkContainer = styled.div`
   margin: 0 2em;
 `
 
-const Card = ({ id, title, motivation, follower, checked }) => {
-  const [isChecked, setCheckedState] = useState(checked !== null)
+const UnCheckCard = async (id, timestamp) => {
+  try {
+    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const result = await axios.post(
+      `${process.env.GATSBY_API_URL}/action/event/${id}`,
+      {
+        type: 2,
+        date: timestamp,
+      },
+      {
+        headers: {
+          Bearer: sessionCookie,
+        },
+      }
+    )
+    return result.status === 200
+  } catch (error) {
+    return false
+  }
+}
 
-  const toggleChecked = () => {
-    setCheckedState(!isChecked)
-    console.log(id)
-    console.log(checked)
+const CheckCard = async (id, timestamp) => {
+  try {
+    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const result = await axios.post(
+      `${process.env.GATSBY_API_URL}/action/event/${id}`,
+      {
+        type: 1,
+        date: timestamp,
+      },
+      {
+        headers: {
+          Bearer: sessionCookie,
+        },
+      }
+    )
+    if (result.status !== 200) {
+      return false
+    }
+    return timestamp
+  } catch (error) {
+    return false
+  }
+}
+
+const Card = ({
+  id,
+  title,
+  motivation,
+  follower,
+  checkedTimestamp,
+  selectedDay,
+}) => {
+  const [timestamp, setTimestamp] = useState(checkedTimestamp)
+
+  const toggleChecked = async () => {
+    if (timestamp !== null) {
+      if (await UnCheckCard(id, timestamp)) {
+        setTimestamp(null)
+      }
+    } else {
+      const newTimestamp = await CheckCard(id, selectedDay)
+      if (newTimestamp !== false) {
+        setTimestamp(newTimestamp)
+      }
+    }
   }
 
   return (
@@ -75,7 +136,7 @@ const Card = ({ id, title, motivation, follower, checked }) => {
           <img
             width="32px"
             height="32px"
-            src={isChecked ? checkedIcon : uncheckedIcon}
+            src={timestamp !== null ? checkedIcon : uncheckedIcon}
             alt=""
           />
         </CheckMarkContainer>
@@ -89,13 +150,15 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   motivation: PropTypes.string,
   follower: PropTypes.number,
-  checked: PropTypes.number,
+  checkedTimestamp: PropTypes.number,
+  selectedDay: PropTypes.number,
 }
 
 Card.defaultProps = {
   motivation: null,
   follower: null,
-  checked: null,
+  checkedTimestamp: null,
+  selectedDay: moment().unix(),
 }
 
 export default Card

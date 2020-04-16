@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Flex } from '@components/Grid'
 import axios from 'axios'
+import moment from 'moment'
 import { Text } from '@components/Text'
 import Card from './Card'
 
@@ -20,6 +21,18 @@ const loadHabits = async () => {
   } catch (error) {
     return false
   }
+}
+
+const getTimestamp = checkedTimeStamps => {
+  const selectedDay = moment()
+  if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
+    return null
+  }
+  const checkedObjs = checkedTimeStamps.map(moment.unix)
+  const checked = checkedObjs.map(val =>
+    val.isSame(selectedDay, 'day') ? val.unix() : null
+  )
+  return checked.reduce((pv, cv) => Math.max(pv, cv))
 }
 
 const HabitList = () => {
@@ -48,9 +61,13 @@ const HabitList = () => {
         {state === UNEXPECTED_ERROR ? <Text>Error</Text> : ''}
         {state === LOADING ? <Text>Loading</Text> : ''}
         {state === DISPLAY_HABITS
-          ? habits.map(({ id, title }) => (
+          ? habits.map(({ id, title, checked }) => (
               <Flex my={2} key={id}>
-                <Card title={title} id={id} />
+                <Card
+                  title={title}
+                  id={id}
+                  checkedTimestamp={getTimestamp(checked)}
+                />
               </Flex>
             ))
           : ''}
