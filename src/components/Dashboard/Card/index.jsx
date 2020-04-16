@@ -28,16 +28,6 @@ const Motivation = styled.p`
   color: ${themeGet('colors.black')};
   margin: 0;
 `
-const Follower = styled.p`
-  display: none;
-  font-size: ${themeGet('fontSizes.2')};
-  color: ${themeGet('colors.black')};
-  margin: 0;
-
-  @media (min-width: ${themeGet('breakpoints.1')}) {
-    display: inline;
-  }
-`
 
 const CheckMarkContainer = styled.div`
   width: 32px;
@@ -85,14 +75,7 @@ const CheckCard = async (id, timestamp) => {
   }
 }
 
-const Card = ({
-  id,
-  title,
-  motivation,
-  follower,
-  checkedTimestamp,
-  selectedDay,
-}) => {
+const Card = ({ id, title, motivation, checkedTimestamp, selectedDay }) => {
   const [timestamp, setTimestamp] = useState(checkedTimestamp)
 
   const toggleChecked = async () => {
@@ -120,13 +103,6 @@ const Card = ({
           <Title>{title}</Title>
           {motivation !== null ? <Motivation>{motivation}</Motivation> : ''}
         </Flex>
-        {follower !== null ? (
-          <Follower>
-            <strong>{follower}</strong> Followers
-          </Follower>
-        ) : (
-          ''
-        )}
         <CheckMarkContainer onClick={toggleChecked}>
           <img
             width="32px"
@@ -144,14 +120,12 @@ Card.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   motivation: PropTypes.string,
-  follower: PropTypes.number,
   checkedTimestamp: PropTypes.number,
   selectedDay: PropTypes.number,
 }
 
 Card.defaultProps = {
   motivation: null,
-  follower: null,
   checkedTimestamp: null,
   selectedDay: moment().unix(),
 }
