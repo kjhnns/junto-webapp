@@ -2,7 +2,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { render } from '@testing-library/react'
-import { ThemeProvider, theme } from '@style'
+import { ThemeProvider } from 'theme-ui'
+import theme from '../../gatsby-plugin-theme-ui'
 
 const ThemeWrapper = ({ children }) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>

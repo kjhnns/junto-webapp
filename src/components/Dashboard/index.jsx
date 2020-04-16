@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text } from '@components/Text'
-import { SecondaryButton } from '@components/Button'
+import { Text } from '@components/Typography'
+import { Button } from '@components/Button'
 import Wrapper from './Wrapper'
 import { signOut } from '../../util/auth'
 
@@ -13,9 +13,9 @@ const Dashboard = () => {
       <Text as="h1">Your Habits</Text>
       <Calendar />
       <Habits />
-      <SecondaryButton width="100%" onClick={signOut}>
+      <Button width="100%" onClick={signOut}>
         Sign Out
-      </SecondaryButton>
+      </Button>
     </Wrapper>
   )
 }
