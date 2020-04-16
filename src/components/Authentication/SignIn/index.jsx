@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import firebase from 'gatsby-plugin-firebase'
 import axios from 'axios'
 import { navigate } from 'gatsby'
-import { Text } from '@components/Text'
+import { Text } from '@components/Typography'
 import { Flex } from '@components/Grid'
 
 import Success from './Success'

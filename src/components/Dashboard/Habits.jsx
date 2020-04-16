@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Flex } from '@components/Grid'
 import axios from 'axios'
 import moment from 'moment'
-import { Text } from '@components/Text'
+import { Text } from '@components/Typography'
 import Card from './Card'
 
 const UNEXPECTED_ERROR = -1

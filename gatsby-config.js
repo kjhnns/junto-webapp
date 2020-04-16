@@ -38,12 +38,6 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `./config/typography.js`,
-      },
-    },
-    {
       resolve: `gatsby-plugin-lodash`,
       options: {
         disabledFeatures: [`shorthands`, `cloning`, `currying`],
@@ -84,6 +78,11 @@ module.exports = {
           appId: process.env.FIREBASE_APPID,
         },
       },
+    },
+    `gatsby-plugin-theme-ui`,
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/app/*`, `/account/*`] },
     },
   ],
 }

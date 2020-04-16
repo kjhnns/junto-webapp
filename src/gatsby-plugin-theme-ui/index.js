@@ -5,7 +5,7 @@
  */
 const breakpoints = ['576px', '768px', '992px', '1200px']
 
-//  Aliases
+//  Breakpoint aliases
 breakpoints.sm = breakpoints[0]
 breakpoints.md = breakpoints[1]
 breakpoints.lg = breakpoints[2]
@@ -16,21 +16,17 @@ breakpoints.xl = breakpoints[3]
  * Grey: Colors for items that are not that important
  */
 const colors = {
-  pageBackground: 'hsl(228, 33%, 97%)',
+  text: 'hsl(0, 0%, 0%)',
+  background: '#0f0',
+  primary: 'hsl(0, 0%, 0%)',
+  secondary: 'hsl(10, 2%, 30%)',
+  accent: 'pink',
+  highlight: 'yellow',
+  muted: 'hsl(10, 2%, 83%)',
+  pageBackground: 'hsl(0, 0%, 100%)',
   white: 'hsl(0, 0%, 100%)',
-  black: 'hsl(10, 64%, 5%)',
-  primary: {
-    100: 'hsl(11, 100%, 97%)',
-    200: 'hsl(11, 100%, 90%)',
-    300: 'hsl(11, 100%, 75%)',
-    400: 'hsl(11, 100%, 67%)',
-    500: 'hsl(12, 97%, 59%)',
-    600: 'hsl(12, 97%, 53%)',
-    700: 'hsl(11, 93%, 43%)',
-    800: 'hsl(11, 100%, 34%)',
-    900: 'hsl(11, 100%, 28%)',
-  },
-  grey: {
+  black: 'hsl(0, 0%, 0%)',
+  gray: {
     100: 'hsl(10, 2%, 98%)',
     200: 'hsl(10, 2%, 90%)',
     300: 'hsl(10, 2%, 87%)',
@@ -80,63 +76,101 @@ const colors = {
  * Space is used for margin and padding scales.
  * It's recommended to use powers of two to ensure alignment across the entire project
  */
-const space = [
-  '0',
-  '4px',
-  '8px',
-  '16px',
-  '32px',
-  '64px',
-  '128px',
-  '256px',
-  '512px',
-]
-
-/**
- * Typographic scale
- */
-const fontSizes = [
-  '12px',
-  '14px',
-  '16px',
-  '20px',
-  '24px',
-  '32px',
-  '48px',
-  '64px',
-  '96px',
-  '128px',
-]
-
-const lineHeights = [1, 1.125, 1.25, 1.5]
-
-const fontWeights = {
-  normal: 400,
-  semibold: 600,
-}
-
-/**
- * Letter-spacing should vary, depending on usage of text
- */
-const letterSpacings = {
-  normal: 'normal',
-  caps: '0.25em',
-  labels: '0.05em',
-}
+const space = [0, 4, 8, 16, 32, 64, 128, 256]
 
 /**
  * Border-radius
  */
-const radii = ['0', '2px', '4px', '8px', '16px']
+const radii = [0, 2, 4, 8, 16]
+radii.default = 4
 
-export const theme = {
+const fonts = {
+  body: '"Inter"',
+  heading: 'inherit',
+  monospace: 'Menlo, monospace',
+}
+
+const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72]
+
+const fontWeights = {
+  body: 400,
+  heading: 700,
+  display: 900,
+}
+
+const lineHeights = {
+  body: 1.5,
+  heading: 1.25,
+}
+
+const buttons = {
+  primary: {
+    fontSize: 2,
+    fontWeight: '600',
+    color: 'white',
+    bg: 'black',
+    px: 3,
+    py: 3,
+    borderRadius: 'default',
+  },
+  secondary: {
+    variant: 'buttons.primary',
+    color: 'black',
+    bg: 'gray.300',
+  },
+  outline: {
+    variant: 'buttons.primary',
+    color: 'black',
+    bg: 'transparent',
+    boxShadow: 'inset 0 0 0 2px',
+  },
+}
+
+const shadows = {
+  base: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+  medium:
+    '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+  large:
+    '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+  xlarge:
+    '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+  xxlarge: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+}
+
+const styles = {
+  root: {
+    color: 'black',
+    background: 'white',
+    fontFamily: 'body',
+    fontWeight: 'body',
+  },
+}
+
+const text = {
+  heading: {
+    fontFamily: 'heading',
+    lineHeight: 'heading',
+    fontWeight: 'heading',
+  },
+  text: {
+    fontFamily: 'text',
+    lineHeight: 'text',
+    fontWeight: 'text',
+  },
+}
+
+export default {
   name: 'Default',
   breakpoints,
   colors,
   space,
+  radii,
+  fonts,
   fontSizes,
   lineHeights,
   fontWeights,
-  letterSpacings,
-  radii,
+  buttons,
+  shadows,
+  styles,
+  text,
 }

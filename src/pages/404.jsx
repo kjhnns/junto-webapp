@@ -3,8 +3,7 @@ import { Link } from 'gatsby'
 
 import { Layout } from '@components/Layout'
 import { SEO } from '@components/SEO'
-import { Text } from '@components/Text'
-import { Br } from '@components/Grid'
+import { Text } from '@components/Typography'
 
 const NotFoundPage = () => (
   <Layout>
@@ -14,7 +13,6 @@ const NotFoundPage = () => (
     </Text>
     <Text>
       You just hit a route that doesn&#39;t exist... the sadness.
-      <Br />
       <Link to="/">Take me home.</Link>
     </Text>
   </Layout>

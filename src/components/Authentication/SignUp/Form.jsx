@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import { SecondaryButton } from '@components/Button'
+import { Button } from '@components/Button'
 import { Flex, Box } from '@components/Grid'
 import { TextInput } from '@components/Form'
 import ErrorMessage from '@components/Form/ErrorMessage'
@@ -73,9 +73,9 @@ const SignUpForm = ({ submitHandler, errorMessage }) => {
                 ''
               )}
               <Box width={['90%', '350px', '350px']} mx={4} mt={4}>
-                <SecondaryButton width="100%" type="submit">
+                <Button width="100%" type="submit">
                   Get Started
-                </SecondaryButton>
+                </Button>
               </Box>
             </Flex>
           </Flex>
