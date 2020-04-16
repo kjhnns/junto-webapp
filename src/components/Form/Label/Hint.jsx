@@ -28,7 +28,8 @@ const Hint = styled.small`
   font-weight: ${themeGet('fontWeights.normal')};
   margin-bottom: 0;
   margin-left: ${themeGet('space.2')};
-  ${props => getVariantStyles(props)}
+  /* stylelint-disable */
+  ${props => getVariantStyles(props)} /* stylelint-enable */
 `
 
 export default Hint

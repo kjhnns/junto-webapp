@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { themeGet } from '@style'
 import moment from 'moment'
-import { Flex, Box } from '@components/Grid'
+import { Flex } from '@components/Grid'
 
 const Day = styled.div`
   display: flex;

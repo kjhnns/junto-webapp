@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Link } from '@reach/router'
 import { Box, Flex } from '@components/Grid'
 import styled, { themeGet } from '@style'
