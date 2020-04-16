@@ -1,21 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import LargeNavigation from '@components/Navigation/LargeNavigation'
-import SmallNavigation from '@components/Navigation/SmallNavigation'
-import { Box } from '@components/Grid'
+import Navigation from '@components/Navigation'
 import GlobalStyles from '@style/GlobalStyles'
-import { ThemeProvider, theme } from '@style'
+import styled, { ThemeProvider, theme, themeGet } from '@style'
+
+const Container = styled.div`
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 ${themeGet('space.3')};
+`
 
 const Layout = ({ children }) => (
   <ThemeProvider theme={theme}>
     <>
       <GlobalStyles />
-      <LargeNavigation />
-      <Box maxWidth="700px" m="0 auto" px={3}>
-        {children}
-      </Box>
-      <SmallNavigation />
+      <Navigation />
+      <Container>{children}</Container>
     </>
   </ThemeProvider>
 )

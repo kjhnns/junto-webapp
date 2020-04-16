@@ -23,6 +23,11 @@ const LogoWrapper = styled(Flex)`
   align-content: center;
   padding: 0 28px;
   justify-content: flex-start;
+  display: none;
+
+  @media (min-width: 800px) {
+    display: flex;
+  }
 `
 
 const Logo = ({ href }) => (
