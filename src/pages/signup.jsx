@@ -13,15 +13,16 @@ import { Link } from '@components/Link'
 import { handleSignup } from '@auth'
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().required('required'),
+  username: Yup.string().required('Required'),
   email: Yup.string()
     .email('Please provide a valid email address')
-    .required('required'),
-  password: Yup.string().required('required'),
-  // .min(6, 'Must be at least 6 characters long'),
+    .required('Required'),
+  password: Yup.string()
+    .required('Required')
+    .min(6, 'Must be at least 6 characters long'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('required'),
+    .required('Required'),
 })
 
 const PureSignupPage = ({ handleSubmit }) => {

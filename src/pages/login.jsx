@@ -15,8 +15,8 @@ import { handleLogin } from '@auth'
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('Not a valid email address')
-    .required('required'),
-  password: Yup.string().required('required'),
+    .required('Required'),
+  password: Yup.string().required('Required'),
 })
 
 const PureLoginPage = ({ handleSubmit }) => {
