@@ -17,7 +17,6 @@ module.exports = {
   headline: `Build healthy habits and break bad habits - together.`,
   author: ``,
 
-  // Google & Twitter
-  googleAnalyticsId: `UA-XXXXX`, // Google Analytics ID
+  // Twitter
   twitter: `@kjhnns`, // Twitter username
 }

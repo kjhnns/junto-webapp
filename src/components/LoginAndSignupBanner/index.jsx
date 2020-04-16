@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'gatsby'
 
 import { Box } from '@components/Grid'
 import { Button } from '@components/Button'
@@ -17,8 +18,12 @@ const LoginAndSignupBanner = () => (
       justifyContent: 'center',
     }}
   >
-    <Button mr={3}>Log in</Button>
-    <Button variant="outline">Sign up</Button>
+    <Button as={Link} to="/login" mr={3}>
+      Log in
+    </Button>
+    <Button as={Link} to="/signup" variant="outline">
+      Sign up
+    </Button>
   </Box>
 )
 

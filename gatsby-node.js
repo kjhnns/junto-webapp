@@ -14,6 +14,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
       alias: {
+        '@auth': path.resolve(__dirname, './src/util/auth'),
         '@style': path.resolve(__dirname, './src/util/style'),
         '@components': path.resolve(__dirname, './src/components'),
         '@test': path.resolve(__dirname, './src/util/test'),

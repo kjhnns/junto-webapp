@@ -10,21 +10,26 @@ import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
 import { Formik, Form, Input } from '@components/NewForm'
 import { Link } from '@components/Link'
-import { handleLogin } from '@auth'
+import { handleSignup } from '@auth'
 
 const validationSchema = Yup.object().shape({
+  username: Yup.string().required('required'),
   email: Yup.string()
-    .email('Not a valid email address')
+    .email('Please provide a valid email address')
     .required('required'),
   password: Yup.string().required('required'),
+  // .min(6, 'Must be at least 6 characters long'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('required'),
 })
 
-const PureLoginPage = ({ handleSubmit }) => {
+const PureSignupPage = ({ handleSubmit }) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   return (
     <Layout>
-      <SEO title="Login" />
+      <SEO title="Signup" />
       <Box
         sx={{
           p: 4,
@@ -37,8 +42,10 @@ const PureLoginPage = ({ handleSubmit }) => {
         <Box>
           <Formik
             initialValues={{
+              username: '',
               email: '',
               password: '',
+              confirmPassword: '',
             }}
             validationSchema={validationSchema}
             onSubmit={async (values, { setSubmitting }) => {
@@ -59,8 +66,12 @@ const PureLoginPage = ({ handleSubmit }) => {
               <Form onSubmit={submit}>
                 <Box maxWidth="500px" mx="auto">
                   <Heading as="h1" fontSize={5} mb={3}>
-                    Login
+                    Signup
                   </Heading>
+                  <Box mb={3}>
+                    <Text fontWeight="bold">Username</Text>
+                    <Input name="username" />
+                  </Box>
                   <Box mb={3}>
                     <Text fontWeight="bold">Email</Text>
                     <Input name="email" />
@@ -68,6 +79,10 @@ const PureLoginPage = ({ handleSubmit }) => {
                   <Box mb={3}>
                     <Text fontWeight="bold">Password</Text>
                     <Input name="password" type="password" />
+                  </Box>
+                  <Box mb={3}>
+                    <Text fontWeight="bold">Confirm Password</Text>
+                    <Input name="confirmPassword" type="password" />
                   </Box>
                   {errorMessage && (
                     <Box
@@ -88,9 +103,9 @@ const PureLoginPage = ({ handleSubmit }) => {
                     alignItems="center"
                   >
                     <Button type="submit" width={['100%', 'auto']} mb={[3, 0]}>
-                      {isSubmitting ? `Loggin in...` : `Log in`}
+                      {isSubmitting ? `Signing up...` : `Sign up`}
                     </Button>
-                    <Link to="/signup">Don&apos;t have an account yet?</Link>
+                    <Link to="/login">Already have an account?</Link>
                   </Flex>
                 </Box>
               </Form>
@@ -102,12 +117,12 @@ const PureLoginPage = ({ handleSubmit }) => {
   )
 }
 
-PureLoginPage.propTypes = {
+PureSignupPage.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 }
 
 const LoginPage = () => {
-  return <PureLoginPage handleSubmit={handleLogin} />
+  return <PureSignupPage handleSubmit={handleSignup} />
 }
 
 export default LoginPage

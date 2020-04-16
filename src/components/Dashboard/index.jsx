@@ -19,4 +19,4 @@ const Dashboard = () => {
     </Wrapper>
   )
 }
-export default Dashboard
+export { Dashboard }

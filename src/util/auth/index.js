@@ -1,8 +1,56 @@
-/* eslint-disable no-console */
 import firebase from 'gatsby-plugin-firebase'
+import axios from 'axios'
 import { navigate } from 'gatsby'
 
 const isBrowser = typeof window !== `undefined`
+
+const handleLogin = async ({ email, password }) => {
+  try {
+    const response = await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+    const idToken = await response.user.getIdToken()
+    const sessionCookie = await axios.post(
+      `${process.env.GATSBY_API_URL}/user/signin`,
+      {
+        id_token: idToken,
+      }
+    )
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem('sessionCookie', sessionCookie.data.cookie)
+      window.localStorage.setItem('userID', sessionCookie.data.id)
+    }
+    return { success: true }
+  } catch (error) {
+    return { error: true, message: error.message }
+  }
+}
+
+const handleSignup = async ({ username, email, password }) => {
+  try {
+    const response = await axios.post(
+      `${process.env.GATSBY_API_URL}/user/signup`,
+      {
+        username,
+        password,
+        email,
+      }
+    )
+
+    if (response.data.status === 'success') {
+      return { success: true }
+    }
+    if (response.error) {
+      return { error: true, message: response.message }
+    }
+    return {
+      error: true,
+      message: `Not sure what happened here but it doesn't look good...`,
+    }
+  } catch (error) {
+    return { error: true, message: error.message }
+  }
+}
 
 const isLoggedIn = async () => {
   if (!isBrowser) {
@@ -22,7 +70,6 @@ const isLoggedIn = async () => {
             reject(new Error('no user logged in'))
           }
         },
-        // Prevent console error
         error => reject(error)
       )
     )
@@ -44,4 +91,4 @@ const signOut = async () => {
   await navigate('/')
 }
 
-export { isLoggedIn, signOut, getUser }
+export { handleLogin, handleSignup, isLoggedIn, signOut, getUser }
