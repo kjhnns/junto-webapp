@@ -117,29 +117,31 @@ const Dashboard = () => {
       <HabitList
         selectedTimestamp={selectedDate.unix()}
         habits={habits}
-        handleUnCheckClick={(id, tsp) => {
-          uncheckHabit(id, tsp)
-          const update = rawHabits.map(habit =>
-            habit.id === id
-              ? {
-                  ...habit,
-                  checked: habit.checked.filter(chked => chked !== tsp),
-                }
-              : habit
-          )
-          setRawHabits(update)
+        handleUnCheckClick={async (id, tsp) => {
+          if (await uncheckHabit(id, tsp)) {
+            const update = rawHabits.map(habit =>
+              habit.id === id
+                ? {
+                    ...habit,
+                    checked: habit.checked.filter(chked => chked !== tsp),
+                  }
+                : habit
+            )
+            setRawHabits(update)
+          }
         }}
-        handleCheckClick={(id, tsp) => {
-          checkHabit(id, tsp)
-          const update = rawHabits.map(habit =>
-            habit.id === id
-              ? {
-                  ...habit,
-                  checked: [...habit.checked, tsp],
-                }
-              : habit
-          )
-          setRawHabits(update)
+        handleCheckClick={async (id, tsp) => {
+          if (await checkHabit(id, tsp)) {
+            const update = rawHabits.map(habit =>
+              habit.id === id
+                ? {
+                    ...habit,
+                    checked: [...habit.checked, tsp],
+                  }
+                : habit
+            )
+            setRawHabits(update)
+          }
         }}
       />
       <Button width="100%" onClick={signOut}>
