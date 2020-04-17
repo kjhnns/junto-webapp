@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+
 import { Box, Flex } from '@components/Grid'
 import { Text } from '@components/Typography'
 
@@ -12,7 +13,7 @@ const last5Days = [
   moment(),
 ]
 
-const Calendar = ({ selectedDay, selectDayHandler }) => {
+const Calendar = ({ selectedDate, handleClickOnDate }) => {
   const today = moment()
 
   return (
@@ -24,7 +25,7 @@ const Calendar = ({ selectedDay, selectDayHandler }) => {
     >
       <Flex flexDirection="column">
         <Flex flexDirection="row">
-          {last5Days.map(val => (
+          {last5Days.map(date => (
             <Box
               sx={{
                 flexDirection: 'column',
@@ -32,23 +33,27 @@ const Calendar = ({ selectedDay, selectDayHandler }) => {
                 justifyContent: 'center',
                 flex: '1',
               }}
-              key={val.unix()}
+              key={date.unix()}
               onClick={() => {
-                selectDayHandler(val)
+                handleClickOnDate(date)
               }}
             >
               <Text
-                fontWeight={val.isSame(selectedDay, 'day') ? 'bold' : 'normal'}
+                fontWeight={
+                  date.isSame(selectedDate, 'day') ? 'bold' : 'normal'
+                }
                 fontSize={3}
                 textAlign="center"
               >
-                {val.format('DD')}
+                {date.format('DD')}
               </Text>
               <Text
-                fontWeight={val.isSame(selectedDay, 'day') ? 'bold' : 'normal'}
+                fontWeight={
+                  date.isSame(selectedDate, 'day') ? 'bold' : 'normal'
+                }
                 textAlign="center"
               >
-                {today.isSame(val, 'day') ? 'today' : val.format('ddd')}
+                {today.isSame(date, 'day') ? 'today' : date.format('ddd')}
               </Text>
             </Box>
           ))}
@@ -59,8 +64,8 @@ const Calendar = ({ selectedDay, selectDayHandler }) => {
 }
 
 Calendar.propTypes = {
-  selectedDay: PropTypes.instanceOf(moment).isRequired,
-  selectDayHandler: PropTypes.func.isRequired,
+  selectedDate: PropTypes.instanceOf(moment).isRequired,
+  handleClickOnDate: PropTypes.func.isRequired,
 }
 
-export default Calendar
+export { Calendar }
