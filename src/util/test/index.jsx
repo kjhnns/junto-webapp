@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { render } from '@testing-library/react'
+import user from '@testing-library/user-event'
 import { ThemeProvider } from 'theme-ui'
 import theme from '../../gatsby-plugin-theme-ui'
 
@@ -20,4 +21,4 @@ const customRender = (ui, options) =>
 export * from '@testing-library/react'
 
 // override render method
-export { customRender as render }
+export { customRender as render, user }

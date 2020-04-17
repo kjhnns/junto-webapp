@@ -110,4 +110,4 @@ const LoginPage = () => {
   return <PureLoginPage handleSubmit={handleLogin} />
 }
 
-export default LoginPage
+export { LoginPage as default, PureLoginPage }
