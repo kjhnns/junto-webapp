@@ -19,7 +19,7 @@ const Calendar = ({ selectedDate, handleClickOnDate }) => {
   return (
     <Box
       sx={{
-        bg: 'gray.200',
+        bg: 'gray.800',
         py: 3,
       }}
     >
@@ -43,11 +43,13 @@ const Calendar = ({ selectedDate, handleClickOnDate }) => {
                   date.isSame(selectedDate, 'day') ? 'bold' : 'normal'
                 }
                 fontSize={3}
+                color="white"
                 textAlign="center"
               >
                 {date.format('DD')}
               </Text>
               <Text
+                color="white"
                 fontWeight={
                   date.isSame(selectedDate, 'day') ? 'bold' : 'normal'
                 }
