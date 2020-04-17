@@ -1,16 +1,8 @@
 import React from 'react'
-import styled, { themeGet } from '@style'
+import PropTypes from 'prop-types'
 import moment from 'moment'
-import { Flex } from '@components/Grid'
-
-const Day = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: ${themeGet('space.3')};
-  flex: 1;
-`
+import { Box, Flex } from '@components/Grid'
+import { Text } from '@components/Typography'
 
 const last5Days = [
   moment().subtract(4, 'day'),
@@ -20,26 +12,55 @@ const last5Days = [
   moment(),
 ]
 
-const DayTitle = styled.div`
-  font-size: ${themeGet('fontSizes.2')};
-`
-const DayNo = styled.div`
-  font-size: ${themeGet('fontSizes.4')};
-`
+const Calendar = ({ selectedDay, selectDayHandler }) => {
+  const today = moment()
 
-const Calendar = () => {
   return (
-    <Flex flexDirection="column">
-      <Flex flexDirection="row">
-        {last5Days.map(val => (
-          <Day key={val.unix()}>
-            <DayTitle>{val.format('dd')}</DayTitle>
-            <DayNo>{val.format('DD')}</DayNo>
-          </Day>
-        ))}
+    <Box
+      sx={{
+        bg: 'gray.200',
+        py: 3,
+      }}
+    >
+      <Flex flexDirection="column">
+        <Flex flexDirection="row">
+          {last5Days.map(val => (
+            <Box
+              sx={{
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flex: '1',
+              }}
+              key={val.unix()}
+              onClick={() => {
+                selectDayHandler(val)
+              }}
+            >
+              <Text
+                fontWeight={val.isSame(selectedDay, 'day') ? 'bold' : 'normal'}
+                fontSize={3}
+                textAlign="center"
+              >
+                {val.format('DD')}
+              </Text>
+              <Text
+                fontWeight={val.isSame(selectedDay, 'day') ? 'bold' : 'normal'}
+                textAlign="center"
+              >
+                {today.isSame(val, 'day') ? 'today' : val.format('ddd')}
+              </Text>
+            </Box>
+          ))}
+        </Flex>
       </Flex>
-    </Flex>
+    </Box>
   )
+}
+
+Calendar.propTypes = {
+  selectedDay: PropTypes.instanceOf(moment).isRequired,
+  selectDayHandler: PropTypes.func.isRequired,
 }
 
 export default Calendar

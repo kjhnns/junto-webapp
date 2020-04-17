@@ -4,6 +4,7 @@ import axios from 'axios'
 import moment from 'moment'
 import { Text } from '@components/Typography'
 import Card from './Card'
+import Calendar from './Calendar'
 
 const UNEXPECTED_ERROR = -1
 const LOADING = 0
@@ -23,8 +24,7 @@ const loadHabits = async () => {
   }
 }
 
-const getTimestamp = checkedTimeStamps => {
-  const selectedDay = moment()
+const getTimestamp = (checkedTimeStamps, selectedDay) => {
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
     return null
   }
@@ -36,6 +36,7 @@ const getTimestamp = checkedTimeStamps => {
 }
 
 const HabitList = () => {
+  const [selectedDay, setSelectedDay] = useState(moment())
   const [state, setState] = useState(LOADING)
   const [habits, setHabits] = useState([])
 
@@ -56,7 +57,8 @@ const HabitList = () => {
   })
 
   return (
-    <>
+    <Flex flexDirection="column">
+      <Calendar selectedDay={selectedDay} selectDayHandler={setSelectedDay} />
       <Flex flexDirection="column">
         {state === UNEXPECTED_ERROR ? <Text>Error</Text> : ''}
         {state === LOADING ? <Text>Loading</Text> : ''}
@@ -66,13 +68,13 @@ const HabitList = () => {
                 <Card
                   title={title}
                   id={id}
-                  checkedTimestamp={getTimestamp(checked)}
+                  checkedTimestamp={getTimestamp(checked, selectedDay)}
                 />
               </Flex>
             ))
           : ''}
       </Flex>
-    </>
+    </Flex>
   )
 }
 
