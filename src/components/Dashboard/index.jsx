@@ -8,7 +8,6 @@ import { Button } from '@components/Button'
 
 import Wrapper from './Wrapper'
 
-// import { Habits } from './Habits'
 import { Calendar } from './Calendar'
 import { HabitList } from './HabitList'
 
@@ -26,22 +25,41 @@ const loadHabits = async () => {
   }
 }
 
-// const dummyHabitData = [
-//   {
-//     id: '12412',
-//     title: 'Running',
-//     checked: true,
-//   },
-//   {
-//     id: '11232412',
-//     title: 'Sleeping',
-//     checked: false,
-//   },
-// ]
+const uncheckHabit = async (id, timestamp) => {
+  try {
+    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const result = await axios.delete(
+      `${process.env.GATSBY_API_URL}/action/${id}/event/${timestamp}`,
+      {
+        headers: {
+          Bearer: sessionCookie,
+        },
+      }
+    )
+    return result.status === 200
+  } catch (error) {
+    return false
+  }
+}
 
-const handleClickOnHabit = id => {
-  // eslint-disable-next-line no-alert
-  alert(`You clicked on habit id: ${id}`)
+const checkHabit = async (id, timestamp) => {
+  try {
+    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const result = await axios.post(
+      `${process.env.GATSBY_API_URL}/action/${id}/event`,
+      {
+        date: timestamp,
+      },
+      {
+        headers: {
+          Bearer: sessionCookie,
+        },
+      }
+    )
+    return result.status === 200
+  } catch (error) {
+    return false
+  }
 }
 
 const getTimestamp = (checkedTimeStamps, selectedDay) => {
@@ -49,8 +67,8 @@ const getTimestamp = (checkedTimeStamps, selectedDay) => {
     return null
   }
   const checkedObjs = checkedTimeStamps.map(moment.unix)
-  const checked = checkedObjs.map(val =>
-    val.isSame(selectedDay, 'day') ? val.unix() : null
+  const checked = checkedObjs.map(date =>
+    date.isSame(selectedDay, 'day') ? date.unix() : 0
   )
   return checked.reduce((pv, cv) => Math.max(pv, cv))
 }
@@ -83,7 +101,6 @@ const Dashboard = () => {
     return <Text>Oops. Something went wrong...</Text>
   }
 
-  // here
   // transform habits
   const habits = rawHabits.map(habit => ({
     ...habit,
@@ -93,13 +110,38 @@ const Dashboard = () => {
   return (
     <Wrapper>
       <Text as="h1">Your Habits</Text>
-      {/* <Habits /> */}
       <Calendar
         selectedDate={selectedDate}
         handleClickOnDate={setSelectedDate}
       />
-      <Text>{`Selected Date: ${selectedDate.format('DD-MM-YYYY')}`}</Text>
-      <HabitList habits={habits} handleClickOnHabit={handleClickOnHabit} />
+      <HabitList
+        selectedTimestamp={selectedDate.unix()}
+        habits={habits}
+        handleUnCheckClick={(id, tsp) => {
+          uncheckHabit(id, tsp)
+          const update = rawHabits.map(habit =>
+            habit.id === id
+              ? {
+                  ...habit,
+                  checked: habit.checked.filter(chked => chked !== tsp),
+                }
+              : habit
+          )
+          setRawHabits(update)
+        }}
+        handleCheckClick={(id, tsp) => {
+          checkHabit(id, tsp)
+          const update = rawHabits.map(habit =>
+            habit.id === id
+              ? {
+                  ...habit,
+                  checked: [...habit.checked, tsp],
+                }
+              : habit
+          )
+          setRawHabits(update)
+        }}
+      />
       <Button width="100%" onClick={signOut}>
         Sign Out
       </Button>

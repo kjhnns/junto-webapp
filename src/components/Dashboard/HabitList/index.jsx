@@ -1,21 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { Flex } from '@components/Grid'
 import { Text } from '@components/Typography'
 
-const HabitList = ({ habits, handleClickOnHabit }) => {
+import Card from './Card'
+
+const HabitList = ({
+  selectedTimestamp,
+  habits,
+  handleUnCheckClick,
+  handleCheckClick,
+}) => {
   if (!habits.length) {
     return <Text>No habits found.</Text>
   }
 
   return (
-    <ul>
+    <Flex flexDirection="column">
       {habits.map(({ id, title, checked }) => (
-        <li key={id} onClick={() => handleClickOnHabit(id)}>{`${title} – ${
-          checked ? 'DONE' : 'NOT DONE'
-        }`}</li>
+        <Card
+          key={id}
+          title={title}
+          checked={checked > 0}
+          handleClick={() => {
+            if (checked > 0) {
+              handleUnCheckClick(id, checked)
+            } else {
+              handleCheckClick(id, selectedTimestamp)
+            }
+          }}
+        />
       ))}
-    </ul>
+    </Flex>
   )
 }
 
@@ -24,14 +41,16 @@ HabitList.defaultProps = {
 }
 
 HabitList.propTypes = {
+  selectedTimestamp: PropTypes.number.isRequired,
   habits: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      checked: PropTypes.number.isRequired,
+      checked: PropTypes.number,
     })
   ),
-  handleClickOnHabit: PropTypes.func.isRequired,
+  handleCheckClick: PropTypes.func.isRequired,
+  handleUnCheckClick: PropTypes.func.isRequired,
 }
 
 export { HabitList }
