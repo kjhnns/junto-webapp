@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
-import checkedIcon from './checked.svg'
-import uncheckedIcon from './unchecked.svg'
+import { CheckmarkIcon } from './CheckmarkIcon'
 
 const Card = ({ title, checked, handleClick }) => {
   return (
@@ -38,11 +37,7 @@ const Card = ({ title, checked, handleClick }) => {
               justifyContent: 'center',
             }}
           >
-            {checked ? (
-              <img width="32px" height="32px" alt="" src={checkedIcon} />
-            ) : (
-              ''
-            )}
+            {checked ? <CheckmarkIcon /> : ''}
           </Box>
         </Box>
       </Flex>
