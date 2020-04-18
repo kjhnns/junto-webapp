@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Flex } from '@components/Grid'
+import { Link } from '@components/Link'
+import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 
 import Card from './Card'
@@ -19,7 +20,7 @@ const HabitList = ({
   return (
     <Flex flexDirection="column" alignItems="center" my={3}>
       {habits.map(({ id, title, checked }) => (
-        <Flex key={id} maxWidth="800px" width="100%" my={3}>
+        <Box key={id} maxWidth="800px" width="100%" my={3}>
           <Card
             title={title}
             checked={checked > 0}
@@ -31,8 +32,11 @@ const HabitList = ({
               }
             }}
           />
-        </Flex>
+        </Box>
       ))}
+      <Box my={3}>
+        <Link sx={{ fontWeight: 600, fontSize: 4 }}>Add new habit</Link>
+      </Box>
     </Flex>
   )
 }

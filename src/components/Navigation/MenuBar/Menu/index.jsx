@@ -1,24 +1,32 @@
 import React, { useEffect, useState } from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Link } from '@reach/router'
-import { Box } from '@components/Grid'
+import { Flex, Box } from '@components/Grid'
 import Item from './Item'
-import Wrapper from './Wrapper'
 import MenuButton from './MenuButton'
 import { isLoggedIn, getUser } from '../../../../util/auth'
 
+const Wrapper = {
+  display: 'flex',
+  flex: '0 0 auto',
+  padding: [0, 0, 0, '0 22px'],
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  minHeight: '100%',
+}
+
 const MenuLoggedOut = () => (
-  <Wrapper>
+  <Flex sx={Wrapper}>
     <MenuButton>
       <Link to="/login">Sign In</Link>
     </MenuButton>
     <Item>
       <Link to="/signup">Sign Up</Link>
     </Item>
-  </Wrapper>
+  </Flex>
 )
 const MenuLoggedIn = () => (
-  <Wrapper>
+  <Flex sx={Wrapper}>
     <Box
       sx={{
         display: ['none', 'flex'],
@@ -32,7 +40,7 @@ const MenuLoggedIn = () => (
     {/* <Item>
       <Link onClick={signOut}>Sign Out</Link>
     </Item> */}
-  </Wrapper>
+  </Flex>
 )
 
 const Menu = () => {
@@ -45,7 +53,9 @@ const Menu = () => {
     })()
   })
 
-  return <Wrapper>{loggedIn ? <MenuLoggedIn /> : <MenuLoggedOut />}</Wrapper>
+  return (
+    <Flex sx={Wrapper}>{loggedIn ? <MenuLoggedIn /> : <MenuLoggedOut />}</Flex>
+  )
 }
 
 export default Menu

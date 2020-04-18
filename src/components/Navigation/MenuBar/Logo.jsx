@@ -12,7 +12,7 @@ const Logo = ({ href }) => (
       flex: '1 1 auto',
       alignItems: 'center',
       alignContent: 'center',
-      padding: '0 28px',
+      padding: ['0 20px', '0 28px'],
       justifyContent: 'flex-start',
     }}
   >

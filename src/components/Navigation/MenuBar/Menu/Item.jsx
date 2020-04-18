@@ -21,11 +21,11 @@ const Item = styled.div`
     color: white !important;
   }
 
-  @media (min-width: ${themeGet('breakpoints.0')}) {
+  @media (min-width: 568px) {
     margin: 0 11px;
   }
 
-  @media (min-width: ${themeGet('breakpoints.2')}) {
+  @media (min-width: 800px) {
     margin: 0 22px;
   }
 `
