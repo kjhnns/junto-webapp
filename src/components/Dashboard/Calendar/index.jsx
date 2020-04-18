@@ -39,9 +39,7 @@ const Calendar = ({ selectedDate, handleClickOnDate }) => {
               }}
             >
               <Text
-                fontWeight={
-                  date.isSame(selectedDate, 'day') ? 'bold' : 'normal'
-                }
+                fontWeight={date.isSame(selectedDate, 'day') ? '700' : 'normal'}
                 fontSize={3}
                 color="white"
                 textAlign="center"
@@ -50,12 +48,10 @@ const Calendar = ({ selectedDate, handleClickOnDate }) => {
               </Text>
               <Text
                 color="white"
-                fontWeight={
-                  date.isSame(selectedDate, 'day') ? 'bold' : 'normal'
-                }
+                fontWeight={date.isSame(selectedDate, 'day') ? '700' : 'normal'}
                 textAlign="center"
               >
-                {today.isSame(date, 'day') ? 'today' : date.format('ddd')}
+                {today.isSame(date, 'day') ? 'Today' : date.format('ddd')}
               </Text>
             </Box>
           ))}
