@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 
+import { MenuBar } from '@components/Navigation'
 import { Text } from '@components/Typography'
 import { Box } from '@components/Grid'
 
@@ -94,7 +95,19 @@ const Dashboard = () => {
   }, [])
 
   if (loadingState === 'LOADING') {
-    return null
+    return (
+      <Box width="100%">
+        <MenuBar />
+        <Calendar
+          selectedDate={selectedDate}
+          handleClickOnDate={setSelectedDate}
+        />
+
+        <Text textAlign="center" m={5}>
+          Loading ...
+        </Text>
+      </Box>
+    )
   }
 
   if (loadingState === 'ERROR') {
@@ -109,6 +122,7 @@ const Dashboard = () => {
 
   return (
     <Box width="100%">
+      <MenuBar />
       <Calendar
         selectedDate={selectedDate}
         handleClickOnDate={setSelectedDate}
@@ -135,7 +149,7 @@ const Dashboard = () => {
               habit.id === id
                 ? {
                     ...habit,
-                    checked: [...habit.checked, tsp],
+                    checked: habit.checked ? [...habit.checked, tsp] : [tsp],
                   }
                 : habit
             )

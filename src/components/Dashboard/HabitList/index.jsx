@@ -35,7 +35,9 @@ const HabitList = ({
         </Box>
       ))}
       <Box my={3}>
-        <Link sx={{ fontWeight: 600, fontSize: 4 }}>Add new habit</Link>
+        <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard/new">
+          Add new habit
+        </Link>
       </Box>
     </Flex>
   )
