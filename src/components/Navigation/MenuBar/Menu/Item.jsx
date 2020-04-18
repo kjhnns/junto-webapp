@@ -1,4 +1,4 @@
-import styled, { themeGet } from '@style'
+import styled from '@style'
 
 const Item = styled.div`
   display: flex;

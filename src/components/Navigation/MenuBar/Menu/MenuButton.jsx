@@ -1,4 +1,4 @@
-import styled, { themeGet } from '@style'
+import styled from '@style'
 
 const MenuButton = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const MenuButton = styled.div`
     color: white !important;
   }
 
-  @media  {
+  @media {
     margin: 0 11px;
   }
 

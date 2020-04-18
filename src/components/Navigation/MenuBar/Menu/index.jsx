@@ -31,7 +31,7 @@ const MenuLoggedIn = () => (
       sx={{
         display: ['none', 'flex'],
         color: 'white',
-        mr: 4,
+        mr: [0, 2, 3, 4],
       }}
     >{`Hello, ${getUser().displayName}`}</Box>
     <MenuButton>

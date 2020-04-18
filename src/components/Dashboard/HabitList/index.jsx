@@ -20,7 +20,7 @@ const HabitList = ({
   return (
     <Flex flexDirection="column" alignItems="center" my={3}>
       {habits.map(({ id, title, checked }) => (
-        <Box key={id} maxWidth="800px" width="100%" my={3}>
+        <Box key={id} maxWidth="800px" width="100%" my={3} px={[2, 3, 4, 0]}>
           <Card
             title={title}
             checked={checked > 0}
