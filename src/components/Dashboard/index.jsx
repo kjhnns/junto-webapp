@@ -103,7 +103,7 @@ const Dashboard = () => {
           handleClickOnDate={setSelectedDate}
         />
 
-        <Text textAlign="center" m={5}>
+        <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
           Loading ...
         </Text>
       </Box>
