@@ -24,7 +24,7 @@ const Card = ({ title, checked, handleClick }) => {
         <Flex alignItems="flex-start" flexDirection="column" flex="1">
           <Text as="h2">{title}</Text>
         </Flex>
-        <Box onClick={handleClick}>
+        <Box onClick={handleClick} ml={3}>
           <Box
             sx={{
               cursor: 'pointer',
