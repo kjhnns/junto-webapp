@@ -17,20 +17,21 @@ const HabitList = ({
   }
 
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" alignItems="center" my={3}>
       {habits.map(({ id, title, checked }) => (
-        <Card
-          key={id}
-          title={title}
-          checked={checked > 0}
-          handleClick={() => {
-            if (checked > 0) {
-              handleUnCheckClick(id, checked)
-            } else {
-              handleCheckClick(id, selectedTimestamp)
-            }
-          }}
-        />
+        <Flex key={id} maxWidth="800px" width="100%" my={3}>
+          <Card
+            title={title}
+            checked={checked > 0}
+            handleClick={() => {
+              if (checked > 0) {
+                handleUnCheckClick(id, checked)
+              } else {
+                handleCheckClick(id, selectedTimestamp)
+              }
+            }}
+          />
+        </Flex>
       ))}
     </Flex>
   )

@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 
-import { signOut } from '@auth'
 import { Text } from '@components/Typography'
-import { Button } from '@components/Button'
-
-import Wrapper from './Wrapper'
+import { Box } from '@components/Grid'
 
 import { Calendar } from './Calendar'
 import { HabitList } from './HabitList'
@@ -111,8 +108,7 @@ const Dashboard = () => {
   }))
 
   return (
-    <Wrapper>
-      <Text as="h1">Your Habits</Text>
+    <Box width="100%">
       <Calendar
         selectedDate={selectedDate}
         handleClickOnDate={setSelectedDate}
@@ -147,10 +143,7 @@ const Dashboard = () => {
           }
         }}
       />
-      <Button width="100%" onClick={signOut}>
-        Sign Out
-      </Button>
-    </Wrapper>
+    </Box>
   )
 }
 export { Dashboard }

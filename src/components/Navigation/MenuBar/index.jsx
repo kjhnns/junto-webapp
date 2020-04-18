@@ -1,14 +1,24 @@
 import React from 'react'
-import Wrapper from './Wrapper'
-import Logo from './Logo'
 
+import { Flex } from '@components/Grid'
+
+import Logo from './Logo'
 import Menu from './Menu'
 
 const MenuBar = () => (
-  <Wrapper>
-    <Logo href="/app" />
+  <Flex
+    sx={{
+      width: '100%',
+      maxWidth: '1800px',
+      margin: 'auto',
+      py: 3,
+      flexDirection: 'row',
+      bg: 'gray.900',
+    }}
+  >
+    <Logo href="/dashboard" />
     <Menu />
-  </Wrapper>
+  </Flex>
 )
 
 export default MenuBar

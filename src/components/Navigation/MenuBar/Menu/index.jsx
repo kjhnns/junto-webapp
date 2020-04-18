@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Link } from '@reach/router'
+import { Box } from '@components/Grid'
 import Item from './Item'
 import Wrapper from './Wrapper'
 import MenuButton from './MenuButton'
@@ -18,9 +19,15 @@ const MenuLoggedOut = () => (
 )
 const MenuLoggedIn = () => (
   <Wrapper>
-    {`Hello, ${getUser().displayName}`}
+    <Box
+      sx={{
+        display: ['none', 'flex'],
+        color: 'white',
+        mr: 4,
+      }}
+    >{`Hello, ${getUser().displayName}`}</Box>
     <MenuButton>
-      <Link to="/app/dashboard">Dashboard</Link>
+      <Link to="/dashboard">Dashboard</Link>
     </MenuButton>
     {/* <Item>
       <Link onClick={signOut}>Sign Out</Link>

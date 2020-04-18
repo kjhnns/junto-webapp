@@ -13,7 +13,6 @@ const Card = ({ title, checked, handleClick }) => {
         px: 4,
         minHeight: '93px',
         flex: '1',
-        m: 2,
       }}
     >
       <Flex
@@ -28,6 +27,7 @@ const Card = ({ title, checked, handleClick }) => {
         <Box onClick={handleClick}>
           <Box
             sx={{
+              cursor: 'pointer',
               borderRadius: '30px',
               bg: 'gray.200',
               width: '50px',

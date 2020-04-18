@@ -18,7 +18,7 @@ const Item = styled.div`
   a:active {
     text-decoration: none;
     padding: 6px 8px;
-    color: ${themeGet('colors.grey.700')} !important;
+    color: white !important;
   }
 
   @media (min-width: ${themeGet('breakpoints.0')}) {

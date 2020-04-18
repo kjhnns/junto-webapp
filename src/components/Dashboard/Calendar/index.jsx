@@ -17,13 +17,14 @@ const Calendar = ({ selectedDate, handleClickOnDate }) => {
   const today = moment()
 
   return (
-    <Box
+    <Flex
       sx={{
         bg: 'gray.800',
         py: 3,
       }}
+      justifyContent="center"
     >
-      <Flex flexDirection="column">
+      <Flex flexDirection="column" maxWidth="800px" flex="1">
         <Flex flexDirection="row">
           {last5Days.map(date => (
             <Box
@@ -32,6 +33,7 @@ const Calendar = ({ selectedDate, handleClickOnDate }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 flex: '1',
+                cursor: 'pointer',
               }}
               key={date.unix()}
               onClick={() => {
@@ -57,7 +59,7 @@ const Calendar = ({ selectedDate, handleClickOnDate }) => {
           ))}
         </Flex>
       </Flex>
-    </Box>
+    </Flex>
   )
 }
 
