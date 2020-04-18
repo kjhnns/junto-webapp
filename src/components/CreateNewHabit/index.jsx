@@ -23,10 +23,10 @@ const PureCreateNewHabit = ({ handleSubmit }) => {
 
   return (
     <Layout>
-      <SEO title="Create a new habit" />
+      <SEO title="New habit" />
       <Box
         sx={{
-          p: 4,
+          p: [3, 4],
           minHeight: '100vh',
           bg: 'gray.100',
           display: 'grid',
@@ -57,7 +57,7 @@ const PureCreateNewHabit = ({ handleSubmit }) => {
               <Form onSubmit={submit}>
                 <Box maxWidth="500px" mx="auto">
                   <Heading as="h1" fontSize={5} mb={3}>
-                    Create a new habit
+                    New habit
                   </Heading>
                   <Box mb={3}>
                     <Text fontWeight="bold">Title</Text>
@@ -77,12 +77,14 @@ const PureCreateNewHabit = ({ handleSubmit }) => {
                     </Box>
                   )}
                   <Flex
-                    flexDirection={['column', 'row']}
+                    flexDirection={['column-reverse', 'row']}
                     justifyContent="space-between"
                     alignItems="center"
                   >
-                    <Link to="/dashboard">cancel</Link>
-                    <Button type="submit" width={['100%', 'auto']} mb={[3, 0]}>
+                    <Link to="/dashboard" pt={[4, 0]}>
+                      cancel
+                    </Link>
+                    <Button type="submit" width={['100%', 'auto']} mt={[3, 0]}>
                       {isSubmitting ? `Creating ...` : `Create`}
                     </Button>
                   </Flex>
