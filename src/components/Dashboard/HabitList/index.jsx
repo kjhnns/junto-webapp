@@ -29,6 +29,7 @@ const HabitList = ({
         >
           <Card
             title={title}
+            linkTo={`/dashboard/details/${id}`}
             checked={checked > 0}
             handleClick={() => {
               if (checked > 0) {

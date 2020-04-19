@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Flex, Box } from '@components/Grid'
+import { Link } from '@components/Link'
 import { Text } from '@components/Typography'
 import { CheckmarkIcon } from './CheckmarkIcon'
 
-const Card = ({ title, checked, handleClick }) => {
+const Card = ({ title, linkTo, checked, handleClick }) => {
   return (
     <Flex
       sx={{
@@ -22,7 +23,9 @@ const Card = ({ title, checked, handleClick }) => {
         flex="1"
       >
         <Flex alignItems="flex-start" flexDirection="column" flex="1">
-          <Text as="h2">{title}</Text>
+          <Link sx={{ textDecoration: 'none' }} to={`${linkTo}`}>
+            <Text as="h2">{title}</Text>
+          </Link>
         </Flex>
         <Box onClick={handleClick} ml={3}>
           <Box
@@ -47,6 +50,7 @@ const Card = ({ title, checked, handleClick }) => {
 
 Card.propTypes = {
   title: PropTypes.string.isRequired,
+  linkTo: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
 }

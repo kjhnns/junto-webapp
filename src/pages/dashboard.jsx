@@ -6,6 +6,7 @@ import { Layout } from '@components/Layout'
 import { SEO } from '@components/SEO'
 import { Dashboard } from '@components/Dashboard'
 import { CreateNewHabit } from '@components/CreateNewHabit'
+import { HabitDetails } from '@components/HabitDetails'
 import { PrivateRoute } from '@components/PrivateRoute'
 
 const DashboardPage = () => (
@@ -14,6 +15,10 @@ const DashboardPage = () => (
     <Router>
       <PrivateRoute path="/dashboard" component={Dashboard} />
       <PrivateRoute path="/dashboard/new" component={CreateNewHabit} />
+      <PrivateRoute
+        path="/dashboard/details/:habitId"
+        component={HabitDetails}
+      />
     </Router>
   </Layout>
 )
