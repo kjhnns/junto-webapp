@@ -3,12 +3,13 @@ import axios from 'axios'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 
-import { Text } from '@components/Typography'
+import { Layout } from '@components/Layout'
+import { SEO } from '@components/SEO'
+import { Heading, Text } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
 import { Link } from '@components/Link'
 
-import { Header } from './Header'
-import { HeaderLoading } from './HeaderLoading'
+import { Statistics } from './Statistics'
 
 const loadHabit = async habitId => {
   try {
@@ -52,7 +53,6 @@ const HabitDetails = ({ habitId }) => {
   if (loadingState === 'LOADING') {
     return (
       <Flex width="100%" flexDirection="column">
-        <HeaderLoading />
         <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
           Loading ...
         </Text>
@@ -63,7 +63,6 @@ const HabitDetails = ({ habitId }) => {
   if (loadingState === 'ERROR') {
     return (
       <Flex width="100%" flexDirection="column">
-        <HeaderLoading />
         <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
           Oops. Something went wrong...
         </Text>
@@ -72,20 +71,37 @@ const HabitDetails = ({ habitId }) => {
   }
 
   return (
-    <Flex width="100%" flexDirection="column">
-      <Header title={`${habit.title}`} />
-      <Box>
-        <Text>
-          Created on {`${moment.unix(habit.created_at).format('YYYY-MM-DD')}`}
-        </Text>
-
-        <Box my={3}>
-          <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard">
-            Delete this habit
-          </Link>
-        </Box>
-      </Box>
-    </Flex>
+    <Layout>
+      <SEO title="Dashboard" />
+      <Flex
+        sx={{
+          p: [3, 4],
+          minHeight: '100vh',
+          bg: 'gray.100',
+          flexDirection: 'column',
+        }}
+      >
+        <Flex sx={{ maxWidth: '800px', flexDirection: 'column', m: 'auto' }}>
+          <Heading as="h1" sx={{ fontSize: 5 }}>{`${habit.title}`}</Heading>
+          <Text>
+            Created on {`${moment.unix(habit.created_at).format('YYYY-MM-DD')}`}
+          </Text>
+          <Box my={3}>
+            {habit.checked ? <Statistics habitChecks={habit.checked} /> : ''}
+          </Box>
+          <Box my={3}>
+            <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard">
+              Back to Dashboard
+            </Link>
+          </Box>
+          <Box my={3}>
+            <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard">
+              Delete this habit
+            </Link>
+          </Box>
+        </Flex>
+      </Flex>
+    </Layout>
   )
 }
 

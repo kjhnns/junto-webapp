@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 
+import { SEO } from '@components/SEO'
+import { Layout } from '@components/Layout'
 import { MenuBar } from '@components/Navigation'
 import { Text } from '@components/Typography'
 import { Box } from '@components/Grid'
@@ -96,17 +98,19 @@ const Dashboard = () => {
 
   if (loadingState === 'LOADING') {
     return (
-      <Box width="100%">
-        <MenuBar />
-        <Calendar
-          selectedDate={selectedDate}
-          handleClickOnDate={setSelectedDate}
-        />
-
-        <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-          Loading ...
-        </Text>
-      </Box>
+      <Layout>
+        <SEO title="Dashboard" />
+        <Box width="100%">
+          <MenuBar />
+          <Calendar
+            selectedDate={selectedDate}
+            handleClickOnDate={setSelectedDate}
+          />
+          <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+            Loading ...
+          </Text>
+        </Box>
+      </Layout>
     )
   }
 
@@ -121,43 +125,46 @@ const Dashboard = () => {
   }))
 
   return (
-    <Box width="100%">
-      <MenuBar />
-      <Calendar
-        selectedDate={selectedDate}
-        handleClickOnDate={setSelectedDate}
-      />
-      <HabitList
-        selectedTimestamp={selectedDate.unix()}
-        habits={habits}
-        handleUnCheckClick={async (id, tsp) => {
-          if (await uncheckHabit(id, tsp)) {
-            const update = rawHabits.map(habit =>
-              habit.id === id
-                ? {
-                    ...habit,
-                    checked: habit.checked.filter(chked => chked !== tsp),
-                  }
-                : habit
-            )
-            setRawHabits(update)
-          }
-        }}
-        handleCheckClick={async (id, tsp) => {
-          if (await checkHabit(id, tsp)) {
-            const update = rawHabits.map(habit =>
-              habit.id === id
-                ? {
-                    ...habit,
-                    checked: habit.checked ? [...habit.checked, tsp] : [tsp],
-                  }
-                : habit
-            )
-            setRawHabits(update)
-          }
-        }}
-      />
-    </Box>
+    <Layout>
+      <SEO title="Dashboard" />
+      <Box width="100%">
+        <MenuBar />
+        <Calendar
+          selectedDate={selectedDate}
+          handleClickOnDate={setSelectedDate}
+        />
+        <HabitList
+          selectedTimestamp={selectedDate.unix()}
+          habits={habits}
+          handleUnCheckClick={async (id, tsp) => {
+            if (await uncheckHabit(id, tsp)) {
+              const update = rawHabits.map(habit =>
+                habit.id === id
+                  ? {
+                      ...habit,
+                      checked: habit.checked.filter(chked => chked !== tsp),
+                    }
+                  : habit
+              )
+              setRawHabits(update)
+            }
+          }}
+          handleCheckClick={async (id, tsp) => {
+            if (await checkHabit(id, tsp)) {
+              const update = rawHabits.map(habit =>
+                habit.id === id
+                  ? {
+                      ...habit,
+                      checked: habit.checked ? [...habit.checked, tsp] : [tsp],
+                    }
+                  : habit
+              )
+              setRawHabits(update)
+            }
+          }}
+        />
+      </Box>
+    </Layout>
   )
 }
 export { Dashboard }
