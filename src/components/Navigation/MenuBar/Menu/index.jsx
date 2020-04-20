@@ -37,9 +37,9 @@ const MenuLoggedIn = () => (
     <MenuButton>
       <Link to="/dashboard">Dashboard</Link>
     </MenuButton>
-    {/* <Item>
-      <Link onClick={signOut}>Sign Out</Link>
-    </Item> */}
+    <MenuButton>
+      <Link to="/settings">Settings</Link>
+    </MenuButton>
   </Flex>
 )
 

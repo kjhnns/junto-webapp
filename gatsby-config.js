@@ -75,7 +75,9 @@ module.exports = {
     `gatsby-plugin-theme-ui`,
     {
       resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/dashboard/*`] },
+      options: {
+        prefixes: [`/dashboard/*`, `/settings/*`]
+      },
     },
   ],
 }
