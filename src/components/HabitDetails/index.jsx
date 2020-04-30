@@ -8,7 +8,6 @@ import { Layout } from '@components/Layout'
 import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
-import { Link } from '@components/Link'
 import { MenuBar } from '@components/Navigation'
 
 import { Statistics } from './Statistics'
@@ -76,6 +75,7 @@ const HabitDetails = ({ habitId }) => {
   if (loadingState === 'LOADING') {
     return (
       <Flex width="100%" flexDirection="column">
+        <MenuBar />
         <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
           Loading ...
         </Text>
@@ -86,6 +86,7 @@ const HabitDetails = ({ habitId }) => {
   if (loadingState === 'ERROR') {
     return (
       <Flex width="100%" flexDirection="column">
+        <MenuBar />
         <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
           Oops. Something went wrong...
         </Text>

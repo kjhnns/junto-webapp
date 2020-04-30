@@ -1,11 +1,21 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import styled from '@emotion/styled'
 import { Dialog } from '@reach/dialog'
 import '@reach/dialog/styles.css'
 import { Button } from '@components/Button'
 import { Heading, Text } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
+
+const ResponsiveDialog = styled(Dialog)`
+  width: 90vw;
+
+  @media (min-width: 750px) {
+    width: 50vw;
+  }
+`
 
 const DeleteDialog = ({ deleteHandler }) => {
   const [showDialog, setshowDialog] = useState(false)
@@ -16,7 +26,7 @@ const DeleteDialog = ({ deleteHandler }) => {
       <Button onClick={open} variant="outline">
         Delete this habit
       </Button>
-      <Dialog isOpen={showDialog} onDismiss={close}>
+      <ResponsiveDialog isOpen={showDialog} onDismiss={close}>
         <Flex flexDirection="column">
           <Heading py={3}>Delete Habit?</Heading>
           <Text py={3}>
@@ -35,7 +45,7 @@ const DeleteDialog = ({ deleteHandler }) => {
             <Button onClick={deleteHandler}>Delete</Button>
           </Flex>
         </Flex>
-      </Dialog>
+      </ResponsiveDialog>
     </Box>
   )
 }
