@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import { navigate } from 'gatsby'
 
+import { Dialog } from '@reach/dialog'
+import '@reach/dialog/styles.css'
+import { Button } from '@components/Button'
+import { axios } from '@api'
 import { Layout } from '@components/Layout'
 import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
@@ -10,6 +14,26 @@ import { Box, Flex } from '@components/Grid'
 import { Link } from '@components/Link'
 
 import { Statistics } from './Statistics'
+
+const deleteHabit = async habitId => {
+  try {
+    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const habit = await axios.delete(
+      `${process.env.GATSBY_API_URL}/action/${habitId}`,
+      {
+        headers: {
+          Bearer: sessionCookie,
+        },
+      }
+    )
+    if (habit.status !== 200 && habit.data.status === 'success') {
+      return { success: false }
+    }
+    return { success: true, data: habit.data.data }
+  } catch (error) {
+    return { success: false }
+  }
+}
 
 const loadHabit = async habitId => {
   try {
@@ -34,6 +58,10 @@ const loadHabit = async habitId => {
 const HabitDetails = ({ habitId }) => {
   const [loadingState, setLoadingState] = useState('LOADING')
   const [habit, setHabit] = useState({})
+
+  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false)
+  const openDeleteDialog = () => setShowDeleteDialog(true)
+  const closeDeleteDialog = () => setShowDeleteDialog(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -95,9 +123,38 @@ const HabitDetails = ({ habitId }) => {
             </Link>
           </Box>
           <Box my={3}>
-            <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard">
+            <Button onClick={openDeleteDialog} variant="outline">
               Delete this habit
-            </Link>
+            </Button>
+            <Dialog isOpen={showDeleteDialog} onDismiss={closeDeleteDialog}>
+              <Flex flexDirection="column">
+                <Heading py={3}>Delete Habit?</Heading>
+                <Text py={3}>
+                  This can not be undone and it will remove this habit from your
+                  dashboard.
+                </Text>
+                <Flex
+                  py={3}
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Button variant="outline" onClick={closeDeleteDialog}>
+                    cancel
+                  </Button>
+                  <Button
+                    onClick={async () => {
+                      const result = await deleteHabit(habitId)
+                      if (result) {
+                        await navigate('/dashboard')
+                      }
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </Flex>
+              </Flex>
+            </Dialog>
           </Box>
         </Flex>
       </Flex>

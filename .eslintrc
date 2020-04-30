@@ -46,6 +46,7 @@
           ["@style", "./src/util/style"],
           ["@components", "./src/components"],
           ["@test", "./src/util/test"],
+          ["@api", "./src/util/api"],
           ["@auth", "./src/util/auth"]
         ],
         "extensions": [".js", ".jsx"]
@@ -59,7 +60,9 @@
     "react/destructuring-assignment": [
       "error",
       "always",
-      { "ignoreClassFields": true }
+      {
+        "ignoreClassFields": true
+      }
     ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",

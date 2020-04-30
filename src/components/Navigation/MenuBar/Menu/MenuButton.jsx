@@ -2,7 +2,6 @@ import styled from '@style'
 
 const MenuButton = styled.div`
   display: flex;
-  margin: 0;
   cursor: pointer;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;

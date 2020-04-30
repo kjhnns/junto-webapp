@@ -35,10 +35,7 @@ const MenuLoggedIn = () => (
       }}
     >{`Hello, ${getUser().displayName}`}</Box>
     <MenuButton>
-      <Link to="/dashboard">Dashboard</Link>
-    </MenuButton>
-    <MenuButton>
-      <Link to="/settings">Settings</Link>
+      <Link to="/settings">Account</Link>
     </MenuButton>
   </Flex>
 )
