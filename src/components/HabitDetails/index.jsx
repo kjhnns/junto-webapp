@@ -3,17 +3,16 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
 
-import { Dialog } from '@reach/dialog'
-import '@reach/dialog/styles.css'
-import { Button } from '@components/Button'
 import { axios } from '@api'
 import { Layout } from '@components/Layout'
 import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
 import { Link } from '@components/Link'
+import { MenuBar } from '@components/Navigation'
 
 import { Statistics } from './Statistics'
+import { DeleteDialog } from './DeleteDialog'
 
 const deleteHabit = async habitId => {
   try {
@@ -59,10 +58,6 @@ const HabitDetails = ({ habitId }) => {
   const [loadingState, setLoadingState] = useState('LOADING')
   const [habit, setHabit] = useState({})
 
-  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false)
-  const openDeleteDialog = () => setShowDeleteDialog(true)
-  const closeDeleteDialog = () => setShowDeleteDialog(false)
-
   useEffect(() => {
     async function fetchData() {
       const result = await loadHabit(habitId)
@@ -103,59 +98,41 @@ const HabitDetails = ({ habitId }) => {
       <SEO title="Dashboard" />
       <Flex
         sx={{
-          p: [3, 4],
           minHeight: '100vh',
           bg: 'gray.100',
           flexDirection: 'column',
         }}
       >
-        <Flex sx={{ maxWidth: '800px', flexDirection: 'column', m: 'auto' }}>
-          <Heading as="h1" sx={{ fontSize: 5 }}>{`${habit.title}`}</Heading>
-          <Text>
-            Created on {`${moment.unix(habit.created_at).format('YYYY-MM-DD')}`}
-          </Text>
-          <Box my={3}>
-            {habit.checked ? <Statistics habitChecks={habit.checked} /> : ''}
-          </Box>
-          <Box my={3}>
-            <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard">
-              Back to Dashboard
-            </Link>
-          </Box>
-          <Box my={3}>
-            <Button onClick={openDeleteDialog} variant="outline">
-              Delete this habit
-            </Button>
-            <Dialog isOpen={showDeleteDialog} onDismiss={closeDeleteDialog}>
-              <Flex flexDirection="column">
-                <Heading py={3}>Delete Habit?</Heading>
-                <Text py={3}>
-                  This can not be undone and it will remove this habit from your
-                  dashboard.
-                </Text>
-                <Flex
-                  py={3}
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Button variant="outline" onClick={closeDeleteDialog}>
-                    cancel
-                  </Button>
-                  <Button
-                    onClick={async () => {
-                      const result = await deleteHabit(habitId)
-                      if (result) {
-                        await navigate('/dashboard')
-                      }
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </Flex>
-              </Flex>
-            </Dialog>
-          </Box>
+        <MenuBar />
+        <Flex
+          sx={{
+            p: [3, 4],
+            flex: '1',
+            minHeight: '100%',
+            bg: 'gray.100',
+            flexDirection: 'column',
+          }}
+        >
+          <Flex sx={{ maxWidth: '800px', flexDirection: 'column', m: 'auto' }}>
+            <Heading as="h1" sx={{ fontSize: 5 }}>{`${habit.title}`}</Heading>
+            <Text>
+              Created on{' '}
+              {`${moment.unix(habit.created_at).format('YYYY-MM-DD')}`}
+            </Text>
+            <Box my={3}>
+              {habit.checked ? <Statistics habitChecks={habit.checked} /> : ''}
+            </Box>
+            <Box my={3}>
+              <DeleteDialog
+                deleteHandler={async () => {
+                  const result = await deleteHabit(habitId)
+                  if (result) {
+                    await navigate('/dashboard')
+                  }
+                }}
+              />
+            </Box>
+          </Flex>
         </Flex>
       </Flex>
     </Layout>
