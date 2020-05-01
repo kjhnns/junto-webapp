@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Link } from '@reach/router'
+import React from 'react'
+import { AppLink } from '@components/Link'
 import { Flex, Box } from '@components/Grid'
-import Item from './Item'
-import MenuButton from './MenuButton'
-import { isLoggedIn, getUser } from '../../../../util/auth'
+import { getUser } from '../../../../util/auth'
 
 const Wrapper = {
   display: 'flex',
@@ -15,17 +12,7 @@ const Wrapper = {
   minHeight: '100%',
 }
 
-const MenuLoggedOut = () => (
-  <Flex sx={Wrapper}>
-    <MenuButton>
-      <Link to="/login">Sign In</Link>
-    </MenuButton>
-    <Item>
-      <Link to="/signup">Sign Up</Link>
-    </Item>
-  </Flex>
-)
-const MenuLoggedIn = () => (
+const Menu = () => (
   <Flex sx={Wrapper}>
     <Box
       sx={{
@@ -34,25 +21,25 @@ const MenuLoggedIn = () => (
         mr: [0, 2, 3, 4],
       }}
     >{`Hello, ${getUser().displayName}`}</Box>
-    <MenuButton>
-      <Link to="/settings">Account</Link>
-    </MenuButton>
+    <Box mx={3}>
+      <AppLink sx={{ textDecoration: 'none' }} to="/settings">
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          sx={{
+            borderRadius: '50%',
+            bg: 'gray.100',
+            p: 0,
+            width: '35px',
+            height: '35px',
+            textTransform: 'uppercase',
+            lineHeight: '0',
+            fontWeight: 600,
+          }}
+        >{`${getUser().displayName[0]}`}</Flex>
+      </AppLink>
+    </Box>
   </Flex>
 )
-
-const Menu = () => {
-  const [loggedIn, setLoggedIn] = useState(false)
-  useEffect(() => {
-    // eslint-disable-next-line func-names
-    ;(async function() {
-      const res = await isLoggedIn()
-      setLoggedIn(res)
-    })()
-  })
-
-  return (
-    <Flex sx={Wrapper}>{loggedIn ? <MenuLoggedIn /> : <MenuLoggedOut />}</Flex>
-  )
-}
 
 export default Menu
