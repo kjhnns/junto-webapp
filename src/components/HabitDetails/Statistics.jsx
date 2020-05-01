@@ -19,11 +19,33 @@ const Statistics = ({ habitChecks }) => {
     .map(check => check.isSame(today, 'month'))
     .reduce((pv, cv) => pv + cv)
 
+  const lastYear = momentHabitChecks
+    .map(check => check.isSame(today.clone().subtract(1, 'year'), 'year'))
+    .reduce((pv, cv) => pv + cv)
+  const lastWeekISO = momentHabitChecks
+    .map(check => check.isSame(today.clone().subtract(1, 'week'), 'isoWeek'))
+    .reduce((pv, cv) => pv + cv)
+  const lastMonth = momentHabitChecks
+    .map(check => check.isSame(today.clone().subtract(1, 'month'), 'month'))
+    .reduce((pv, cv) => pv + cv)
+
   return (
     <Flex flexDirection="column">
-      <Text>{`This week ${thisWeekISO}`} (Monday) </Text>
-      <Text>{`This month ${thisMonth}`}</Text>
-      <Text>{`This year ${thisYear}`}</Text>
+      <Flex flexDirection="column" py={2}>
+        <Text>{`This week* ${thisWeekISO}`}</Text>
+        <Text>{`Last week* ${lastWeekISO}`}</Text>
+      </Flex>
+      <Flex flexDirection="column" py={2}>
+        <Text>{`This month ${thisMonth}`}</Text>
+        <Text>{`Last month ${lastMonth}`}</Text>
+      </Flex>
+      <Flex flexDirection="column" py={2}>
+        <Text>{`This year ${thisYear}`}</Text>
+        <Text>{`Last year ${lastYear}`}</Text>
+      </Flex>
+      <Text sx={{ fontSize: 1, fontStyle: 'italic' }}>
+        * Week starts on Monday
+      </Text>
     </Flex>
   )
 }
