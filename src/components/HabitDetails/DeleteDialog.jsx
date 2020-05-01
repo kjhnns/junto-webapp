@@ -39,7 +39,7 @@ const DeleteDialog = ({ deleteHandler }) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Button variant="outline" onClick={close}>
+            <Button variant="clear" onClick={close}>
               cancel
             </Button>
             <Button onClick={deleteHandler}>Delete</Button>

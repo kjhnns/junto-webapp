@@ -81,9 +81,14 @@ const PureCreateNewHabit = ({ handleSubmit }) => {
                     justifyContent="space-between"
                     alignItems="center"
                   >
-                    <Link to="/dashboard" pt={[4, 0]}>
+                    <Button
+                      variant="clear"
+                      as={Link}
+                      to="/dashboard"
+                      pt={[4, 0]}
+                    >
                       cancel
-                    </Link>
+                    </Button>
                     <Button type="submit" width={['100%', 'auto']} mt={[3, 0]}>
                       {isSubmitting ? `Creating ...` : `Create`}
                     </Button>
