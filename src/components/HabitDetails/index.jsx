@@ -96,7 +96,7 @@ const HabitDetails = ({ habitId }) => {
 
   return (
     <Layout>
-      <SEO title="Dashboard" />
+      <SEO title={habit.title} />
       <Flex
         sx={{
           minHeight: '100vh',

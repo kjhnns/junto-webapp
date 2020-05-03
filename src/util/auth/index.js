@@ -20,9 +20,14 @@ const handleLogin = async ({ email, password }) => {
       window.localStorage.setItem('sessionCookie', sessionCookie.data.cookie)
       window.localStorage.setItem('userID', sessionCookie.data.id)
     }
-    return { success: true }
+    return {
+      success: true,
+    }
   } catch (error) {
-    return { error: true, message: error.message }
+    return {
+      error: true,
+      message: error.message,
+    }
   }
 }
 
@@ -38,17 +43,25 @@ const handleSignup = async ({ username, email, password }) => {
     )
 
     if (response.data.status === 'success') {
-      return { success: true }
+      return {
+        success: true,
+      }
     }
     if (response.error) {
-      return { error: true, message: response.message }
+      return {
+        error: true,
+        message: response.message,
+      }
     }
     return {
       error: true,
       message: `Not sure what happened here but it doesn't look good...`,
     }
   } catch (error) {
-    return { error: true, message: error.message }
+    return {
+      error: true,
+      message: error.message,
+    }
   }
 }
 
@@ -91,4 +104,31 @@ const signOut = async () => {
   await navigate('/')
 }
 
-export { handleLogin, handleSignup, isLoggedIn, signOut, getUser }
+const updatePassword = async ({ currentPassword, password }) => {
+  try {
+    const user = await getUser()
+    const credentials = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      currentPassword
+    )
+    await user.reauthenticateWithCredential(credentials)
+    await user.updatePassword(password)
+    return {
+      success: true,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      description: error,
+    }
+  }
+}
+
+export {
+  handleLogin,
+  handleSignup,
+  isLoggedIn,
+  signOut,
+  getUser,
+  updatePassword,
+}

@@ -5,7 +5,7 @@ import { MenuBar } from '@components/Navigation'
 import { SEO } from '@components/SEO'
 import { Heading } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
-import { Link } from '@components/Link'
+import { AppLink } from '@components/Link'
 import { Button } from '@components/Button'
 
 import { signOut } from '@auth'
@@ -23,19 +23,26 @@ const Settings = () => (
         justifyContent: 'center',
       }}
     >
-      <Flex flexDirection="column">
-        <Heading my={3}>Settings and Preferences</Heading>
-        <Box m={3}>
-          <Link>Display Name</Link>
+      <Flex flexDirection="column" flex="1" maxWidth="800px">
+        <Heading my={3}>Account Settings</Heading>
+        <Box my={3}>
+          <AppLink sx={{ textDecoration: 'none' }} to="/settings/password">
+            <Box
+              sx={{
+                boxShadow: 'inset 0 0 0 2px',
+                p: 4,
+                fontSize: 3,
+                borderRadius: 3,
+                fontWeight: 600,
+              }}
+            >
+              Change Password
+            </Box>
+          </AppLink>
         </Box>
-        <Box m={3}>
-          <Link>Email address</Link>
-        </Box>
-        <Box m={3}>
-          <Link>Password</Link>
-        </Box>
+
         <Box sx={{ mt: 4, textAlign: 'center' }}>
-          <Button as={Link} onClick={signOut} variant="outline">
+          <Button onClick={signOut} variant="clear">
             Log out
           </Button>
         </Box>

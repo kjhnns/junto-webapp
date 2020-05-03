@@ -26,7 +26,11 @@ const DeleteDialog = ({ deleteHandler }) => {
       <Button onClick={open} variant="outline">
         Delete this habit
       </Button>
-      <ResponsiveDialog isOpen={showDialog} onDismiss={close}>
+      <ResponsiveDialog
+        aria-label="Warning about next steps"
+        isOpen={showDialog}
+        onDismiss={close}
+      >
         <Flex flexDirection="column">
           <Heading py={3}>Delete Habit?</Heading>
           <Text py={3}>
