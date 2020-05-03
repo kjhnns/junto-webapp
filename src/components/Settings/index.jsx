@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Layout } from '@components/Layout'
-import { MenuBar } from '@components/Navigation'
 import { SEO } from '@components/SEO'
 import { Heading } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
@@ -13,41 +12,84 @@ import { signOut } from '@auth'
 const Settings = () => (
   <Layout>
     <SEO title="Dashboard" />
-    <MenuBar />
-    <Flex
+    <Box
       sx={{
-        p: [3, 4],
+        display: 'grid',
         minHeight: '100vh',
         bg: 'gray.100',
-        display: 'flex',
-        justifyContent: 'center',
+        gridTemplateAreas: [
+          "'main''close'",
+          null,
+          "'close ... ...' '... main ...' '... ... ...'",
+        ],
+        gridTemplateColumns: ['1fr', null, '.5fr 1fr .5fr'],
+        gridTemplateRows: ['1fr 0.25fr', null, '.25fr 1fr'],
       }}
     >
-      <Flex flexDirection="column" flex="1" maxWidth="800px">
-        <Heading my={3}>Account Settings</Heading>
-        <Box my={3}>
-          <AppLink sx={{ textDecoration: 'none' }} to="/settings/password">
-            <Box
-              sx={{
-                boxShadow: 'inset 0 0 0 2px',
-                p: 4,
-                fontSize: 3,
-                borderRadius: 3,
-                fontWeight: 600,
-              }}
-            >
-              Change Password
-            </Box>
-          </AppLink>
-        </Box>
-
-        <Box sx={{ mt: 4, textAlign: 'center' }}>
-          <Button onClick={signOut} variant="clear">
-            Log out
-          </Button>
-        </Box>
+      <Flex
+        sx={{
+          p: [3, 4],
+          gridArea: 'close',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Button as={AppLink} to="/dashboard" variant="outline">
+          close
+        </Button>
       </Flex>
-    </Flex>
+      <Flex
+        sx={{
+          gridArea: 'main',
+          justifyContent: 'center',
+        }}
+      >
+        <Flex flexDirection="column" flex="1" maxWidth="800px">
+          <Heading as="h1" textAlign="center" m={4}>
+            Account Settings
+          </Heading>
+          <Box my={[0, 0, 3]}>
+            <AppLink sx={{ textDecoration: 'none' }} to="/settings/password">
+              <Box
+                sx={{
+                  boxShadow: ['none', null, 'inset 0 0 0 4px'],
+                  p: 4,
+                  fontSize: 3,
+                  borderTop: ['4px #000 solid', null, 'none'],
+                  borderBottom: ['4px #000 solid', null, 'none'],
+                  borderRadius: [0, 0, 3],
+                  fontWeight: 600,
+                }}
+              >
+                Change Password
+              </Box>
+            </AppLink>
+          </Box>
+          <Box my={[0, 0, 3]}>
+            <AppLink sx={{ textDecoration: 'none' }} to="/settings/password">
+              <Box
+                sx={{
+                  boxShadow: ['none', null, 'inset 0 0 0 4px'],
+                  p: 4,
+                  fontSize: 3,
+                  borderBottom: ['4px #000 solid', null, 'none'],
+                  borderRadius: [0, 0, 3],
+                  fontWeight: 600,
+                }}
+              >
+                Display Name
+              </Box>
+            </AppLink>
+          </Box>
+
+          <Box sx={{ mt: 4, textAlign: 'center' }}>
+            <Button onClick={signOut} variant="clear">
+              Log out
+            </Button>
+          </Box>
+        </Flex>
+      </Flex>
+    </Box>
   </Layout>
 )
 
