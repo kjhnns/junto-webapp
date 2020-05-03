@@ -159,6 +159,11 @@ function SEO({
       <meta name="description" content={seo.description} />
       <meta name="gatsby-starter" content="Gatsby Starter Styled" />
 
+      {/* Apple PWA */}
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+      <meta name="apple-mobile-web-app-title" content={seo.title} />
+
       {/* OpenGraph tags */}
       <meta property="og:url" content={seo.url} />
       <meta property="og:title" content={seo.title} />
