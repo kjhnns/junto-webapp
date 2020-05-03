@@ -111,7 +111,7 @@ PurePasswordSettings.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  errors: PropTypes.any.isRequired,
+  errors: PropTypes.object.isRequired,
 }
 
 export { PasswordSettings, PurePasswordSettings }

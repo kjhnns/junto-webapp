@@ -49,17 +49,17 @@ const handleSignup = async ({ username, email, password }) => {
     }
     if (response.error) {
       return {
-        error: true,
+        success: false,
         message: response.message,
       }
     }
     return {
-      error: true,
+      success: false,
       message: `Not sure what happened here but it doesn't look good...`,
     }
   } catch (error) {
     return {
-      error: true,
+      success: false,
       message: error.message,
     }
   }
