@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { navigate } from 'gatsby'
 import * as Yup from 'yup'
 import { withFormik } from 'formik'
 
-import { updatePassword } from '@auth'
+import { updatePassword, signOut } from '@auth'
 import { Layout } from '@components/Layout'
 import { Box, Flex } from '@components/Grid'
 import { Button } from '@components/Button'
@@ -102,7 +101,7 @@ const PasswordSettings = withFormik({
       setErrors({ response: result.description.message })
     }
     if (result.success) {
-      await navigate('/dashboard')
+      await signOut()
     }
   },
   displayName: 'Change Password',

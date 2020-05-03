@@ -100,8 +100,10 @@ const getUser = () => {
 }
 
 const signOut = async () => {
+  window.localStorage.removeItem('sessionCookie')
+  window.localStorage.removeItem('userID')
   await firebase.auth().signOut()
-  await navigate('/')
+  await navigate('/login')
 }
 
 const updatePassword = async ({ currentPassword, password }) => {
