@@ -115,7 +115,21 @@ const Dashboard = () => {
   }
 
   if (loadingState === 'ERROR') {
-    return <Text>Oops. Something went wrong...</Text>
+    return (
+      <Layout>
+        <SEO title="Dashboard" />
+        <Box width="100%">
+          <MenuBar />
+          <Calendar
+            selectedDate={selectedDate}
+            handleClickOnDate={setSelectedDate}
+          />
+          <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+            Oops. Something went wrong.
+          </Text>
+        </Box>
+      </Layout>
+    )
   }
 
   // transform habits

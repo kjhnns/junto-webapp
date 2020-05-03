@@ -14,7 +14,18 @@ const HabitList = ({
   handleCheckClick,
 }) => {
   if (!habits.length) {
-    return <Text>No habits found.</Text>
+    return (
+      <Flex flexDirection="column" alignItems="center" my={[2, 3]}>
+        <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+          Start your habit journey now
+        </Text>
+        <Box my={3}>
+          <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard/new">
+            Add new habit
+          </Link>
+        </Box>
+      </Flex>
+    )
   }
 
   return (
