@@ -34,7 +34,7 @@ const Settings = () => (
           alignItems: 'center',
         }}
       >
-        <Button as={AppLink} to="/dashboard" variant="outline">
+        <Button as={AppLink} to="/dashboard" variant="secondary">
           close
         </Button>
       </Flex>
