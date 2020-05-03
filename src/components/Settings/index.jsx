@@ -54,6 +54,7 @@ const Settings = () => (
                 sx={{
                   boxShadow: ['none', null, 'inset 0 0 0 4px'],
                   p: 4,
+                  bg: 'gray.200',
                   fontSize: 3,
                   borderTop: ['4px #000 solid', null, 'none'],
                   borderBottom: ['4px #000 solid', null, 'none'],
@@ -71,6 +72,7 @@ const Settings = () => (
                 sx={{
                   boxShadow: ['none', null, 'inset 0 0 0 4px'],
                   p: 4,
+                  bg: 'gray.200',
                   fontSize: 3,
                   borderBottom: ['4px #000 solid', null, 'none'],
                   borderRadius: [0, 0, 3],
