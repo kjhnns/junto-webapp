@@ -22,7 +22,7 @@ const loadHabits = async () => {
     if (habits.status !== 200) {
       return false
     }
-    return habits.data === null ? [] : habits.data.data
+    return habits.data.data === null ? [] : habits.data.data
   } catch (error) {
     return false
   }
