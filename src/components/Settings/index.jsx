@@ -49,7 +49,7 @@ const Settings = () => (
             Account Settings
           </Heading>
           <Box my={[0, 0, 3]}>
-            <AppLink sx={{ textDecoration: 'none' }} to="/settings/password">
+            <AppLink sx={{ textDecoration: 'none' }} to="/settings/email">
               <Box
                 sx={{
                   boxShadow: ['none', null, 'inset 0 0 0 4px'],
@@ -61,7 +61,7 @@ const Settings = () => (
                   fontWeight: 600,
                 }}
               >
-                Change Password
+                Email address
               </Box>
             </AppLink>
           </Box>
@@ -77,7 +77,7 @@ const Settings = () => (
                   fontWeight: 600,
                 }}
               >
-                Display Name
+                Password
               </Box>
             </AppLink>
           </Box>
@@ -94,3 +94,6 @@ const Settings = () => (
 )
 
 export { Settings }
+
+export { EmailSettings } from './Email'
+export { PasswordSettings } from './Password'

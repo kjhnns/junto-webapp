@@ -126,6 +126,26 @@ const updatePassword = async ({ currentPassword, password }) => {
   }
 }
 
+const updateEmail = async ({ password, email }) => {
+  try {
+    const user = await getUser()
+    const credentials = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      password
+    )
+    await user.reauthenticateWithCredential(credentials)
+    await user.updateEmail(email)
+    return {
+      success: true,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      description: error,
+    }
+  }
+}
+
 export {
   handleLogin,
   handleSignup,
@@ -133,4 +153,5 @@ export {
   signOut,
   getUser,
   updatePassword,
+  updateEmail,
 }
