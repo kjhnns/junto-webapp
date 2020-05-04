@@ -9,6 +9,16 @@ import { Button } from '@components/Button'
 
 import { signOut } from '@auth'
 
+const menuItem = {
+  boxShadow: ['none', null, 'inset 0 0 0 4px'],
+  p: 4,
+  bg: 'gray.200',
+  fontSize: 3,
+  borderBottom: ['4px #000 solid', null, 'none'],
+  borderRadius: [0, 0, 3],
+  fontWeight: 600,
+}
+
 const Settings = () => (
   <Layout>
     <SEO title="Dashboard" />
@@ -50,54 +60,17 @@ const Settings = () => (
           </Heading>
           <Box my={[0, 0, 3]}>
             <AppLink sx={{ textDecoration: 'none' }} to="/settings/username">
-              <Box
-                sx={{
-                  boxShadow: ['none', null, 'inset 0 0 0 4px'],
-                  p: 4,
-                  bg: 'gray.200',
-                  fontSize: 3,
-                  borderTop: ['4px #000 solid', null, 'none'],
-                  borderBottom: ['4px #000 solid', null, 'none'],
-                  borderRadius: [0, 0, 3],
-                  fontWeight: 600,
-                }}
-              >
-                Display Name
-              </Box>
+              <Box sx={menuItem}>Display Name</Box>
             </AppLink>
           </Box>
           <Box my={[0, 0, 3]}>
             <AppLink sx={{ textDecoration: 'none' }} to="/settings/email">
-              <Box
-                sx={{
-                  boxShadow: ['none', null, 'inset 0 0 0 4px'],
-                  p: 4,
-                  bg: 'gray.200',
-                  fontSize: 3,
-                  borderBottom: ['4px #000 solid', null, 'none'],
-                  borderRadius: [0, 0, 3],
-                  fontWeight: 600,
-                }}
-              >
-                Email address
-              </Box>
+              <Box sx={menuItem}>Email Address</Box>
             </AppLink>
           </Box>
           <Box my={[0, 0, 3]}>
             <AppLink sx={{ textDecoration: 'none' }} to="/settings/password">
-              <Box
-                sx={{
-                  boxShadow: ['none', null, 'inset 0 0 0 4px'],
-                  p: 4,
-                  bg: 'gray.200',
-                  fontSize: 3,
-                  borderBottom: ['4px #000 solid', null, 'none'],
-                  borderRadius: [0, 0, 3],
-                  fontWeight: 600,
-                }}
-              >
-                Password
-              </Box>
+              <Box sx={menuItem}>Password</Box>
             </AppLink>
           </Box>
 
