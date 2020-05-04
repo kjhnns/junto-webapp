@@ -77,21 +77,18 @@ const PureCreateNewHabit = ({ handleSubmit }) => {
                     </Box>
                   )}
                   <Flex
-                    flexDirection={['column-reverse', 'row']}
+                    flexDirection={['column', 'row']}
                     justifyContent="space-between"
                     alignItems="center"
                   >
-                    <Button
-                      variant="clear"
-                      as={Link}
-                      to="/dashboard"
-                      pt={[4, 0]}
-                    >
-                      cancel
-                    </Button>
-                    <Button type="submit" width={['100%', 'auto']} mt={[3, 0]}>
+                    <Button type="submit" width={['100%', 'auto']}>
                       {isSubmitting ? `Creating ...` : `Create`}
                     </Button>
+                    <Box pt={[2, 0]}>
+                      <Button variant="clear" as={Link} to="/dashboard">
+                        cancel
+                      </Button>
+                    </Box>
                   </Flex>
                 </Box>
               </Form>
