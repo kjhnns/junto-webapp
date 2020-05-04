@@ -31,6 +31,20 @@ const handleLogin = async ({ email, password }) => {
   }
 }
 
+const resetPassword = async ({ email }) => {
+  try {
+    await firebase.auth().sendPasswordResetEmail(email)
+    return {
+      success: true,
+    }
+  } catch (error) {
+    return {
+      error: true,
+      message: error.message,
+    }
+  }
+}
+
 const handleSignup = async ({ username, email, password }) => {
   try {
     const response = await axios.post(
@@ -175,4 +189,5 @@ export {
   updatePassword,
   updateEmail,
   updateDisplayName,
+  resetPassword,
 }

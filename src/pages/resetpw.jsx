@@ -11,18 +11,17 @@ import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
 import { Form, Input } from '@components/NewForm'
 import { Link } from '@components/Link'
-import { handleLogin } from '@auth'
+import { resetPassword } from '@auth'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('Not a valid email address')
     .required('Required'),
-  password: Yup.string().required('Required'),
 })
 
-const PureLoginPage = ({ errors, handleSubmit, isSubmitting }) => (
+const PureResetPasswordPage = ({ errors, handleSubmit, isSubmitting }) => (
   <Layout>
-    <SEO title="Login" />
+    <SEO title="Reset Password" />
     <Box
       sx={{
         p: 4,
@@ -36,15 +35,11 @@ const PureLoginPage = ({ errors, handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
           <Box maxWidth="500px" mx="auto">
             <Heading as="h1" fontSize={5} mb={3}>
-              Login
+              Reset Password
             </Heading>
             <Box mb={3}>
               <Text fontWeight="bold">Email</Text>
               <Input name="email" />
-            </Box>
-            <Box mb={3}>
-              <Text fontWeight="bold">Password</Text>
-              <Input name="password" type="password" />
             </Box>
             {errors.response && (
               <Box
@@ -65,14 +60,9 @@ const PureLoginPage = ({ errors, handleSubmit, isSubmitting }) => (
               alignItems="center"
             >
               <Button type="submit" width={['100%', 'auto']} mb={[3, 0]}>
-                {isSubmitting ? `Loggin in...` : `Log in`}
+                {isSubmitting ? `Resetting ...` : `Reset Password`}
               </Button>
-              <Link mt={[4, 0]} to="/signup">
-                Don&apos;t have an account yet?
-              </Link>
-              <Link mt={[4, 0]} to="/resetpw">
-                Lost your password?
-              </Link>
+              <Link to="/signup">Don&apos;t have an account yet?</Link>
             </Flex>
           </Box>
         </Form>
@@ -81,33 +71,32 @@ const PureLoginPage = ({ errors, handleSubmit, isSubmitting }) => (
   </Layout>
 )
 
-PureLoginPage.propTypes = {
+PureResetPasswordPage.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   errors: PropTypes.object.isRequired,
 }
 
-const LoginPage = withFormik({
+const ResetPasswordPage = withFormik({
   mapPropsToValues: () => ({
     email: '',
-    password: '',
   }),
   validationSchema,
   handleSubmit: async (values, { setSubmitting, setErrors }) => {
     setErrors({ response: '' })
     setSubmitting(true)
-    const result = await handleLogin(values)
+    const result = await resetPassword(values)
     if (result.error) {
       setErrors({ response: result.message })
     }
     if (result.success) {
       setSubmitting(false)
-      navigate('/dashboard')
+      navigate('/')
     }
     setSubmitting(false)
   },
-  displayName: 'Login',
-})(PureLoginPage)
+  displayName: 'Reset Password',
+})(PureResetPasswordPage)
 
-export { LoginPage as default, PureLoginPage }
+export { ResetPasswordPage as default, PureResetPasswordPage }
