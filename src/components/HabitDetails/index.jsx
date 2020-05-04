@@ -74,23 +74,43 @@ const HabitDetails = ({ habitId }) => {
 
   if (loadingState === 'LOADING') {
     return (
-      <Flex width="100%" flexDirection="column">
-        <MenuBar />
-        <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-          Loading ...
-        </Text>
-      </Flex>
+      <Layout>
+        <Flex
+          sx={{
+            minHeight: '100vh',
+            bg: 'gray.100',
+            flexDirection: 'column',
+          }}
+        >
+          <MenuBar />
+          <Flex
+            sx={{
+              p: [3, 4],
+              flex: '1',
+              minHeight: '100%',
+              bg: 'gray.100',
+              flexDirection: 'column',
+            }}
+          >
+            <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+              Loading ...
+            </Text>
+          </Flex>
+        </Flex>
+      </Layout>
     )
   }
 
   if (loadingState === 'ERROR') {
     return (
-      <Flex width="100%" flexDirection="column">
-        <MenuBar />
-        <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-          Oops. Something went wrong...
-        </Text>
-      </Flex>
+      <Layout>
+        <Flex width="100%" flexDirection="column">
+          <MenuBar />
+          <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+            Oops. Something went wrong...
+          </Text>
+        </Flex>
+      </Layout>
     )
   }
 
