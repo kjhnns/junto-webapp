@@ -56,6 +56,10 @@ module.exports = {
         theme_color: website.themeColor,
         display: `standalone`,
         icon: website.favicon,
+        legacy: false,
+        icon_options: {
+          purpose: `maskable`,
+        },
       },
     },
     {
