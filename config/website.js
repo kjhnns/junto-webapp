@@ -1,11 +1,6 @@
 module.exports = {
-<<<<<<< HEAD
   pathPrefix: `/`,
-  url: `https://gatsby-starter-styled.netlify.com/`,
-=======
-  pathPrefix: `/dashboard`,
   url: `https://junto-pwa.netlify.app/`,
->>>>>>> fix: web app manifest adjustments
   title: `junto – social habit tracking`,
   titleTemplate: `%s — junto`,
   description: `Build healthy habits and break bad habits - together.`,
