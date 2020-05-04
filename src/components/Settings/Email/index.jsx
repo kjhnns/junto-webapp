@@ -69,11 +69,11 @@ const PureEmailSettings = ({ errors, handleSubmit, isSubmitting }) => (
             justifyContent="space-between"
             alignItems="center"
           >
-            <Button variant="clear" as={Link} to="/settings" pt={[4, 0]}>
-              cancel
-            </Button>
             <Button type="submit" width={['100%', 'auto']} mt={[3, 0]}>
               {isSubmitting ? `Changing ...` : `Change`}
+            </Button>
+            <Button variant="clear" as={Link} to="/settings" pt={[4, 0]}>
+              cancel
             </Button>
           </Flex>
         </Box>
