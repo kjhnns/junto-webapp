@@ -15,7 +15,7 @@ module.exports = {
 
   // schema.org JSONLD
   headline: `Build healthy habits and break bad habits - together.`,
-  author: ``,
+  author: `Johannes Klumpe`,
 
   // Twitter
   twitter: `@kjhnns`, // Twitter username
