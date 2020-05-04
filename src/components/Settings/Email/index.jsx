@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import * as Yup from 'yup'
+import { navigate } from 'gatsby'
 import { withFormik } from 'formik'
 
-import { updateEmail, getUser, signOut } from '@auth'
+import { updateEmail, getUser, handleLogin } from '@auth'
 import { Layout } from '@components/Layout'
 import { Box, Flex } from '@components/Grid'
 import { Button } from '@components/Button'
@@ -91,13 +92,17 @@ const EmailSettings = withFormik({
     setErrors({ response: '' })
     setSubmitting(true)
     const result = await updateEmail(values)
-    setSubmitting(false)
     if (!result.success) {
       setErrors({ response: result.description.message })
     }
     if (result.success) {
-      await signOut()
+      await handleLogin({
+        email: await getUser().email,
+        password: values.password,
+      })
+      await navigate('/settings')
     }
+    setSubmitting(false)
   },
   displayName: 'Change Email',
 })(PureEmailSettings)

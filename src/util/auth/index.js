@@ -126,6 +126,26 @@ const updatePassword = async ({ currentPassword, password }) => {
   }
 }
 
+const updateDisplayName = async ({ password, displayName }) => {
+  try {
+    const user = await getUser()
+    const credentials = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      password
+    )
+    await user.reauthenticateWithCredential(credentials)
+    await user.updateProfile({ displayName })
+    return {
+      success: true,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      description: error,
+    }
+  }
+}
+
 const updateEmail = async ({ password, email }) => {
   try {
     const user = await getUser()
@@ -154,4 +174,5 @@ export {
   getUser,
   updatePassword,
   updateEmail,
+  updateDisplayName,
 }

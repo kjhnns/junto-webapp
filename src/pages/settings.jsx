@@ -4,7 +4,12 @@ import React from 'react'
 import { Router } from '@reach/router'
 import { Layout } from '@components/Layout'
 import { SEO } from '@components/SEO'
-import { Settings, PasswordSettings, EmailSettings } from '@components/Settings'
+import {
+  Settings,
+  PasswordSettings,
+  EmailSettings,
+  DisplayNameSettings,
+} from '@components/Settings'
 import { PrivateRoute } from '@components/PrivateRoute'
 
 const SettingsPage = () => (
@@ -12,6 +17,7 @@ const SettingsPage = () => (
     <SEO />
     <Router>
       <PrivateRoute path="/settings" component={Settings} />
+      <PrivateRoute path="/settings/username" component={DisplayNameSettings} />
       <PrivateRoute path="/settings/password" component={PasswordSettings} />
       <PrivateRoute path="/settings/email" component={EmailSettings} />
     </Router>

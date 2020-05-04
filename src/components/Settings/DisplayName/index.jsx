@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { navigate } from 'gatsby'
 import { withFormik } from 'formik'
 
-import { updatePassword, handleLogin, getUser } from '@auth'
+import { updateDisplayName, getUser } from '@auth'
 import { Layout } from '@components/Layout'
 import { Box, Flex } from '@components/Grid'
 import { Button } from '@components/Button'
@@ -14,20 +14,15 @@ import { Form, Input } from '@components/NewForm'
 import { Link } from '@components/Link'
 
 const validationSchema = Yup.object().shape({
-  currentPassword: Yup.string()
-    .required('Required')
-    .min(6, 'Must be at least 6 characters long'),
+  displayName: Yup.string().required('Required'),
   password: Yup.string()
     .required('Required')
     .min(6, 'Must be at least 6 characters long'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Required'),
 })
 
-const PurePasswordSettings = ({ errors, handleSubmit, isSubmitting }) => (
+const PureDisplayNameSettings = ({ errors, handleSubmit, isSubmitting }) => (
   <Layout>
-    <SEO title="Change Password" />
+    <SEO title="Change Email" />
     <Box
       sx={{
         p: [3, 4],
@@ -40,20 +35,19 @@ const PurePasswordSettings = ({ errors, handleSubmit, isSubmitting }) => (
       <Form onSubmit={handleSubmit}>
         <Box maxWidth="500px" mx="auto">
           <Heading as="h1" fontSize={5} mb={3}>
-            Change Password
+            Change Username
           </Heading>
           <Box mb={3}>
-            <Text fontWeight="bold">Current Password</Text>
-            <Input type="password" name="currentPassword" />
+            <Text fontWeight="bold">Current Username</Text>
+            <Text>{getUser().displayName}</Text>
           </Box>
           <Box mb={3}>
-            <Text fontWeight="bold">New Password</Text>
+            <Text fontWeight="bold">New Username</Text>
+            <Input type="text" name="displayName" />
+          </Box>
+          <Box mb={3}>
+            <Text fontWeight="bold">Password</Text>
             <Input type="password" name="password" />
-          </Box>
-
-          <Box mb={3}>
-            <Text fontWeight="bold">Password Confirmation</Text>
-            <Input type="password" name="confirmPassword" />
           </Box>
           {errors.response && (
             <Box
@@ -86,37 +80,32 @@ const PurePasswordSettings = ({ errors, handleSubmit, isSubmitting }) => (
   </Layout>
 )
 
-const PasswordSettings = withFormik({
+const DisplayNameSettings = withFormik({
   mapPropsToValues: () => ({
-    confirmPassword: '',
-    currentPassword: '',
+    displayName: '',
     password: '',
   }),
   validationSchema,
   handleSubmit: async (values, { setSubmitting, setErrors }) => {
     setErrors({ response: '' })
     setSubmitting(true)
-    const result = await updatePassword(values)
+    const result = await updateDisplayName(values)
     if (!result.success) {
       setErrors({ response: result.description.message })
     }
     if (result.success) {
-      await handleLogin({
-        email: await getUser().email,
-        password: values.password,
-      })
       await navigate('/settings')
     }
     setSubmitting(false)
   },
-  displayName: 'Change Password',
-})(PurePasswordSettings)
+  displayName: 'Change Username',
+})(PureDisplayNameSettings)
 
-PurePasswordSettings.propTypes = {
+PureDisplayNameSettings.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.any.isRequired,
 }
 
-export { PasswordSettings, PurePasswordSettings }
+export { DisplayNameSettings, PureDisplayNameSettings }

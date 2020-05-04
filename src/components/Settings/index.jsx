@@ -49,7 +49,7 @@ const Settings = () => (
             Account Settings
           </Heading>
           <Box my={[0, 0, 3]}>
-            <AppLink sx={{ textDecoration: 'none' }} to="/settings/email">
+            <AppLink sx={{ textDecoration: 'none' }} to="/settings/username">
               <Box
                 sx={{
                   boxShadow: ['none', null, 'inset 0 0 0 4px'],
@@ -57,6 +57,23 @@ const Settings = () => (
                   bg: 'gray.200',
                   fontSize: 3,
                   borderTop: ['4px #000 solid', null, 'none'],
+                  borderBottom: ['4px #000 solid', null, 'none'],
+                  borderRadius: [0, 0, 3],
+                  fontWeight: 600,
+                }}
+              >
+                Display Name
+              </Box>
+            </AppLink>
+          </Box>
+          <Box my={[0, 0, 3]}>
+            <AppLink sx={{ textDecoration: 'none' }} to="/settings/email">
+              <Box
+                sx={{
+                  boxShadow: ['none', null, 'inset 0 0 0 4px'],
+                  p: 4,
+                  bg: 'gray.200',
+                  fontSize: 3,
                   borderBottom: ['4px #000 solid', null, 'none'],
                   borderRadius: [0, 0, 3],
                   fontWeight: 600,
@@ -85,7 +102,7 @@ const Settings = () => (
           </Box>
 
           <Box sx={{ mt: 4, textAlign: 'center' }}>
-            <Button onClick={signOut} variant="clear">
+            <Button onClick={signOut} variant="outline">
               Log out
             </Button>
           </Box>
@@ -99,3 +116,4 @@ export { Settings }
 
 export { EmailSettings } from './Email'
 export { PasswordSettings } from './Password'
+export { DisplayNameSettings } from './DisplayName'
