@@ -60,7 +60,14 @@ const Settings = () => (
           </Heading>
           <Box my={[0, 0, 3]}>
             <AppLink sx={{ textDecoration: 'none' }} to="/settings/username">
-              <Box sx={menuItem}>Display Name</Box>
+              <Box
+                sx={{
+                  ...menuItem,
+                  borderTop: ['4px #000 solid', null, 'none'],
+                }}
+              >
+                Display Name
+              </Box>
             </AppLink>
           </Box>
           <Box my={[0, 0, 3]}>
