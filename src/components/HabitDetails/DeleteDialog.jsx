@@ -24,7 +24,7 @@ const DeleteDialog = ({ deleteHandler }) => {
   return (
     <Box>
       <Button onClick={open} variant="outline">
-        Delete this habit
+        Delete
       </Button>
       <ResponsiveDialog
         aria-label="Warning about next steps"
@@ -43,10 +43,10 @@ const DeleteDialog = ({ deleteHandler }) => {
             alignItems="center"
             justifyContent="space-between"
           >
+            <Button onClick={deleteHandler}>Delete</Button>
             <Button variant="clear" onClick={close}>
               cancel
             </Button>
-            <Button onClick={deleteHandler}>Delete</Button>
           </Flex>
         </Flex>
       </ResponsiveDialog>

@@ -129,18 +129,18 @@ const HabitDetails = ({ habitId }) => {
           sx={{
             p: [3, 4],
             flex: '1',
-            minHeight: '100%',
             bg: 'gray.100',
             flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
-          <Flex sx={{ maxWidth: '800px', flexDirection: 'column', m: 'auto' }}>
+          <Box maxWidth="800px" width="100%">
             <Heading as="h1" sx={{ fontSize: 5 }}>{`${habit.title}`}</Heading>
             <Text>
               Created on{' '}
               {`${moment.unix(habit.created_at).format('YYYY-MM-DD')}`}
             </Text>
-            <Box my={3}>
+            <Box my={4}>
               {habit.checked ? (
                 <Statistics habitChecks={habit.checked} />
               ) : (
@@ -157,7 +157,7 @@ const HabitDetails = ({ habitId }) => {
                 }}
               />
             </Box>
-          </Flex>
+          </Box>
         </Flex>
       </Flex>
     </Layout>

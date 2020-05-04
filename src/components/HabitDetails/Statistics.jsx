@@ -36,7 +36,7 @@ const Statistics = ({ habitChecks }) => {
     .reduce((pv, cv) => pv + cv)
 
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" sx={{ bg: 'gray.300', py: 3, px: 4 }}>
       <Flex flexDirection="column" py={2}>
         <Text>{`This week* ${thisWeekISO}`}</Text>
         <Text>{`Last week* ${lastWeekISO}`}</Text>
@@ -49,7 +49,7 @@ const Statistics = ({ habitChecks }) => {
         <Text>{`This year ${thisYear}`}</Text>
         <Text>{`Last year ${lastYear}`}</Text>
       </Flex>
-      <Text sx={{ fontSize: 1, fontStyle: 'italic' }}>
+      <Text sx={{ fontSize: 1, fontStyle: 'italic', py: 2 }}>
         * Week starts on Monday
       </Text>
     </Flex>
