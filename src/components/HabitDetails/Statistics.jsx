@@ -10,23 +10,29 @@ const Statistics = ({ habitChecks }) => {
   const today = moment()
 
   const thisYear = momentHabitChecks
-    .map(check => check.isSame(today, 'year'))
+    .map(check => (check.isSame(today, 'year') ? 1 : 0))
     .reduce((pv, cv) => pv + cv)
   const thisWeekISO = momentHabitChecks
-    .map(check => check.isSame(today, 'isoWeek'))
+    .map(check => (check.isSame(today, 'isoWeek') ? 1 : 0))
     .reduce((pv, cv) => pv + cv)
   const thisMonth = momentHabitChecks
-    .map(check => check.isSame(today, 'month'))
+    .map(check => (check.isSame(today, 'month') ? 1 : 0))
     .reduce((pv, cv) => pv + cv)
 
   const lastYear = momentHabitChecks
-    .map(check => check.isSame(today.clone().subtract(1, 'year'), 'year'))
+    .map(check =>
+      check.isSame(today.clone().subtract(1, 'year'), 'year') ? 1 : 0
+    )
     .reduce((pv, cv) => pv + cv)
   const lastWeekISO = momentHabitChecks
-    .map(check => check.isSame(today.clone().subtract(1, 'week'), 'isoWeek'))
+    .map(check =>
+      check.isSame(today.clone().subtract(1, 'week'), 'isoWeek') ? 1 : 0
+    )
     .reduce((pv, cv) => pv + cv)
   const lastMonth = momentHabitChecks
-    .map(check => check.isSame(today.clone().subtract(1, 'month'), 'month'))
+    .map(check =>
+      check.isSame(today.clone().subtract(1, 'month'), 'month') ? 1 : 0
+    )
     .reduce((pv, cv) => pv + cv)
 
   return (

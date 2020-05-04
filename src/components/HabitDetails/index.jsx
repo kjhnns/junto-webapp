@@ -141,7 +141,11 @@ const HabitDetails = ({ habitId }) => {
               {`${moment.unix(habit.created_at).format('YYYY-MM-DD')}`}
             </Text>
             <Box my={3}>
-              {habit.checked ? <Statistics habitChecks={habit.checked} /> : ''}
+              {habit.checked ? (
+                <Statistics habitChecks={habit.checked} />
+              ) : (
+                'No statistics available'
+              )}
             </Box>
             <Box my={3}>
               <DeleteDialog
