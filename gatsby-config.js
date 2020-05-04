@@ -51,7 +51,7 @@ module.exports = {
         name: website.title,
         short_name: website.shortName,
         description: website.description,
-        start_url: `${pathPrefix}/?utm_source=a2hs`,
+        start_url: `${pathPrefix}/dashboard`,
         background_color: website.backgroundColor,
         theme_color: website.themeColor,
         display: `standalone`,
