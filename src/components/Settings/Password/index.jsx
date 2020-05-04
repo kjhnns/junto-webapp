@@ -69,16 +69,18 @@ const PurePasswordSettings = ({ errors, handleSubmit, isSubmitting }) => (
             </Box>
           )}
           <Flex
-            flexDirection={['column-reverse', 'row']}
+            flexDirection={['column', 'row']}
             justifyContent="space-between"
             alignItems="center"
           >
             <Button type="submit" width={['100%', 'auto']} mt={[3, 0]}>
               {isSubmitting ? `Changing ...` : `Change`}
             </Button>
-            <Button variant="clear" as={Link} to="/settings" pt={[4, 0]}>
-              cancel
-            </Button>
+            <Box pt={[3, 0]}>
+              <Button variant="clear" as={Link} to="/settings">
+                cancel
+              </Button>
+            </Box>
           </Flex>
         </Box>
       </Form>
