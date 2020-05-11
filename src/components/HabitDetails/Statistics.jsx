@@ -41,9 +41,12 @@ const Statistics = ({ habitChecks }) => {
       <GridStatistic habitChecks={habitChecks} />
       <Box>
         <Text as="h2" py={3}>
-          Comparison
+          Overall
         </Text>
-        <Flex flexDirection="column" sx={{ bg: 'gray.300', py: 3, px: 4 }}>
+        <Flex
+          flexDirection="column"
+          sx={{ bg: 'white', borderRadius: 'default', py: 3, px: 4 }}
+        >
           <Flex flexDirection="column" py={2}>
             <Text>{`Total Checks ${momentHabitChecks.length}`}</Text>
           </Flex>
