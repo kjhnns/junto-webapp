@@ -20,53 +20,58 @@ const Statistics = ({ habitChecks }) => {
     .map(check => (check.isSame(today, 'month') ? 1 : 0))
     .reduce((pv, cv) => pv + cv)
 
-  const lastYear = momentHabitChecks
-    .map(check =>
-      check.isSame(today.clone().subtract(1, 'year'), 'year') ? 1 : 0
-    )
-    .reduce((pv, cv) => pv + cv)
-  const lastWeekISO = momentHabitChecks
-    .map(check =>
-      check.isSame(today.clone().subtract(1, 'week'), 'isoWeek') ? 1 : 0
-    )
-    .reduce((pv, cv) => pv + cv)
-  const lastMonth = momentHabitChecks
-    .map(check =>
-      check.isSame(today.clone().subtract(1, 'month'), 'month') ? 1 : 0
-    )
-    .reduce((pv, cv) => pv + cv)
-
   return (
     <Flex flexDirection="column">
-      <GridStatistic habitChecks={habitChecks} />
       <Box>
         <Text as="h2" py={3}>
           Overall
         </Text>
         <Flex
-          flexDirection="column"
-          sx={{ bg: 'white', borderRadius: 'default', py: 3, px: 4 }}
+          flexDirection="row"
+          sx={{
+            bg: 'white',
+            flex: 1,
+            borderRadius: 'default',
+            py: [1, 2, 2],
+            px: [3, 4, 4],
+            justifyContent: 'space-between',
+          }}
         >
           <Flex flexDirection="column" py={2}>
-            <Text>{`Total Checks ${momentHabitChecks.length}`}</Text>
+            <Text
+              sx={{ textAlign: 'center', fontSize: 3, py: 2 }}
+            >{`${momentHabitChecks.length}`}</Text>
+            <Text sx={{ textAlign: 'center', fontSize: [1, 2, 2] }}>
+              All Time
+            </Text>
           </Flex>
           <Flex flexDirection="column" py={2}>
-            <Text>{`This week* ${thisWeekISO}`}</Text>
-            <Text>{`Last week* ${lastWeekISO}`}</Text>
+            <Text
+              sx={{ textAlign: 'center', fontSize: 3, py: 2 }}
+            >{`${thisWeekISO}`}</Text>
+            <Text sx={{ textAlign: 'center', fontSize: [1, 2, 2] }}>
+              This Week
+            </Text>
           </Flex>
           <Flex flexDirection="column" py={2}>
-            <Text>{`This month ${thisMonth}`}</Text>
-            <Text>{`Last month ${lastMonth}`}</Text>
+            <Text
+              sx={{ textAlign: 'center', fontSize: 3, py: 2 }}
+            >{`${thisMonth}`}</Text>
+            <Text sx={{ textAlign: 'center', fontSize: [1, 2, 2] }}>
+              This Month
+            </Text>
           </Flex>
           <Flex flexDirection="column" py={2}>
-            <Text>{`This year ${thisYear}`}</Text>
-            <Text>{`Last year ${lastYear}`}</Text>
+            <Text
+              sx={{ textAlign: 'center', fontSize: 3, py: 2 }}
+            >{`${thisYear}`}</Text>
+            <Text sx={{ textAlign: 'center', fontSize: [1, 2, 2] }}>
+              This Year
+            </Text>
           </Flex>
-          <Text sx={{ fontSize: 1, fontStyle: 'italic', py: 2 }}>
-            * Week starts on Monday
-          </Text>
         </Flex>
       </Box>
+      <GridStatistic habitChecks={habitChecks} />
     </Flex>
   )
 }

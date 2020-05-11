@@ -143,11 +143,11 @@ const HabitDetails = ({ habitId }) => {
               Created on{' '}
               {`${moment.unix(habit.created_at).format('YYYY-MM-DD')}`}
             </Text>
-            <Box my={4}>
+            <Box>
               {habit.checked ? (
                 <Statistics habitChecks={habit.checked} />
               ) : (
-                'No statistics available'
+                <Text py={4}>No statistics available</Text>
               )}
             </Box>
             <Box my={3}>

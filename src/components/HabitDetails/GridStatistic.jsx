@@ -53,7 +53,7 @@ const GridStatistic = ({ habitChecks }) => {
           px: [2, 4, 4],
           py: 2,
           bg: 'white',
-          maxWidth: '600px',
+          maxWidth: '700px',
           borderRadius: 'default',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
@@ -63,54 +63,80 @@ const GridStatistic = ({ habitChecks }) => {
       >
         <Box> </Box>
         {grid[0].map(day => (
-          <Box key={day.format('DDD')} sx={{ textAlign: 'center' }}>
+          <Box
+            key={day.format('DDD')}
+            sx={{
+              fontSize: 1,
+              textAlign: 'center',
+            }}
+          >
             {day.format('dd')}
           </Box>
         ))}
 
-        {grid.map(week => (
-          <>
-            <Box sx={{ textAlign: 'left' }}>
-              <Text sx={{ display: ['none', null, 'inline'] }}>
-                {week[6].format('MMMM')}
-              </Text>
-              <Text sx={{ display: ['inline', null, 'none'] }}>
-                {week[6].format('MMM')}
-              </Text>
-            </Box>
-            {week.map(day => {
-              const isChecked = momentHabitChecks
-                .map(check => check.isSame(day, 'day'))
-                .reduce((pv, cv) => pv || cv)
-              const isFuture = day.isAfter(today, 'day')
+        {grid.map((week, idx) => {
+          const isRepeatiousMonth =
+            idx > 0 ? grid[idx - 1][6].isSame(week[6], 'month') : false
+          return (
+            <>
+              <Box sx={{ textAlign: 'left' }}>
+                {isRepeatiousMonth ? (
+                  ''
+                ) : (
+                  <>
+                    <Text
+                      sx={{
+                        fontSize: 1,
+                        display: ['none', null, 'inline'],
+                      }}
+                    >
+                      {week[6].format('MMMM')}
+                    </Text>
+                    <Text
+                      sx={{
+                        fontSize: 1,
+                        display: ['inline', null, 'none'],
+                      }}
+                    >
+                      {week[6].format('MMM')}
+                    </Text>
+                  </>
+                )}
+              </Box>
+              {week.map(day => {
+                const isChecked = momentHabitChecks
+                  .map(check => check.isSame(day, 'day'))
+                  .reduce((pv, cv) => pv || cv)
+                const isFuture = day.isAfter(today, 'day')
 
-              const defaultColor = isFuture ? 'gray.600' : 'gray.800'
-              const style = {
-                display: 'flex',
-                color: isChecked ? 'white' : defaultColor,
-                bg: isChecked ? 'gray.800' : 'white',
-                textAlign: 'center',
-                justifyContent: 'center',
-                alignItems: 'center',
-                fontSize: 1,
-                p: '2px',
-                m: '1px',
-                width: '25px',
-                borderRadius: 'default',
-              }
+                const defaultColor = isFuture ? 'gray.600' : 'gray.800'
+                const style = {
+                  display: 'flex',
+                  color: isChecked ? 'white' : defaultColor,
+                  bg: isChecked ? 'gray.800' : 'white',
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  fontSize: 1,
+                  p: '2px',
+                  m: '1px',
+                  width: '25px',
+                  borderRadius: 'default',
+                }
 
-              return (
-                <Flex
-                  key={day.format('DDD')}
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <Box sx={style}>{day.format('DD')}</Box>
-                </Flex>
-              )
-            })}
-          </>
-        ))}
+                return (
+                  <Flex
+                    key={day.format('DDD')}
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Box sx={style}>{day.format('DD')}</Box>
+                  </Flex>
+                )
+              })}
+            </>
+          )
+        })}
       </Box>
     </Flex>
   )
