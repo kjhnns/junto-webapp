@@ -51,6 +51,9 @@ const GridStatistic = ({ habitChecks }) => {
         display="grid"
         sx={{
           px: 4,
+          py: 2,
+          bg: 'white',
+          borderRadius: 'default',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
           gridTemplateRows:
@@ -63,18 +66,18 @@ const GridStatistic = ({ habitChecks }) => {
             {day.format('dd')}
           </Box>
         ))}
+
         {grid.map(week => (
           <>
             <Box sx={{ textAlign: 'left' }}>
               <Text sx={{ display: ['none', null, 'inline'] }}>
-                {week[0].format('MMMM')}
+                {week[6].format('MMMM')}
               </Text>
               <Text sx={{ display: ['inline', null, 'none'] }}>
-                {week[0].format('MMM')}
+                {week[6].format('MMM')}
               </Text>
             </Box>
             {week.map(day => {
-              const isToday = day.isSame(today, 'day')
               const isChecked = momentHabitChecks
                 .map(check => check.isSame(day, 'day'))
                 .reduce((pv, cv) => pv || cv)
@@ -83,24 +86,26 @@ const GridStatistic = ({ habitChecks }) => {
               const defaultColor = isFuture ? 'gray.600' : 'gray.800'
               const style = {
                 display: 'flex',
-                fontWeight: isToday ? 600 : 400,
                 color: isChecked ? 'white' : defaultColor,
-                bg: isChecked ? 'green.700' : 'white',
+                bg: isChecked ? 'gray.800' : 'white',
                 textAlign: 'center',
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderColor: 'gray.600',
                 fontSize: 1,
-                border: 'solid',
-                borderWidth: '1px',
-                m: '3px',
                 p: '2px',
+                m: '1px',
+                width: '25px',
+                borderRadius: 'default',
               }
 
               return (
-                <Box key={day.format('DDD')}>
+                <Flex
+                  key={day.format('DDD')}
+                  justifyContent="center"
+                  alignItems="center"
+                >
                   <Box sx={style}>{day.format('DD')}</Box>
-                </Box>
+                </Flex>
               )
             })}
           </>

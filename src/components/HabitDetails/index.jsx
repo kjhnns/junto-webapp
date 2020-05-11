@@ -129,7 +129,7 @@ const HabitDetails = ({ habitId }) => {
           sx={{
             p: [3, 4],
             flex: '1',
-            bg: 'gray.100',
+            bg: 'gray.200',
             flexDirection: 'column',
             alignItems: 'center',
           }}
