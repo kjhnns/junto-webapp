@@ -135,7 +135,10 @@ const HabitDetails = ({ habitId }) => {
           }}
         >
           <Box maxWidth="800px" width="100%">
-            <Heading as="h1" sx={{ fontSize: 5 }}>{`${habit.title}`}</Heading>
+            <Heading
+              as="h1"
+              sx={{ fontSize: 5, pt: 3, textTransform: 'uppercase' }}
+            >{`${habit.title}`}</Heading>
             <Text>
               Created on{' '}
               {`${moment.unix(habit.created_at).format('YYYY-MM-DD')}`}
