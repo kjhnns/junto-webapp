@@ -50,9 +50,10 @@ const GridStatistic = ({ habitChecks }) => {
       <Box
         display="grid"
         sx={{
-          px: 4,
+          px: [2, 4, 4],
           py: 2,
           bg: 'white',
+          maxWidth: '600px',
           borderRadius: 'default',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
