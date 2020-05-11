@@ -36,8 +36,14 @@ const grid = [
   initWeek(0),
 ]
 
-const GridStatistic = ({ habitChecks }) => {
-  const momentHabitChecks = habitChecks.map(check => moment.unix(check))
+const Grid = ({ habitChecks }) => {
+  const gridFirstDay = moment()
+    .subtract(12, 'week')
+    .startOf('isoWeek')
+    .subtract(1, 'day')
+  const momentHabitChecks = habitChecks
+    .map(check => moment.unix(check))
+    .filter(d => d.isAfter(gridFirstDay))
 
   const today = moment()
   return (
@@ -62,14 +68,9 @@ const GridStatistic = ({ habitChecks }) => {
         }}
       >
         <Box> </Box>
+
         {grid[0].map(day => (
-          <Box
-            key={day.format('DDD')}
-            sx={{
-              fontSize: 1,
-              textAlign: 'center',
-            }}
-          >
+          <Box key={day.format('DDD')} sx={{ textAlign: 'center' }}>
             {day.format('dd')}
           </Box>
         ))}
@@ -79,7 +80,7 @@ const GridStatistic = ({ habitChecks }) => {
             idx > 0 ? grid[idx - 1][6].isSame(week[6], 'month') : false
           return (
             <>
-              <Box sx={{ textAlign: 'left' }}>
+              <Box textAlign="left">
                 {isRepeatiousMonth ? (
                   ''
                 ) : (
@@ -110,7 +111,7 @@ const GridStatistic = ({ habitChecks }) => {
                 const isFuture = day.isAfter(today, 'day')
 
                 const defaultColor = isFuture ? 'gray.600' : 'gray.800'
-                const style = {
+                const dayBoxStyle = {
                   display: 'flex',
                   color: isChecked ? 'white' : defaultColor,
                   bg: isChecked ? 'gray.800' : 'white',
@@ -119,7 +120,7 @@ const GridStatistic = ({ habitChecks }) => {
                   alignItems: 'center',
                   fontSize: 1,
                   p: '2px',
-                  m: '1px',
+                  m: '2px',
                   width: '25px',
                   borderRadius: 'default',
                 }
@@ -130,7 +131,7 @@ const GridStatistic = ({ habitChecks }) => {
                     justifyContent="center"
                     alignItems="center"
                   >
-                    <Box sx={style}>{day.format('DD')}</Box>
+                    <Box sx={dayBoxStyle}>{day.format('DD')}</Box>
                   </Flex>
                 )
               })}
@@ -142,7 +143,7 @@ const GridStatistic = ({ habitChecks }) => {
   )
 }
 
-GridStatistic.propTypes = {
+Grid.propTypes = {
   habitChecks: PropTypes.arrayOf(PropTypes.number).isRequired,
 }
-export { GridStatistic }
+export { Grid }
