@@ -11,8 +11,8 @@ const Card = ({ title, linkTo, checked, handleClick }) => {
       sx={{
         bg: 'gray.400',
         borderRadius: 'default',
-        px: 4,
-        minHeight: '93px',
+        px: [3, 4, 4],
+        minHeight: ['80px', '93px', '93px'],
         flex: '1',
       }}
     >
@@ -24,7 +24,9 @@ const Card = ({ title, linkTo, checked, handleClick }) => {
       >
         <Flex alignItems="flex-start" flexDirection="column" flex="1">
           <Link sx={{ textDecoration: 'none' }} to={`${linkTo}`}>
-            <Text as="h2">{title}</Text>
+            <Text as="h2" sx={{ fontSize: [3, 4, 4] }}>
+              {title}
+            </Text>
           </Link>
         </Flex>
         <Box onClick={handleClick} ml={3}>
@@ -33,8 +35,8 @@ const Card = ({ title, linkTo, checked, handleClick }) => {
               cursor: 'pointer',
               borderRadius: '30px',
               bg: 'gray.200',
-              width: '50px',
-              height: '50px',
+              width: ['40px', '50px', '50px'],
+              height: ['40px', '50px', '50px'],
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
