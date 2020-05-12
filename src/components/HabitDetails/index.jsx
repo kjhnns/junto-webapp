@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
 
 import { axios } from '@api'
-import { Layout } from '@components/Layout'
 import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
@@ -74,7 +73,7 @@ const HabitDetails = ({ habitId }) => {
 
   if (loadingState === 'LOADING') {
     return (
-      <Layout>
+      <>
         <Flex
           sx={{
             minHeight: '100vh',
@@ -97,25 +96,25 @@ const HabitDetails = ({ habitId }) => {
             </Text>
           </Flex>
         </Flex>
-      </Layout>
+      </>
     )
   }
 
   if (loadingState === 'ERROR') {
     return (
-      <Layout>
+      <>
         <Flex width="100%" flexDirection="column">
           <MenuBar />
           <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
             Oops. Something went wrong...
           </Text>
         </Flex>
-      </Layout>
+      </>
     )
   }
 
   return (
-    <Layout>
+    <>
       <SEO title={habit.title} />
       <Flex
         sx={{
@@ -163,7 +162,7 @@ const HabitDetails = ({ habitId }) => {
           </Box>
         </Flex>
       </Flex>
-    </Layout>
+    </>
   )
 }
 

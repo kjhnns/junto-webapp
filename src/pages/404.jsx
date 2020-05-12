@@ -11,17 +11,15 @@ const NotFoundPage = () => (
     <SEO title="404 — Not found" />
     <Box
       sx={{
-        p: 4,
         minHeight: '100vh',
         bg: 'gray.100',
         display: 'grid',
         alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       <Box sx={{ fontSize: 4 }}>
-        <Text mb={3}>
-          You just hit a route that doesn&#39;t exist... the sadness.
-        </Text>
+        <Text mb={3}>You just hit a route that doesn&#39;t exist...</Text>
         <Link to="/">Take me home.</Link>
       </Box>
     </Box>
