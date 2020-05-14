@@ -82,5 +82,17 @@ module.exports = {
         prefixes: [`/dashboard/*`, `/dashboard/details/*`, `/settings/*`],
       },
     },
+    {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: "G-WHC55HK7XS",
+        // datalayer to be set before GTM is loaded
+        // should be a stringified object or object
+        // Defaults to null
+        defaultDataLayer: function () {
+          return { platform: "junto" },
+        },
+      },
+    },
   ],
 }
