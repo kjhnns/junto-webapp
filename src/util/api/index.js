@@ -1,8 +1,6 @@
 import firebase from 'gatsby-plugin-firebase'
 import axios from 'axios'
-import {
-  navigate
-} from 'gatsby'
+import { navigate } from 'gatsby'
 
 axios.interceptors.response.use(
   response => {
@@ -18,6 +16,4 @@ axios.interceptors.response.use(
   }
 )
 
-export {
-  axios
-}
+export { axios }
