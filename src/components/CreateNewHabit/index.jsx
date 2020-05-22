@@ -4,6 +4,7 @@ import { navigate } from 'gatsby'
 import axios from 'axios'
 import * as Yup from 'yup'
 
+import { getIdToken } from '@auth'
 import { Layout } from '@components/Layout'
 import { Box, Flex } from '@components/Grid'
 import { Button } from '@components/Button'
@@ -106,13 +107,13 @@ PureCreateNewHabit.propTypes = {
 
 const createNewHabit = async ({ title }) => {
   try {
-    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const idToken = await getIdToken()
     const result = await axios.post(
       `${process.env.GATSBY_API_URL}/action`,
       { title },
       {
         headers: {
-          Bearer: sessionCookie,
+          Bearer: idToken,
         },
       }
     )

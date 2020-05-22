@@ -4,21 +4,23 @@ import { navigate } from 'gatsby'
 
 const isBrowser = typeof window !== `undefined`
 
+const getUser = () => {
+  if (firebase.auth().currentUser === null) {
+    return {}
+  }
+  return firebase.auth().currentUser
+}
+
+const getIdToken = async () => {
+  return getUser().getIdToken()
+}
+
 const handleLogin = async ({ email, password }) => {
   try {
-    const response = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-    const idToken = await response.user.getIdToken()
-    const sessionCookie = await axios.post(
-      `${process.env.GATSBY_API_URL}/user/signin`,
-      {
-        id_token: idToken,
-      }
-    )
+    await firebase.auth().signInWithEmailAndPassword(email, password)
+    const userId = getUser().id
     if (typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.setItem('sessionCookie', sessionCookie.data.cookie)
-      window.localStorage.setItem('userID', sessionCookie.data.id)
+      window.localStorage.setItem('userID', userId)
     }
     return {
       success: true,
@@ -106,15 +108,8 @@ const isLoggedIn = async () => {
   }
 }
 
-const getUser = () => {
-  if (firebase.auth().currentUser === null) {
-    return {}
-  }
-  return firebase.auth().currentUser
-}
-
 const signOut = async () => {
-  window.localStorage.removeItem('sessionCookie')
+  window.localStorage.removeItem('idToken')
   window.localStorage.removeItem('userID')
   await firebase.auth().signOut()
   await navigate('/login')
@@ -190,4 +185,5 @@ export {
   updateEmail,
   updateDisplayName,
   resetPassword,
+  getIdToken,
 }

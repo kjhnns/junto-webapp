@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
 
 import { axios } from '@api'
+import { getIdToken } from '@auth'
 import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
@@ -14,12 +15,12 @@ import { DeleteDialog } from './DeleteDialog'
 
 const deleteHabit = async habitId => {
   try {
-    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const idToken = await getIdToken()
     const habit = await axios.delete(
       `${process.env.GATSBY_API_URL}/action/${habitId}`,
       {
         headers: {
-          Bearer: sessionCookie,
+          Bearer: idToken,
         },
       }
     )
@@ -34,12 +35,12 @@ const deleteHabit = async habitId => {
 
 const loadHabit = async habitId => {
   try {
-    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const idToken = await getIdToken()
     const habit = await axios.get(
       `${process.env.GATSBY_API_URL}/action/${habitId}`,
       {
         headers: {
-          Bearer: sessionCookie,
+          Bearer: idToken,
         },
       }
     )

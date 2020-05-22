@@ -1,6 +1,8 @@
 import firebase from 'gatsby-plugin-firebase'
 import axios from 'axios'
-import { navigate } from 'gatsby'
+import {
+  navigate
+} from 'gatsby'
 
 axios.interceptors.response.use(
   response => {
@@ -8,7 +10,6 @@ axios.interceptors.response.use(
   },
   async error => {
     if (error.response.status === 401) {
-      window.localStorage.removeItem('sessionCookie')
       window.localStorage.removeItem('userID')
       await firebase.auth().signOut()
       await navigate('/')
@@ -17,4 +18,6 @@ axios.interceptors.response.use(
   }
 )
 
-export { axios }
+export {
+  axios
+}

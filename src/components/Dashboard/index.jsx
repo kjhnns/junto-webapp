@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 
 import { axios } from '@api'
+import { getIdToken } from '@auth'
 import { SEO } from '@components/SEO'
 import { Layout } from '@components/Layout'
 import { MenuBar } from '@components/Navigation'
@@ -13,10 +14,10 @@ import { HabitList } from './HabitList'
 
 const loadHabits = async () => {
   try {
-    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const idToken = await getIdToken()
     const habits = await axios.get(`${process.env.GATSBY_API_URL}/action`, {
       headers: {
-        Bearer: sessionCookie,
+        Bearer: idToken,
       },
     })
     if (habits.status !== 200) {
@@ -30,12 +31,12 @@ const loadHabits = async () => {
 
 const uncheckHabit = async (id, timestamp) => {
   try {
-    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const idToken = await getIdToken()
     const result = await axios.delete(
       `${process.env.GATSBY_API_URL}/action/${id}/event/${timestamp}`,
       {
         headers: {
-          Bearer: sessionCookie,
+          Bearer: idToken,
         },
       }
     )
@@ -47,7 +48,7 @@ const uncheckHabit = async (id, timestamp) => {
 
 const checkHabit = async (id, timestamp) => {
   try {
-    const sessionCookie = window.localStorage.getItem('sessionCookie')
+    const idToken = await getIdToken()
     const result = await axios.post(
       `${process.env.GATSBY_API_URL}/action/${id}/event`,
       {
@@ -55,7 +56,7 @@ const checkHabit = async (id, timestamp) => {
       },
       {
         headers: {
-          Bearer: sessionCookie,
+          Bearer: idToken,
         },
       }
     )
