@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex, Box } from '@components/Grid'
 import { Card } from './Card'
-import { Placeholder } from './Placeholder'
+import { PlaceholderLight } from './Placeholder'
 
 const HabitListLoading = () => {
   return (
@@ -13,7 +13,7 @@ const HabitListLoading = () => {
         <Card />
       </Box>
       <Box my={3}>
-        <Placeholder width="200px" />
+        <PlaceholderLight width="200px" />
       </Box>
     </Flex>
   )

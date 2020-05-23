@@ -1,3 +1,4 @@
+// stylelint-disable
 import React from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import styled from '@emotion/styled'
@@ -21,12 +22,25 @@ const Wrapper = styled.div`
   animation-iteration-count: infinite;
   animation-name: ${Shimmer};
   animation-timing-function: linear;
-  background: ${props => props.theme.colors.gray[800]};
+  background: ${props =>
+    props.light ? props.theme.colors.gray[600] : props.theme.colors.gray[800]};
   background: linear-gradient(
     to right,
-    ${props => props.theme.colors.gray[600]} 8%,
-    ${props => props.theme.colors.gray[800]} 18%,
-    ${props => props.theme.colors.gray[600]} 33%
+    ${props =>
+        props.light
+          ? props.theme.colors.gray[300]
+          : props.theme.colors.gray[600]}
+      8%,
+    ${props =>
+        props.light
+          ? props.theme.colors.gray[600]
+          : props.theme.colors.gray[800]}
+      18%,
+    ${props =>
+        props.light
+          ? props.theme.colors.gray[300]
+          : props.theme.colors.gray[600]}
+      33%
   );
   background-size: 800px 104px;
   position: relative;
@@ -40,4 +54,10 @@ const Placeholder = props => (
   </Box>
 )
 
-export { Placeholder }
+const PlaceholderLight = props => (
+  <Box {...props}>
+    <Wrapper light> </Wrapper>
+  </Box>
+)
+
+export { Placeholder, PlaceholderLight }
