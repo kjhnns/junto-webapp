@@ -11,6 +11,7 @@ import { Box } from '@components/Grid'
 
 import { Calendar } from './Calendar'
 import { HabitList } from './HabitList'
+import { HabitListLoading } from './HabitListLoading'
 
 const loadHabits = async () => {
   try {
@@ -107,9 +108,7 @@ const Dashboard = () => {
             selectedDate={selectedDate}
             handleClickOnDate={setSelectedDate}
           />
-          <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-            Loading ...
-          </Text>
+          <HabitListLoading />
         </Box>
       </Layout>
     )

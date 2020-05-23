@@ -110,7 +110,7 @@ const Grid = ({ habitChecks }) => {
                   .reduce((pv, cv) => pv || cv)
                 const isFuture = day.isAfter(today, 'day')
 
-                const defaultColor = isFuture ? 'gray.600' : 'gray.800'
+                const defaultColor = isFuture ? 'gray.500' : 'gray.800'
                 const dayBoxStyle = {
                   display: 'flex',
                   color: isChecked ? 'white' : defaultColor,
