@@ -83,6 +83,8 @@ const Dashboard = () => {
   const [loadingState, setLoadingState] = useState('LOADING')
   const [rawHabits, setRawHabits] = useState([])
 
+  const isOnline = window ? window.navigator.onLine : false
+
   useEffect(() => {
     async function fetchData() {
       const result = await loadHabits()
@@ -124,9 +126,22 @@ const Dashboard = () => {
             selectedDate={selectedDate}
             handleClickOnDate={setSelectedDate}
           />
-          <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-            Oops. Something went wrong.
-          </Text>
+
+          {isOnline ? (
+            <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+              Oops. Something went wrong.
+            </Text>
+          ) : (
+            <Text
+              textAlign="center"
+              fontWeight="600"
+              color="gray.700"
+              fontSize={4}
+              m={5}
+            >
+              You are offline
+            </Text>
+          )}
         </Box>
       </Layout>
     )
