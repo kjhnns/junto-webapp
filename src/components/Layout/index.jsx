@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'theme-ui'
 
-import GlobalStyles from '@style/GlobalStyles'
+import GlobalStyles from '../../util/style/GlobalStyles'
 import theme from '../../gatsby-plugin-theme-ui'
 import 'typeface-inter'
 
