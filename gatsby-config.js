@@ -61,6 +61,7 @@ module.exports = {
         },
       },
     },
+    `gatsby-plugin-offline`,
     {
       resolve: 'gatsby-plugin-firebase',
       options: {
@@ -85,7 +86,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-tagmanager',
       options: {
-        id: 'G-WHC55HK7XS',
+        id: 'GTM-WG8Z79D',
         // datalayer to be set before GTM is loaded
         // should be a stringified object or object
         // Defaults to null
