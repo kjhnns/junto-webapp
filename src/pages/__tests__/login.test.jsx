@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import * as Gatsby from 'gatsby'
 import { render, user, fireEvent, wait } from '@test'
