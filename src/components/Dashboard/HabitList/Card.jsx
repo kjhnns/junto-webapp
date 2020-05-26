@@ -12,13 +12,13 @@ const CheckMarkCircle = styled(Box)(props => ({
   cursor: 'pointer',
   borderRadius: '30px',
   background: props.theme.colors.gray[200],
-  width: ['40px', '50px', '50px'],
-  height: ['40px', '50px', '50px'],
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   transition: `all .2s ease-out`,
-  border: props.border ? `3px ${props.theme.colors.gray[900]} solid` : `0px`,
+  border: props.border
+    ? `3px ${props.theme.colors.gray[900]} solid`
+    : `0px ${props.theme.colors.gray[200]} solid`,
 }))
 
 const Card = ({ title, linkTo, checked, handleClick }) => {
@@ -47,11 +47,22 @@ const Card = ({ title, linkTo, checked, handleClick }) => {
         </Flex>
         <Box onClick={handleClick} ml={3}>
           {checked ? (
-            <CheckMarkCircle border>
+            <CheckMarkCircle
+              sx={{
+                width: ['45px', '50px', '50px'],
+                height: ['45px', '50px', '50px'],
+              }}
+              border
+            >
               <CheckmarkIcon />
             </CheckMarkCircle>
           ) : (
-            <CheckMarkCircle />
+            <CheckMarkCircle
+              sx={{
+                width: ['45px', '50px', '50px'],
+                height: ['45px', '50px', '50px'],
+              }}
+            />
           )}
         </Box>
       </Flex>
