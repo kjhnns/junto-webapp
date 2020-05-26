@@ -2,33 +2,17 @@ import React from 'react'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import styled from '@emotion/styled'
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { keyframes } from '@emotion/core'
 
 const SvgCanvas = styled.svg`
   width: 29px;
   height: 22px;
 `
 
-const StrokeDraw = keyframes`
-  0% {
-    stroke: #000;
-    fill: #000;
-  }
-
-  100% {
-    stroke: #000;
-    fill: #000;
-    stroke-width: 3;
-  }
-`
-
-const CheckMark = styled.path`
-  stroke: none;
-  fill: none;
-  stroke-width: 0;
-  animation: ${StrokeDraw} 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0s forwards;
-`
+const CheckMark = styled.path(props => ({
+  stroke: props.theme.colors.gray[900],
+  fill: props.theme.colors.gray[900],
+  strokeWidth: 3,
+}))
 
 const CheckmarkIcon = () => (
   <SvgCanvas viewBox="0 0 29 22">

@@ -1,9 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import styled from '@emotion/styled'
 import { Flex, Box } from '@components/Grid'
 import { Link } from '@components/Link'
 import { Text } from '@components/Typography'
 import { CheckmarkIcon } from './CheckmarkIcon'
+
+const CheckMarkCircle = styled(Box)(props => ({
+  cursor: 'pointer',
+  borderRadius: '30px',
+  background: props.theme.colors.gray[200],
+  width: ['40px', '50px', '50px'],
+  height: ['40px', '50px', '50px'],
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  transition: `all .2s ease-out`,
+  border: props.border ? `3px ${props.theme.colors.gray[900]} solid` : `0px`,
+}))
 
 const Card = ({ title, linkTo, checked, handleClick }) => {
   return (
@@ -30,20 +46,13 @@ const Card = ({ title, linkTo, checked, handleClick }) => {
           </Link>
         </Flex>
         <Box onClick={handleClick} ml={3}>
-          <Box
-            sx={{
-              cursor: 'pointer',
-              borderRadius: '30px',
-              bg: 'gray.200',
-              width: ['40px', '50px', '50px'],
-              height: ['40px', '50px', '50px'],
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {checked ? <CheckmarkIcon /> : ''}
-          </Box>
+          {checked ? (
+            <CheckMarkCircle border>
+              <CheckmarkIcon />
+            </CheckMarkCircle>
+          ) : (
+            <CheckMarkCircle />
+          )}
         </Box>
       </Flex>
     </Flex>
