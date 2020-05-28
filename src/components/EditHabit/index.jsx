@@ -3,9 +3,12 @@ import PropTypes from 'prop-types'
 
 import { Habit as HabitManager } from '@api'
 import { Layout } from '@components/Layout'
+import { Button } from '@components/Button'
 import { SEO } from '@components/SEO'
 import { Flex } from '@components/Grid'
 import { Text } from '@components/Typography'
+import { MenuBar } from '@components/Navigation'
+
 import { PureEditHabit } from './PureEditHabit'
 
 const EditHabit = ({ habitId }) => {
@@ -29,37 +32,39 @@ const EditHabit = ({ habitId }) => {
 
   if (loadingState === 'LOADING') {
     return (
-      <>
-        <Flex
-          sx={{
-            minHeight: '100vh',
-            bg: 'gray.100',
-            flexDirection: 'column',
-          }}
-        >
-          <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-            Loading ...
-          </Text>
+      <Layout>
+        <Flex width="100%" flexDirection="column">
+          <MenuBar />
+          <Flex flexDirection="column">
+            <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+              Loading ...
+            </Text>
+          </Flex>
         </Flex>
-      </>
+      </Layout>
     )
   }
 
   if (loadingState === 'ERROR') {
     return (
-      <>
-        <Flex
-          sx={{
-            minHeight: '100vh',
-            bg: 'gray.100',
-            flexDirection: 'column',
-          }}
-        >
-          <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-            Ops... Something went wrong.
-          </Text>
+      <Layout>
+        <Flex width="100%" flexDirection="column">
+          <MenuBar />
+          <Flex flexDirection="column">
+            <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+              Oops... Something went wrong.
+            </Text>
+            <Flex justifyContent="center">
+              <Button
+                variant="clear"
+                onClick={() => setLoadingState('LOADING')}
+              >
+                Retry
+              </Button>
+            </Flex>
+          </Flex>
         </Flex>
-      </>
+      </Layout>
     )
   }
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
 
 import { Habit } from '@api'
-
+import { Layout } from '@components/Layout'
 import { Button } from '@components/Button'
 import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
@@ -35,7 +35,7 @@ const HabitDetails = ({ habitId }) => {
 
   if (loadingState === 'LOADING') {
     return (
-      <>
+      <Layout>
         <Flex
           sx={{
             minHeight: '100vh',
@@ -58,25 +58,35 @@ const HabitDetails = ({ habitId }) => {
             </Text>
           </Flex>
         </Flex>
-      </>
+      </Layout>
     )
   }
 
   if (loadingState === 'ERROR') {
     return (
-      <>
+      <Layout>
         <Flex width="100%" flexDirection="column">
           <MenuBar />
-          <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-            Oops. Something went wrong...
-          </Text>
+          <Flex flexDirection="column">
+            <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+              Oops... Something went wrong.
+            </Text>
+            <Flex justifyContent="center">
+              <Button
+                variant="clear"
+                onClick={() => setLoadingState('LOADING')}
+              >
+                Retry
+              </Button>
+            </Flex>
+          </Flex>
         </Flex>
-      </>
+      </Layout>
     )
   }
 
   return (
-    <>
+    <Layout>
       <SEO title={habit.title} />
       <Flex
         sx={{
@@ -134,7 +144,7 @@ const HabitDetails = ({ habitId }) => {
           </Box>
         </Flex>
       </Flex>
-    </>
+    </Layout>
   )
 }
 
