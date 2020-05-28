@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import { Habit as HabitManager } from '@api'
+import { Layout } from '@components/Layout'
+import { SEO } from '@components/SEO'
 import { Flex } from '@components/Grid'
 import { Text } from '@components/Typography'
 import { PureEditHabit } from './PureEditHabit'
@@ -61,7 +63,12 @@ const EditHabit = ({ habitId }) => {
     )
   }
 
-  return <PureEditHabit habit={habit} handleSubmit={HabitManager.update} />
+  return (
+    <Layout>
+      <SEO title="Edit habit" />
+      <PureEditHabit habit={habit} handleSubmit={HabitManager.update} />
+    </Layout>
+  )
 }
 
 EditHabit.propTypes = {

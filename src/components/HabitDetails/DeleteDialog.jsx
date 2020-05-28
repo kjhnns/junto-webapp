@@ -10,7 +10,7 @@ import { Heading, Text } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
 
 const ResponsiveDialog = styled(Dialog)`
-  width: 90vw;
+  width: 100vw;
 
   @media (min-width: 750px) {
     width: 50vw;

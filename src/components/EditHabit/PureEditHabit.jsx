@@ -3,10 +3,8 @@ import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
 import * as Yup from 'yup'
 
-import { Layout } from '@components/Layout'
 import { Box, Flex } from '@components/Grid'
 import { Button } from '@components/Button'
-import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
 import { Formik, Form, Input } from '@components/NewForm'
 import { Link } from '@components/Link'
@@ -21,83 +19,80 @@ const PureEditHabit = ({ habit, handleSubmit }) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   return (
-    <Layout>
-      <SEO title="Edit habit" />
-      <Box
-        sx={{
-          p: [3, 4],
-          minHeight: '100vh',
-          bg: 'gray.100',
-          display: 'grid',
-          alignItems: 'center',
-        }}
-      >
-        <Box>
-          <Formik
-            initialValues={habit}
-            validationSchema={validationSchema}
-            onSubmit={async (values, { setSubmitting }) => {
-              setErrorMessage('')
-              setSubmitting(true)
-              const response = await handleSubmit(values)
-              if (response.error) {
-                setErrorMessage(response.description)
-              }
-              if (response.success) {
-                setSubmitting(false)
-                navigate(`/dashboard`)
-              }
+    <Box
+      sx={{
+        p: [3, 4],
+        minHeight: '100vh',
+        bg: 'gray.100',
+        display: 'grid',
+        alignItems: 'center',
+      }}
+    >
+      <Box>
+        <Formik
+          initialValues={habit}
+          validationSchema={validationSchema}
+          onSubmit={async (values, { setSubmitting }) => {
+            setErrorMessage('')
+            setSubmitting(true)
+            const response = await handleSubmit(values)
+            if (response.error) {
+              setErrorMessage(response.description)
+            }
+            if (response.success) {
               setSubmitting(false)
-            }}
-          >
-            {({ handleSubmit: submit, isSubmitting }) => (
-              <Form onSubmit={submit}>
-                <Box maxWidth="500px" mx="auto">
-                  <Heading as="h1" fontSize={5} mb={3}>
-                    Edit habit
-                  </Heading>
-                  <Box mb={3}>
-                    <Text fontWeight="bold">Title</Text>
-                    <Input name="title" />
-                  </Box>
-                  {errorMessage && (
-                    <Box
-                      sx={{
-                        p: 3,
-                        mb: 3,
-                        bg: 'red.200',
-                        color: 'red.900',
-                        borderRadius: 'default',
-                      }}
-                    >
-                      <Text>{errorMessage}</Text>
-                    </Box>
-                  )}
-                  <Flex
-                    flexDirection={['column', 'row']}
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <Button type="submit" width={['100%', 'auto']}>
-                      {isSubmitting ? `Editing ...` : `Edit`}
-                    </Button>
-                    <Box pt={[2, 0]}>
-                      <Button
-                        variant="clear"
-                        as={Link}
-                        to={`/dashboard/details/${habit.id}`}
-                      >
-                        cancel
-                      </Button>
-                    </Box>
-                  </Flex>
+              navigate(`/dashboard`)
+            }
+            setSubmitting(false)
+          }}
+        >
+          {({ handleSubmit: submit, isSubmitting }) => (
+            <Form onSubmit={submit}>
+              <Box maxWidth="500px" mx="auto">
+                <Heading as="h1" fontSize={5} mb={3}>
+                  Edit habit
+                </Heading>
+                <Box mb={3}>
+                  <Text fontWeight="bold">Title</Text>
+                  <Input name="title" />
                 </Box>
-              </Form>
-            )}
-          </Formik>
-        </Box>
+                {errorMessage && (
+                  <Box
+                    sx={{
+                      p: 3,
+                      mb: 3,
+                      bg: 'red.200',
+                      color: 'red.900',
+                      borderRadius: 'default',
+                    }}
+                  >
+                    <Text>{errorMessage}</Text>
+                  </Box>
+                )}
+                <Flex
+                  flexDirection={['column', 'row']}
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Button type="submit" width={['100%', 'auto']}>
+                    {isSubmitting ? `Editing ...` : `Edit`}
+                  </Button>
+                  <Box pt={[2, 0]}>
+                    <Button
+                      variant="clear"
+                      as={Link}
+                      to={`/dashboard/details/${habit.id}`}
+                    >
+                      cancel
+                    </Button>
+                  </Box>
+                </Flex>
+              </Box>
+            </Form>
+          )}
+        </Formik>
       </Box>
-    </Layout>
+    </Box>
   )
 }
 

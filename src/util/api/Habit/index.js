@@ -4,6 +4,7 @@ import { remove } from './remove'
 import { update } from './update'
 import { check } from './check'
 import { uncheck } from './uncheck'
+import { create } from './create'
 
 const Habit = {
   getAll,
@@ -12,6 +13,7 @@ const Habit = {
   update,
   check,
   uncheck,
+  create,
 }
 
 export { Habit }
