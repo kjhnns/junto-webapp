@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 
-import { axios } from '@api'
-import { getIdToken } from '@auth'
+import { Habit } from '@api'
 import { SEO } from '@components/SEO'
 import { Layout } from '@components/Layout'
 import { MenuBar } from '@components/Navigation'
@@ -12,60 +11,6 @@ import { Box } from '@components/Grid'
 import { Calendar } from './Calendar'
 import { HabitList } from './HabitList'
 import { HabitListLoading } from './HabitListLoading'
-
-const loadHabits = async () => {
-  try {
-    const idToken = await getIdToken()
-    const habits = await axios.get(`${process.env.GATSBY_API_URL}/action`, {
-      headers: {
-        Bearer: idToken,
-      },
-    })
-    if (habits.status !== 200) {
-      return false
-    }
-    return habits.data.data === null ? [] : habits.data.data
-  } catch (error) {
-    return false
-  }
-}
-
-const uncheckHabit = async (id, timestamp) => {
-  try {
-    const idToken = await getIdToken()
-    const result = await axios.delete(
-      `${process.env.GATSBY_API_URL}/action/${id}/event/${timestamp}`,
-      {
-        headers: {
-          Bearer: idToken,
-        },
-      }
-    )
-    return result.status === 200
-  } catch (error) {
-    return false
-  }
-}
-
-const checkHabit = async (id, timestamp) => {
-  try {
-    const idToken = await getIdToken()
-    const result = await axios.post(
-      `${process.env.GATSBY_API_URL}/action/${id}/event`,
-      {
-        date: timestamp,
-      },
-      {
-        headers: {
-          Bearer: idToken,
-        },
-      }
-    )
-    return result.status === 200
-  } catch (error) {
-    return false
-  }
-}
 
 const getTimestamp = (checkedTimeStamps, selectedDay) => {
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
@@ -87,7 +32,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await loadHabits()
+      const result = await Habit.getAll()
       if (result === false) {
         setLoadingState('ERROR')
         return null
@@ -166,7 +111,7 @@ const Dashboard = () => {
           selectedTimestamp={selectedDate.unix()}
           habits={habits}
           handleUnCheckClick={async (id, tsp) => {
-            if (await uncheckHabit(id, tsp)) {
+            if (await Habit.uncheck(id, tsp)) {
               const update = rawHabits.map(habit =>
                 habit.id === id
                   ? {
@@ -179,7 +124,7 @@ const Dashboard = () => {
             }
           }}
           handleCheckClick={async (id, tsp) => {
-            if (await checkHabit(id, tsp)) {
+            if (await Habit.check(id, tsp)) {
               const update = rawHabits.map(habit =>
                 habit.id === id
                   ? {

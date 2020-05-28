@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
-import axios from 'axios'
 import * as Yup from 'yup'
 
-import { getIdToken } from '@auth'
 import { Layout } from '@components/Layout'
 import { Box, Flex } from '@components/Grid'
 import { Button } from '@components/Button'
@@ -19,12 +17,12 @@ const validationSchema = Yup.object().shape({
     .required('Required'),
 })
 
-const PureEditHabit = ({ handleSubmit }) => {
+const PureEditHabit = ({ habitId, currentTitle, handleSubmit }) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   return (
     <Layout>
-      <SEO title="New habit" />
+      <SEO title="Edit habit" />
       <Box
         sx={{
           p: [3, 4],
@@ -37,7 +35,8 @@ const PureEditHabit = ({ handleSubmit }) => {
         <Box>
           <Formik
             initialValues={{
-              title: '',
+              title: currentTitle,
+              habitId,
             }}
             validationSchema={validationSchema}
             onSubmit={async (values, { setSubmitting }) => {
@@ -49,7 +48,7 @@ const PureEditHabit = ({ handleSubmit }) => {
               }
               if (response.success) {
                 setSubmitting(false)
-                navigate('/dashboard')
+                navigate(`/dashboard/details/${habitId}`)
               }
               setSubmitting(false)
             }}
@@ -58,7 +57,7 @@ const PureEditHabit = ({ handleSubmit }) => {
               <Form onSubmit={submit}>
                 <Box maxWidth="500px" mx="auto">
                   <Heading as="h1" fontSize={5} mb={3}>
-                    New habit
+                    Edit habit
                   </Heading>
                   <Box mb={3}>
                     <Text fontWeight="bold">Title</Text>
@@ -83,10 +82,14 @@ const PureEditHabit = ({ handleSubmit }) => {
                     alignItems="center"
                   >
                     <Button type="submit" width={['100%', 'auto']}>
-                      {isSubmitting ? `Creating ...` : `Create`}
+                      {isSubmitting ? `Editing ...` : `Edit`}
                     </Button>
                     <Box pt={[2, 0]}>
-                      <Button variant="clear" as={Link} to="/dashboard">
+                      <Button
+                        variant="clear"
+                        as={Link}
+                        to={`/dashboard/details/${habitId}`}
+                      >
                         cancel
                       </Button>
                     </Box>
@@ -102,32 +105,9 @@ const PureEditHabit = ({ handleSubmit }) => {
 }
 
 PureEditHabit.propTypes = {
+  habitId: PropTypes.string.isRequired,
+  currentTitle: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
 
-const UpdateHabit = async ({ title }) => {
-  try {
-    const idToken = await getIdToken()
-    const result = await axios.post(
-      `${process.env.GATSBY_API_URL}/action`,
-      { title },
-      {
-        headers: {
-          Bearer: idToken,
-        },
-      }
-    )
-    if (result.status !== 200) {
-      return { error: true, message: result.data.message }
-    }
-    return { success: true }
-  } catch (error) {
-    return { error: true, message: error.message }
-  }
-}
-
-const EditHabit = () => {
-  return <PureEditHabit handleSubmit={UpdateHabit} />
-}
-
-export { EditHabit, PureEditHabit }
+export { PureEditHabit }

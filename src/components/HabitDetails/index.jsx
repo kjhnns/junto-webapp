@@ -3,8 +3,9 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
 
-import { axios } from '@api'
-import { getIdToken } from '@auth'
+import { Habit } from '@api'
+
+import { Button } from '@components/Button'
 import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
@@ -13,53 +14,13 @@ import { MenuBar } from '@components/Navigation'
 import { Statistics } from './Statistics'
 import { DeleteDialog } from './DeleteDialog'
 
-const deleteHabit = async habitId => {
-  try {
-    const idToken = await getIdToken()
-    const habit = await axios.delete(
-      `${process.env.GATSBY_API_URL}/action/${habitId}`,
-      {
-        headers: {
-          Bearer: idToken,
-        },
-      }
-    )
-    if (habit.status !== 200 && habit.data.status === 'success') {
-      return { success: false }
-    }
-    return { success: true, data: habit.data.data }
-  } catch (error) {
-    return { success: false }
-  }
-}
-
-const loadHabit = async habitId => {
-  try {
-    const idToken = await getIdToken()
-    const habit = await axios.get(
-      `${process.env.GATSBY_API_URL}/action/${habitId}`,
-      {
-        headers: {
-          Bearer: idToken,
-        },
-      }
-    )
-    if (habit.status !== 200 && habit.data.status === 'success') {
-      return { success: false }
-    }
-    return { success: true, data: habit.data.data }
-  } catch (error) {
-    return { success: false }
-  }
-}
-
 const HabitDetails = ({ habitId }) => {
   const [loadingState, setLoadingState] = useState('LOADING')
   const [habit, setHabit] = useState({})
 
   useEffect(() => {
     async function fetchData() {
-      const result = await loadHabit(habitId)
+      const result = await Habit.getOne(habitId)
       if (result.success === false) {
         setLoadingState('ERROR')
         return null
@@ -150,16 +111,26 @@ const HabitDetails = ({ habitId }) => {
                 <Text py={4}>No statistics available</Text>
               )}
             </Box>
-            <Box my={3}>
+            <Flex my={3}>
+              <Box mr={2}>
+                <Button
+                  onClick={async () => {
+                    await navigate(`/dashboard/edit/${habitId}`)
+                  }}
+                  variant="outline"
+                >
+                  Edit
+                </Button>
+              </Box>
               <DeleteDialog
                 deleteHandler={async () => {
-                  const result = await deleteHabit(habitId)
+                  const result = await Habit.remove(habitId)
                   if (result) {
                     await navigate('/dashboard')
                   }
                 }}
               />
-            </Box>
+            </Flex>
           </Box>
         </Flex>
       </Flex>

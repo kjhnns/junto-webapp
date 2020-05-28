@@ -1,8 +1,21 @@
 import firebase from 'gatsby-plugin-firebase'
-import axios from 'axios'
-import { navigate } from 'gatsby'
 
-const isBrowser = typeof window !== `undefined`
+import { axios } from './http'
+
+import {
+  updatePassword,
+  updateEmail,
+  updateDisplayName,
+  resetPassword,
+} from './modify'
+
+import {
+  handleLogin,
+  handleSignup,
+  isLoggedIn,
+  signOut,
+  getIdToken,
+} from './session'
 
 const getUser = () => {
   if (firebase.auth().currentUser === null) {
@@ -11,171 +24,8 @@ const getUser = () => {
   return firebase.auth().currentUser
 }
 
-const getIdToken = async () => {
-  return getUser().getIdToken()
-}
-
-const handleLogin = async ({ email, password }) => {
-  try {
-    await firebase.auth().signInWithEmailAndPassword(email, password)
-    const userId = getUser().id
-    if (typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.setItem('userID', userId)
-    }
-    return {
-      success: true,
-    }
-  } catch (error) {
-    return {
-      error: true,
-      message: error.message,
-    }
-  }
-}
-
-const resetPassword = async ({ email }) => {
-  try {
-    await firebase.auth().sendPasswordResetEmail(email)
-    return {
-      success: true,
-    }
-  } catch (error) {
-    return {
-      error: true,
-      message: error.message,
-    }
-  }
-}
-
-const handleSignup = async ({ username, email, password }) => {
-  try {
-    const response = await axios.post(
-      `${process.env.GATSBY_API_URL}/user/signup`,
-      {
-        username,
-        password,
-        email,
-      }
-    )
-
-    if (response.data.status === 'success') {
-      return {
-        success: true,
-      }
-    }
-    if (response.error) {
-      return {
-        success: false,
-        message: response.message,
-      }
-    }
-    return {
-      success: false,
-      message: `Not sure what happened here but it doesn't look good...`,
-    }
-  } catch (error) {
-    return {
-      success: false,
-      message: error.message,
-    }
-  }
-}
-
-const isLoggedIn = async () => {
-  if (!isBrowser) {
-    return false
-  }
-
-  try {
-    // eslint-disable-next-line compat/compat
-    await new Promise((resolve, reject) =>
-      firebase.auth().onAuthStateChanged(
-        user => {
-          if (user) {
-            // User is signed in.
-            resolve(user)
-          } else {
-            // No user is signed in.
-            reject(new Error('no user logged in'))
-          }
-        },
-        error => reject(error)
-      )
-    )
-    return true
-  } catch (error) {
-    return false
-  }
-}
-
-const signOut = async () => {
-  window.localStorage.removeItem('idToken')
-  window.localStorage.removeItem('userID')
-  await firebase.auth().signOut()
-  await navigate('/login')
-}
-
-const updatePassword = async ({ currentPassword, password }) => {
-  try {
-    const user = await getUser()
-    const credentials = firebase.auth.EmailAuthProvider.credential(
-      user.email,
-      currentPassword
-    )
-    await user.reauthenticateWithCredential(credentials)
-    await user.updatePassword(password)
-    return {
-      success: true,
-    }
-  } catch (error) {
-    return {
-      success: false,
-      description: error,
-    }
-  }
-}
-
-const updateDisplayName = async ({ password, displayName }) => {
-  try {
-    const user = await getUser()
-    const credentials = firebase.auth.EmailAuthProvider.credential(
-      user.email,
-      password
-    )
-    await user.reauthenticateWithCredential(credentials)
-    await user.updateProfile({ displayName })
-    return {
-      success: true,
-    }
-  } catch (error) {
-    return {
-      success: false,
-      description: error,
-    }
-  }
-}
-
-const updateEmail = async ({ password, email }) => {
-  try {
-    const user = await getUser()
-    const credentials = firebase.auth.EmailAuthProvider.credential(
-      user.email,
-      password
-    )
-    await user.reauthenticateWithCredential(credentials)
-    await user.updateEmail(email)
-    return {
-      success: true,
-    }
-  } catch (error) {
-    return {
-      success: false,
-      description: error,
-    }
-  }
-}
-
 export {
+  axios,
   handleLogin,
   handleSignup,
   isLoggedIn,

@@ -79,7 +79,7 @@ const Grid = ({ habitChecks }) => {
           const isRepeatiousMonth =
             idx > 0 ? grid[idx - 1][6].isSame(week[6], 'month') : false
           return (
-            <>
+            <React.Fragment key={week[6].format('DDD')}>
               <Box textAlign="left">
                 {isRepeatiousMonth ? (
                   ''
@@ -135,7 +135,7 @@ const Grid = ({ habitChecks }) => {
                   </Flex>
                 )
               })}
-            </>
+            </React.Fragment>
           )
         })}
       </Box>
