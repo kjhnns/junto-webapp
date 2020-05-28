@@ -61,13 +61,7 @@ const EditHabit = ({ habitId }) => {
     )
   }
 
-  return (
-    <PureEditHabit
-      habitId={habitId}
-      currentTitle={habit.title}
-      handleSubmit={HabitManager.update}
-    />
-  )
+  return <PureEditHabit habit={habit} handleSubmit={HabitManager.update} />
 }
 
 EditHabit.propTypes = {

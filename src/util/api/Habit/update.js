@@ -1,10 +1,10 @@
 import { axios, getIdToken } from '@auth'
 
-const update = async ({ habitId, title }) => {
+const update = async ({ id, title }) => {
   try {
     const idToken = await getIdToken()
     const result = await axios.put(
-      `${process.env.GATSBY_API_URL}/action/${habitId}`,
+      `${process.env.GATSBY_API_URL}/action/${id}`,
       {
         title,
       },

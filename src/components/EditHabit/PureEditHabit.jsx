@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
     .required('Required'),
 })
 
-const PureEditHabit = ({ habitId, currentTitle, handleSubmit }) => {
+const PureEditHabit = ({ habit, handleSubmit }) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   return (
@@ -34,10 +34,7 @@ const PureEditHabit = ({ habitId, currentTitle, handleSubmit }) => {
       >
         <Box>
           <Formik
-            initialValues={{
-              title: currentTitle,
-              habitId,
-            }}
+            initialValues={habit}
             validationSchema={validationSchema}
             onSubmit={async (values, { setSubmitting }) => {
               setErrorMessage('')
@@ -48,7 +45,7 @@ const PureEditHabit = ({ habitId, currentTitle, handleSubmit }) => {
               }
               if (response.success) {
                 setSubmitting(false)
-                navigate(`/dashboard/details/${habitId}`)
+                navigate(`/dashboard`)
               }
               setSubmitting(false)
             }}
@@ -88,7 +85,7 @@ const PureEditHabit = ({ habitId, currentTitle, handleSubmit }) => {
                       <Button
                         variant="clear"
                         as={Link}
-                        to={`/dashboard/details/${habitId}`}
+                        to={`/dashboard/details/${habit.id}`}
                       >
                         cancel
                       </Button>
@@ -105,8 +102,10 @@ const PureEditHabit = ({ habitId, currentTitle, handleSubmit }) => {
 }
 
 PureEditHabit.propTypes = {
-  habitId: PropTypes.string.isRequired,
-  currentTitle: PropTypes.string.isRequired,
+  habit: PropTypes.objectOf({
+    title: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
 }
 
