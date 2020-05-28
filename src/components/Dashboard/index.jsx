@@ -6,7 +6,8 @@ import { SEO } from '@components/SEO'
 import { Layout } from '@components/Layout'
 import { MenuBar } from '@components/Navigation'
 import { Text } from '@components/Typography'
-import { Box } from '@components/Grid'
+import { Box, Flex } from '@components/Grid'
+import { Button } from '@components/Button'
 
 import { Calendar } from './Calendar'
 import { HabitList } from './HabitList'
@@ -73,19 +74,39 @@ const Dashboard = () => {
           />
 
           {isOnline ? (
-            <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-              Oops. Something went wrong.
-            </Text>
+            <Flex flexDirection="column">
+              <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+                Oops. Something went wrong.
+              </Text>
+              <Flex justifyContent="center">
+                <Button
+                  variant="clear"
+                  onClick={() => setLoadingState('LOADING')}
+                >
+                  Retry
+                </Button>
+              </Flex>
+            </Flex>
           ) : (
-            <Text
-              textAlign="center"
-              fontWeight="600"
-              color="gray.700"
-              fontSize={4}
-              m={5}
-            >
-              You are offline
-            </Text>
+            <Flex flexDirection="column">
+              <Text
+                textAlign="center"
+                fontWeight="600"
+                color="gray.700"
+                fontSize={4}
+                m={5}
+              >
+                You are offline
+              </Text>
+              <Flex justifyContent="center">
+                <Button
+                  variant="clear"
+                  onClick={() => setLoadingState('LOADING')}
+                >
+                  Retry
+                </Button>
+              </Flex>
+            </Flex>
           )}
         </Box>
       </Layout>
