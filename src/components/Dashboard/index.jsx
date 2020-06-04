@@ -132,30 +132,12 @@ const Dashboard = () => {
           selectedTimestamp={selectedDate.unix()}
           habits={habits}
           handleUnCheckClick={async (id, tsp) => {
-            if (await Habit.uncheck(id, tsp)) {
-              const update = rawHabits.map(habit =>
-                habit.id === id
-                  ? {
-                      ...habit,
-                      checked: habit.checked.filter(chked => chked !== tsp),
-                    }
-                  : habit
-              )
-              setRawHabits(update)
-            }
+            const updatedModel = await Habit.uncheck(id, tsp)
+            setRawHabits(updatedModel)
           }}
           handleCheckClick={async (id, tsp) => {
-            if (await Habit.check(id, tsp)) {
-              const update = rawHabits.map(habit =>
-                habit.id === id
-                  ? {
-                      ...habit,
-                      checked: habit.checked ? [...habit.checked, tsp] : [tsp],
-                    }
-                  : habit
-              )
-              setRawHabits(update)
-            }
+            const updatedModel = await Habit.check(id, tsp)
+            setRawHabits(updatedModel)
           }}
         />
       </Box>

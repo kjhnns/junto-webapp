@@ -1,18 +1,26 @@
-import { getAll } from './getAll'
 import { getOne } from './getOne'
 import { remove } from './remove'
 import { update } from './update'
-import { check } from './check'
-import { uncheck } from './uncheck'
+import * as Model from './Model'
+import * as check from './check'
+import * as uncheck from './uncheck'
 import { create } from './create'
 
 const Habit = {
-  getAll,
+  getAll: async () => {
+    return Model.get()
+  },
   getOne,
   remove,
   update,
-  check,
-  uncheck,
+  check: async (id, timestamp) => {
+    const habits = Model.update(check.callName, { id, timestamp })
+    return habits
+  },
+  uncheck: async (id, timestamp) => {
+    const habits = Model.update(uncheck.callName, { id, timestamp })
+    return habits
+  },
   create,
 }
 

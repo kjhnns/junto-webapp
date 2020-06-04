@@ -1,20 +1,32 @@
 import { getIdToken, axios } from '@auth'
 
-const uncheck = async (id, timestamp) => {
+const callName = 'uncheck'
+
+const updateApi = async ({ id, timestamp }) => {
   try {
     const idToken = await getIdToken()
-    const result = await axios.delete(
-      `${process.env.GATSBY_API_URL}/action/${id}/event/${timestamp}`,
-      {
-        headers: {
-          Bearer: idToken,
-        },
-      }
-    )
-    return result.status === 200
+    await axios({
+      method: 'delete',
+      url: `${process.env.GATSBY_API_URL}/action/${id}/event/${timestamp}`,
+      headers: {
+        Bearer: idToken,
+      },
+    })
+    return true
   } catch (error) {
     return false
   }
 }
 
-export { uncheck }
+const updateModel = (model, { id, timestamp }) => {
+  const updatedHabits = model.map(habit => {
+    if (habit.id === id) {
+      // eslint-disable-next-line no-param-reassign
+      habit.checked = habit.checked.filter(tsp => timestamp !== tsp)
+    }
+    return habit
+  })
+  return updatedHabits
+}
+
+export { updateModel, updateApi, callName }
