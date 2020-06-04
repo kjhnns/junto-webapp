@@ -5,7 +5,9 @@ import { Habit } from '@api'
 import { SEO } from '@components/SEO'
 import { Layout } from '@components/Layout'
 import { MenuBar } from '@components/Navigation'
-import { Box } from '@components/Grid'
+import { Flex, Box } from '@components/Grid'
+import { Text } from '@components/Typography'
+import { Button } from '@components/Button'
 
 import { Calendar } from './Calendar'
 import { HabitList } from './HabitList'
@@ -60,6 +62,34 @@ const Dashboard = () => {
             handleClickOnDate={setSelectedDate}
           />
           <HabitListLoading />
+        </Box>
+      </Layout>
+    )
+  }
+
+  if (loadingState === 'ERROR') {
+    return (
+      <Layout>
+        <SEO title="Dashboard" />
+        <Box width="100%">
+          <MenuBar />
+          <Calendar
+            selectedDate={selectedDate}
+            handleClickOnDate={setSelectedDate}
+          />
+          <Flex flexDirection="column">
+            <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
+              Oops. Something went wrong.
+            </Text>
+            <Flex justifyContent="center">
+              <Button
+                variant="clear"
+                onClick={() => setLoadingState('LOADING')}
+              >
+                Retry
+              </Button>
+            </Flex>
+          </Flex>
         </Box>
       </Layout>
     )

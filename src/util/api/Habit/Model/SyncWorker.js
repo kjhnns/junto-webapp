@@ -4,6 +4,42 @@ import * as Storage from './Storage'
 
 const self = {
   syncWorkerProcessId: false,
+  syncingApi: false,
+  syncingModelUpdateQueues: [],
+}
+
+const syncApi = async () => {
+  const applyModelUpdates = async model => {
+    if (self.syncingModelUpdateQueues.length > 0) {
+      const { call, payload } = self.syncingModelUpdateQueues[0]
+      const result = await Updates.calls[`${call}`].updateModel(model, payload)
+      self.syncingModelUpdateQueues.shift()
+      return applyModelUpdates(result)
+    }
+    return model
+  }
+
+  if (UpdateQueue.length() === 0) {
+    // sync starts and syncworker starts to record all model updates
+    self.syncingApi = true
+    const model = await Updates.calls.getAll.loadApi()
+
+    if (model === false) {
+      // sync was not possible
+      return
+    }
+    self.syncingApi = false
+    const syncedModel = await applyModelUpdates(model)
+    Storage.write(syncedModel)
+    if (window && CustomEvent && 'dispatchEvent' in window) {
+      const updateEvent = new CustomEvent('habitModelUpdated', {
+        detail: { model },
+      })
+      window.dispatchEvent(updateEvent)
+    }
+
+    self.syncWorkerProcessId = false
+  }
 }
 
 const start = async processId => {
@@ -12,9 +48,12 @@ const start = async processId => {
       setTimeout(() => start(processId), 3000)
     }
     if (self.syncWorkerProcessId === false) {
-      self.syncWorkerProcessId = +Date.now()
       setTimeout(() => start(self.syncWorkerProcessId), 3000)
     }
+  }
+
+  if (self.syncingApi === true) {
+    self.syncingModelUpdateQueues = UpdateQueue.copy()
   }
 
   if (!window.navigator.onLine) {
@@ -22,31 +61,28 @@ const start = async processId => {
     return
   }
 
-  if (UpdateQueue.length() > 0) {
+  if (
+    UpdateQueue.length() > 0 &&
+    (self.syncWorkerProcessId === processId ||
+      self.syncWorkerProcessId === false)
+  ) {
+    self.syncWorkerProcessId = +Date.now()
     const currentItem = UpdateQueue.first()
     const { call, payload } = currentItem
     const result = await Updates.calls[`${call}`].updateApi(payload)
     if (result) {
       UpdateQueue.dequeue()
-      await start(false)
+      await start(self.syncWorkerProcessId)
     } else {
-      postPoneSync()
+      postPoneSync(self.syncWorkerProcessId)
     }
     return
   }
 
-  // after SyncWorker digested all updates, sync with api
-  const model = await Updates.calls.getAll.loadApi()
-  if (UpdateQueue.length() === 0) {
-    Storage.write(model)
-    if (window && CustomEvent && 'dispatchEvent' in window) {
-      const updateEvent = new CustomEvent('habitModelUpdated', {
-        detail: { model },
-      })
-      window.dispatchEvent(updateEvent)
-    }
+  // after SyncWorker digested all updates it syncs with api
+  if (self.syncingApi === false) {
+    syncApi()
   }
-  self.syncWorkerProcessId = false
 }
 
 export { start }

@@ -37,4 +37,8 @@ const length = () => {
   return queue.length
 }
 
-export { enqueue, first, dequeue, length }
+const copy = () => {
+  return read()
+}
+
+export { enqueue, first, dequeue, length, copy }

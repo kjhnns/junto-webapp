@@ -14,12 +14,10 @@ const Habit = {
   remove,
   update,
   check: async (id, timestamp) => {
-    const habits = Model.update(check.callName, { id, timestamp })
-    return habits
+    return Model.update(check.callName, { id, timestamp })
   },
   uncheck: async (id, timestamp) => {
-    const habits = Model.update(uncheck.callName, { id, timestamp })
-    return habits
+    return Model.update(uncheck.callName, { id, timestamp })
   },
   create,
 }

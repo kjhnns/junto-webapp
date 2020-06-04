@@ -17,7 +17,7 @@ const loadApi = async () => {
 
     return result
   } catch (error) {
-    return []
+    return false
   }
 }
 
