@@ -39,10 +39,12 @@ const start = async processId => {
   const model = await Updates.calls.getAll.loadApi()
   if (UpdateQueue.length() === 0) {
     Storage.write(model)
-    const updateEvent = new CustomEvent('habitModelUpdated', {
-      detail: { model },
-    })
-    window.dispatchEvent(updateEvent)
+    if (window && CustomEvent && 'dispatchEvent' in window) {
+      const updateEvent = new CustomEvent('habitModelUpdated', {
+        detail: { model },
+      })
+      window.dispatchEvent(updateEvent)
+    }
   }
   self.syncWorkerProcessId = false
 }
