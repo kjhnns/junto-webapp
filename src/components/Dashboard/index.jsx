@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import moment from 'moment'
 
 import { Habit } from '@api'
 import { SEO } from '@components/SEO'
 import { Layout } from '@components/Layout'
 import { MenuBar } from '@components/Navigation'
-import { Text } from '@components/Typography'
-import { Box, Flex } from '@components/Grid'
-import { Button } from '@components/Button'
+import { Box } from '@components/Grid'
 
 import { Calendar } from './Calendar'
 import { HabitList } from './HabitList'
 import { HabitListLoading } from './HabitListLoading'
+import { useEventListener } from './EventListener'
 
 const getTimestamp = (checkedTimeStamps, selectedDay) => {
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
@@ -29,15 +28,9 @@ const Dashboard = () => {
   const [loadingState, setLoadingState] = useState('LOADING')
   const [rawHabits, setRawHabits] = useState([])
 
-  const isOnline = window ? window.navigator.onLine : false
-
   useEffect(() => {
     async function fetchData() {
       const result = await Habit.getAll()
-      if (result === false) {
-        setLoadingState('ERROR')
-        return null
-      }
       setLoadingState('SUCCESSFUL')
       setRawHabits(result)
       return true
@@ -45,6 +38,16 @@ const Dashboard = () => {
 
     fetchData()
   }, [])
+
+  const handler = useCallback(
+    ({ detail }) => {
+      setRawHabits(detail.model)
+    },
+    [setRawHabits]
+  )
+
+  // Add event listener using our hook
+  useEventListener('habitModelUpdated', handler)
 
   if (loadingState === 'LOADING') {
     return (
@@ -57,57 +60,6 @@ const Dashboard = () => {
             handleClickOnDate={setSelectedDate}
           />
           <HabitListLoading />
-        </Box>
-      </Layout>
-    )
-  }
-
-  if (loadingState === 'ERROR') {
-    return (
-      <Layout>
-        <SEO title="Dashboard" />
-        <Box width="100%">
-          <MenuBar />
-          <Calendar
-            selectedDate={selectedDate}
-            handleClickOnDate={setSelectedDate}
-          />
-
-          {isOnline ? (
-            <Flex flexDirection="column">
-              <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-                Oops. Something went wrong.
-              </Text>
-              <Flex justifyContent="center">
-                <Button
-                  variant="clear"
-                  onClick={() => setLoadingState('LOADING')}
-                >
-                  Retry
-                </Button>
-              </Flex>
-            </Flex>
-          ) : (
-            <Flex flexDirection="column">
-              <Text
-                textAlign="center"
-                fontWeight="600"
-                color="gray.700"
-                fontSize={4}
-                m={5}
-              >
-                You are offline
-              </Text>
-              <Flex justifyContent="center">
-                <Button
-                  variant="clear"
-                  onClick={() => setLoadingState('LOADING')}
-                >
-                  Retry
-                </Button>
-              </Flex>
-            </Flex>
-          )}
         </Box>
       </Layout>
     )
