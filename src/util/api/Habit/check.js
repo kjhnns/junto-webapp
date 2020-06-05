@@ -24,8 +24,13 @@ const updateApi = async ({ id, timestamp }) => {
 const updateModel = (model, { id, timestamp }) => {
   const updatedHabits = model.map(habit => {
     if (habit.id === id) {
-      // eslint-disable-next-line no-param-reassign
-      habit.checked = [...habit.checked, timestamp]
+      if (habit.checked) {
+        // eslint-disable-next-line no-param-reassign
+        habit.checked = [...habit.checked, timestamp]
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        habit.checked = [timestamp]
+      }
     }
     return habit
   })
