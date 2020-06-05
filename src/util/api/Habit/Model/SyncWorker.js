@@ -20,8 +20,13 @@ const syncApi = async () => {
   }
 
   if (UpdateQueue.length() === 0) {
-    // sync starts and syncworker starts to record all model updates
+    // sync starts and syncworker copies every change from the update queue
+    // which was not yet pushed to the backend.
+    // As the backend model will miss these updates, we need to apply them after we received it
+    // to not revert the users changes that happen in the time we are waiting for the
+    // model from the backend.
     self.syncingApi = true
+    self.syncingModelUpdateQueues = UpdateQueue.copy()
     const model = await Updates.calls.getAll.loadApi()
 
     if (model === false) {
