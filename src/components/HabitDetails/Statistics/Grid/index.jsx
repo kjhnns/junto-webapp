@@ -61,7 +61,7 @@ const Grid = ({ habitChecks }) => {
   const weeks = Defaults.calcColumns(componentWidth)
   const grid = createGrid(weeks)
   const gridFirstDay = moment()
-    .subtract(12, 'week')
+    .subtract(weeks, 'week')
     .startOf('isoWeek')
     .subtract(1, 'day')
 
