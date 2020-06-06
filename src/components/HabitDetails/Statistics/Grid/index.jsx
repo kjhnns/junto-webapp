@@ -82,7 +82,6 @@ const Grid = ({ habitChecks }) => {
           px: [1, 4, 4],
           py: 3,
           bg: 'white',
-          maxWidth: '700px',
           borderRadius: [0, 'default'],
         }}
         py={3}
