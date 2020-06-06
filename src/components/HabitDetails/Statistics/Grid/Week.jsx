@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import { calcXCoo, calcYCoo, DayWidth, DayHeight } from './Defaults'
 
 const Week = ({ column, columns, checks, week }) => {
+  const today = moment()
   return week.map((day, idx) => {
     const isChecked = checks
       .map(check => check.isSame(day, 'day'))
@@ -10,6 +12,10 @@ const Week = ({ column, columns, checks, week }) => {
 
     const xCoo = calcXCoo(columns, column)
     const yCoo = calcYCoo(idx)
+
+    if (day.isAfter(today, 'day')) {
+      return ''
+    }
 
     return (
       <rect

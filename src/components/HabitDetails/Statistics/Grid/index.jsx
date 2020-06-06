@@ -9,30 +9,28 @@ import { MonthName } from './MonthName'
 import { WeekName } from './WeekName'
 import * as Defaults from './Defaults'
 
-const initWeek = firstDay => {
+const initWeek = subWeeks => {
+  const firstDay = moment()
+    .subtract(subWeeks, 'week')
+    .startOf('isoWeek')
   return [
-    firstDay.clone().subtract(6, 'day'),
-    firstDay.clone().subtract(5, 'day'),
-    firstDay.clone().subtract(4, 'day'),
-    firstDay.clone().subtract(3, 'day'),
-    firstDay.clone().subtract(2, 'day'),
-    firstDay.clone().subtract(1, 'day'),
     firstDay,
+    firstDay.clone().add(1, 'day'),
+    firstDay.clone().add(2, 'day'),
+    firstDay.clone().add(3, 'day'),
+    firstDay.clone().add(4, 'day'),
+    firstDay.clone().add(5, 'day'),
+    firstDay.clone().add(6, 'day'),
   ]
 }
 
-const createGrid = (week, grid, day) => {
-  const trailingDay = day || moment()
+const createGrid = (week, grid) => {
   const currGrid = grid || []
   if (week < 0) {
     return currGrid
   }
-  const updatedGrid = [...currGrid, initWeek(trailingDay)]
-  return createGrid(
-    week - 1,
-    updatedGrid,
-    trailingDay.clone().subtract(1, 'week')
-  )
+  const updatedGrid = [initWeek(week), ...currGrid]
+  return createGrid(week - 1, updatedGrid)
 }
 
 const useResize = myRef => {
@@ -60,11 +58,11 @@ const Grid = ({ habitChecks }) => {
 
   const weeks = Defaults.calcColumns(componentWidth)
   const grid = createGrid(weeks)
+
   const gridFirstDay = moment()
     .subtract(weeks, 'week')
     .startOf('isoWeek')
     .subtract(1, 'day')
-
   const filteredChecks = habitChecks
     .map(check => moment.unix(check))
     .filter(d => d.isAfter(gridFirstDay))
@@ -103,11 +101,12 @@ const Grid = ({ habitChecks }) => {
                 idx === grid.length - 1
               return (
                 <>
-                  {showMonth ? (
-                    <MonthName columns={weeks} column={idx} week={week} />
-                  ) : (
-                    ''
-                  )}
+                  <MonthName
+                    show={showMonth}
+                    columns={weeks}
+                    column={idx}
+                    week={week}
+                  />
                   <WeekName weekIdx={idx} week={week} />
                   <Week
                     // eslint-disable-next-line react/no-array-index-key
