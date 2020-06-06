@@ -71,7 +71,7 @@ const Grid = ({ habitChecks }) => {
 
   return (
     <Flex flexDirection="column" py={3}>
-      <Flex>
+      <Flex px={[3, 0]}>
         <Text as="h2" py={3}>
           Checkmarks
         </Text>
@@ -83,7 +83,7 @@ const Grid = ({ habitChecks }) => {
           py: 3,
           bg: 'white',
           maxWidth: '700px',
-          borderRadius: 'default',
+          borderRadius: [0, 'default'],
         }}
         py={3}
       >

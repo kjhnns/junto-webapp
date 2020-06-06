@@ -21,7 +21,7 @@ const Overall = ({ habitChecks }) => {
 
   return (
     <Box>
-      <Text as="h2" py={3}>
+      <Text as="h2" px={[3, 0]} py={3}>
         Overall
       </Text>
       <Flex
@@ -29,7 +29,7 @@ const Overall = ({ habitChecks }) => {
         sx={{
           bg: 'white',
           flex: 1,
-          borderRadius: 'default',
+          borderRadius: [0, 'default'],
           py: 1,
           px: [3, 4, 4],
           justifyContent: 'space-between',

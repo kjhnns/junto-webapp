@@ -98,7 +98,7 @@ const HabitDetails = ({ habitId }) => {
         <MenuBar />
         <Flex
           sx={{
-            p: [3, 4],
+            p: [0, 4],
             flex: '1',
             bg: 'gray.200',
             flexDirection: 'column',
@@ -108,9 +108,14 @@ const HabitDetails = ({ habitId }) => {
           <Box maxWidth="800px" width="100%">
             <Heading
               as="h1"
-              sx={{ fontSize: 5, pt: 3, textTransform: 'uppercase' }}
+              sx={{
+                fontSize: 5,
+                px: [3, 0],
+                pt: 3,
+                textTransform: 'uppercase',
+              }}
             >{`${habit.title}`}</Heading>
-            <Text>
+            <Text px={[3, 0]}>
               Created on{' '}
               {`${moment.unix(habit.created_at).format('YYYY-MM-DD')}`}
             </Text>
@@ -118,10 +123,12 @@ const HabitDetails = ({ habitId }) => {
               {habit.checked ? (
                 <Statistics habitChecks={habit.checked} />
               ) : (
-                <Text py={4}>No statistics available</Text>
+                <Text py={4} px={[3, 0]}>
+                  No statistics available
+                </Text>
               )}
             </Box>
-            <Flex my={3}>
+            <Flex my={3} px={[3, 0]}>
               <Box mr={2}>
                 <Button
                   onClick={async () => {
