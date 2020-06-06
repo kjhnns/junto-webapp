@@ -26,7 +26,6 @@ const syncApi = async () => {
     // to not revert the users changes that happen in the time we are waiting for the
     // model from the backend.
     self.syncingApi = true
-    self.syncingModelUpdateQueues = UpdateQueue.copy()
     const model = await Updates.calls.getAll.loadApi()
 
     if (model === false) {
@@ -48,7 +47,7 @@ const syncApi = async () => {
 }
 
 const start = async processId => {
-  const postPoneSync = () => {
+  const respawnSync = () => {
     if (self.syncWorkerProcessId === processId) {
       setTimeout(() => start(processId), 3000)
     }
@@ -62,10 +61,13 @@ const start = async processId => {
   }
 
   if (!window.navigator.onLine) {
-    postPoneSync()
+    respawnSync()
     return
   }
 
+  // If there are pending updates for the API push them to the backend.
+  // If API not reachable respawn a syncWorker to try again later
+  // If API call was successfull stop syncWorker
   if (
     UpdateQueue.length() > 0 &&
     (self.syncWorkerProcessId === processId ||
@@ -79,7 +81,7 @@ const start = async processId => {
       UpdateQueue.dequeue()
       await start(self.syncWorkerProcessId)
     } else {
-      postPoneSync(self.syncWorkerProcessId)
+      respawnSync(self.syncWorkerProcessId)
     }
     return
   }
