@@ -79,7 +79,7 @@ const Grid = ({ habitChecks }) => {
       <Flex
         flexDirection="column"
         sx={{
-          px: [0, 4, 4],
+          px: [1, 4, 4],
           py: 3,
           bg: 'white',
           maxWidth: '700px',
