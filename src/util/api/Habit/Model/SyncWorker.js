@@ -81,14 +81,14 @@ const start = async processId => {
       UpdateQueue.dequeue()
       await start(self.syncWorkerProcessId)
     } else {
-      respawnSync(self.syncWorkerProcessId)
+      await respawnSync(self.syncWorkerProcessId)
     }
     return
   }
 
   // after SyncWorker digested all updates it syncs with api
   if (self.syncingApi === false) {
-    syncApi()
+    await syncApi()
   }
 }
 
