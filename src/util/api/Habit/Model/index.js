@@ -18,11 +18,9 @@ const update = (call, payload) => {
 const get = async () => {
   const local = Storage.read()
   if (!local) {
-    const model = await Updates.calls.getAll.loadApi()
-    Storage.write(model)
-    return model
+    await SyncWorker.start()
+    return Storage.read()
   }
-  SyncWorker.start(false)
   return local
 }
 
