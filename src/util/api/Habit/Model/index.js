@@ -16,12 +16,7 @@ const update = (call, payload) => {
 }
 
 const get = async () => {
-  const local = Storage.read()
-  if (!local) {
-    await SyncWorker.start()
-    return Storage.read()
-  }
-  return local
+  return SyncWorker.start()
 }
 
 export { update, get }

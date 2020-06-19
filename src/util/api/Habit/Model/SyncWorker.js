@@ -30,7 +30,7 @@ const syncApi = async () => {
 
     if (model === false) {
       // sync was not possible
-      return
+      return Storage.read()
     }
     self.syncingApi = false
     const syncedModel = await applyModelUpdates(model)
@@ -44,6 +44,8 @@ const syncApi = async () => {
 
     self.syncWorkerProcessId = false
   }
+
+  return Storage.read()
 }
 
 const start = async processId => {
@@ -62,7 +64,7 @@ const start = async processId => {
 
   if (!window.navigator.onLine) {
     respawnSync()
-    return
+    return Storage.read()
   }
 
   // If there are pending updates for the API push them to the backend.
@@ -79,17 +81,17 @@ const start = async processId => {
     const result = await Updates.calls[`${call}`].updateApi(payload)
     if (result) {
       UpdateQueue.dequeue()
-      await start(self.syncWorkerProcessId)
-    } else {
-      await respawnSync(self.syncWorkerProcessId)
+      return start(self.syncWorkerProcessId)
     }
-    return
+    return respawnSync(self.syncWorkerProcessId)
   }
 
   // after SyncWorker digested all updates it syncs with api
   if (self.syncingApi === false) {
-    await syncApi()
+    return syncApi()
   }
+
+  return Storage.read()
 }
 
 export { start }
