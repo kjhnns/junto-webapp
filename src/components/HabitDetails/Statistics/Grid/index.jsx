@@ -52,7 +52,7 @@ const useResize = myRef => {
   return { width, height }
 }
 
-const Grid = ({ habitChecks }) => {
+const Grid = ({ habitChecks, createdAt }) => {
   const ref = useRef()
   const { width: componentWidth } = useResize(ref)
 
@@ -119,6 +119,7 @@ const Grid = ({ habitChecks }) => {
                     column={idx}
                     checks={filteredChecks}
                     week={week}
+                    createdAt={createdAt}
                   />
                 </>
               )
@@ -132,5 +133,6 @@ const Grid = ({ habitChecks }) => {
 
 Grid.propTypes = {
   habitChecks: PropTypes.arrayOf(PropTypes.number).isRequired,
+  createdAt: PropTypes.number.isRequired,
 }
 export { Grid }
