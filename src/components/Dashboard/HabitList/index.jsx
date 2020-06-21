@@ -30,7 +30,7 @@ const HabitList = ({
 
   return (
     <Flex flexDirection="column" alignItems="center" my={[2, 3]}>
-      {habits.map(({ id, title, checked }) => (
+      {habits.map(({ id, title, checked, streak }) => (
         <Box
           key={id}
           maxWidth="800px"
@@ -40,6 +40,7 @@ const HabitList = ({
         >
           <Card
             title={title}
+            streak={streak}
             linkTo={`/dashboard/details/${id}`}
             checked={checked > 0}
             handleClick={() => {

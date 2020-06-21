@@ -16,12 +16,9 @@ const CheckMarkCircle = styled(Box)(props => ({
   alignItems: 'center',
   justifyContent: 'center',
   transition: `all .2s ease-out`,
-  border: props.border
-    ? `3px ${props.theme.colors.gray[900]} solid`
-    : `0px ${props.theme.colors.gray[200]} solid`,
 }))
 
-const Card = ({ title, linkTo, checked, handleClick }) => {
+const Card = ({ title, streak, linkTo, checked, handleClick }) => {
   return (
     <Flex
       sx={{
@@ -38,12 +35,19 @@ const Card = ({ title, linkTo, checked, handleClick }) => {
         justifyContent="space-between"
         flex="1"
       >
-        <Flex alignItems="flex-start" flexDirection="column" flex="1">
-          <Link sx={{ textDecoration: 'none' }} to={`${linkTo}`}>
+        <Flex alignItems="center" flexDirection="row" flex="1">
+          <Link flex="1" sx={{ textDecoration: 'none' }} to={`${linkTo}`}>
             <Text as="h2" sx={{ fontSize: [3, 4, 4] }}>
               {title}
             </Text>
           </Link>
+          {streak > 0 ? (
+            <Box justifyContent="center">
+              <Text as="h3">{streak}</Text>
+            </Box>
+          ) : (
+            ''
+          )}
         </Flex>
         <Box onClick={handleClick} ml={3}>
           {checked ? (
@@ -72,6 +76,7 @@ const Card = ({ title, linkTo, checked, handleClick }) => {
 
 Card.propTypes = {
   title: PropTypes.string.isRequired,
+  streak: PropTypes.number.isRequired,
   linkTo: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
