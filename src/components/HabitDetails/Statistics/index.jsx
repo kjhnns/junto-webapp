@@ -5,15 +5,15 @@ import { Flex } from '@components/Grid'
 import { Overall } from './Overall'
 import { Grid } from './Grid'
 
-const Statistics = ({ habitChecks, createdAt }) => (
+const Statistics = ({ habit }) => (
   <Flex flexDirection="column">
-    <Overall habitChecks={habitChecks} />
-    <Grid habitChecks={habitChecks} createdAt={createdAt} />
+    <Overall habitChecks={habit.checked} />
+    <Grid habit={habit} />
   </Flex>
 )
 
 Statistics.propTypes = {
-  habitChecks: PropTypes.arrayOf(PropTypes.number).isRequired,
-  createdAt: PropTypes.number.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  habit: PropTypes.object.isRequired,
 }
 export { Statistics }

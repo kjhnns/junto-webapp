@@ -121,10 +121,7 @@ const HabitDetails = ({ habitId }) => {
             </Text>
             <Box>
               {habit.checked ? (
-                <Statistics
-                  habitChecks={habit.checked}
-                  createdAt={habit.created_at}
-                />
+                <Statistics habit={habit} />
               ) : (
                 <Text py={4} px={[3, 0]}>
                   No statistics available

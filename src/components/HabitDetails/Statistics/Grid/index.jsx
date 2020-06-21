@@ -52,16 +52,17 @@ const useResize = myRef => {
   return { width, height }
 }
 
-const Grid = ({ habitChecks, createdAt }) => {
+const Grid = ({ habit }) => {
   const ref = useRef()
   const { width: componentWidth } = useResize(ref)
 
-  const momentHabits = habitChecks.map(check => moment.unix(check))
+  const momentHabits = habit.checked.map(check => moment.unix(check))
   const weeksFromSpace = Defaults.calcColumns(componentWidth)
-  const habitFirstDay = momentHabits.reduce((pV, cV) =>
-    pV.isBefore(cV) ? pV : cV
+
+  const weeksFromFirstDay = moment().diff(
+    moment.unix(habit.created_at),
+    'weeks'
   )
-  const weeksFromFirstDay = moment().diff(habitFirstDay, 'weeks')
   const adjustedWeeks = Math.min(weeksFromFirstDay, weeksFromSpace)
 
   const grid = createGrid(adjustedWeeks)
@@ -119,7 +120,7 @@ const Grid = ({ habitChecks, createdAt }) => {
                     column={idx}
                     checks={filteredChecks}
                     week={week}
-                    createdAt={createdAt}
+                    createdAt={habit.created_at}
                   />
                 </>
               )
@@ -132,7 +133,7 @@ const Grid = ({ habitChecks, createdAt }) => {
 }
 
 Grid.propTypes = {
-  habitChecks: PropTypes.arrayOf(PropTypes.number).isRequired,
-  createdAt: PropTypes.number.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  habit: PropTypes.object.isRequired,
 }
 export { Grid }
