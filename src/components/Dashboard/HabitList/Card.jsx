@@ -18,7 +18,7 @@ const CheckMarkCircle = styled(Box)(props => ({
   transition: `all .2s ease-out`,
 }))
 
-const Card = ({ title, streak, linkTo, checked, handleClick }) => {
+const Card = ({ title, linkTo, checked, handleClick }) => {
   return (
     <Flex
       sx={{
@@ -41,13 +41,6 @@ const Card = ({ title, streak, linkTo, checked, handleClick }) => {
               {title}
             </Text>
           </Link>
-          {streak > 0 ? (
-            <Box justifyContent="center">
-              <Text as="h3">{streak}</Text>
-            </Box>
-          ) : (
-            ''
-          )}
         </Flex>
         <Box onClick={handleClick} ml={3}>
           {checked ? (
@@ -76,7 +69,6 @@ const Card = ({ title, streak, linkTo, checked, handleClick }) => {
 
 Card.propTypes = {
   title: PropTypes.string.isRequired,
-  streak: PropTypes.number.isRequired,
   linkTo: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,

@@ -25,24 +25,6 @@ const getTimestamp = (checkedTimeStamps, selectedDay) => {
   return checked.reduce((pv, cv) => Math.max(pv, cv))
 }
 
-const calcStreak = checkedTimeStamps => {
-  if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
-    return 0
-  }
-  const sortedTsps = checkedTimeStamps.sort((a, b) => b - a)
-  const checkedObjs = sortedTsps.map(moment.unix)
-
-  const streakCounter = (curr, checks) => {
-    if (checks.length > 0 && curr.isSame(checks[0], 'day')) {
-      checks.shift()
-      return 1 + streakCounter(curr.subtract(1, 'days'), checks)
-    }
-    return 0
-  }
-
-  return streakCounter(moment(), checkedObjs)
-}
-
 const Dashboard = () => {
   const [selectedDate, setSelectedDate] = useState(moment())
   const [loadingState, setLoadingState] = useState('LOADING')
@@ -117,7 +99,6 @@ const Dashboard = () => {
   const habits = rawHabits.map(habit => ({
     ...habit,
     checked: getTimestamp(habit.checked, selectedDate),
-    streak: calcStreak(habit.checked),
   }))
 
   return (
