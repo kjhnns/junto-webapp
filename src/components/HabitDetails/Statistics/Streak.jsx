@@ -67,7 +67,7 @@ const Streak = ({ habit }) => {
                   color: isTodayIncluded ? 'gray.800' : 'gray.500',
                 }}
               >
-                Streak
+                Days
               </Text>
             </>
           ) : (
