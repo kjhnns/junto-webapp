@@ -9,7 +9,7 @@ import { SEO } from '@components/SEO'
 import { Box, Flex } from '@components/Grid'
 import { Button } from '@components/Button'
 import { Heading, Text } from '@components/Typography'
-import { Formik, Form, Input } from '@components/NewForm'
+import { Formik, Form, Input } from '@components/Form'
 import { Link } from '@components/Link'
 
 const validationSchema = Yup.object().shape({

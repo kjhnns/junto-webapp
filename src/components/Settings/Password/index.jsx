@@ -10,7 +10,7 @@ import { Box, Flex } from '@components/Grid'
 import { Button } from '@components/Button'
 import { SEO } from '@components/SEO'
 import { Heading, Text } from '@components/Typography'
-import { Form, Input } from '@components/NewForm'
+import { Form, Input } from '@components/Form'
 import { Link } from '@components/Link'
 
 const validationSchema = Yup.object().shape({
