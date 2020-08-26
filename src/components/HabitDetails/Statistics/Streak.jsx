@@ -47,33 +47,31 @@ const Streak = ({ habit }) => {
           justifyContent: 'space-between',
         }}
       >
-        <Flex flexDirection="column" py={2}>
-          {isThereAStreak ? (
-            <>
-              <Text
-                sx={{
-                  textAlign: 'center',
-                  fontSize: 3,
-                  py: 2,
-                  color: isTodayIncluded ? 'gray.800' : 'gray.500',
-                }}
-              >
-                {streak}
-              </Text>
-              <Text
-                sx={{
-                  textAlign: 'center',
-                  fontSize: [1, 2, 2],
-                  color: isTodayIncluded ? 'gray.800' : 'gray.500',
-                }}
-              >
-                Days
-              </Text>
-            </>
-          ) : (
-            'Build a streak to motivate yourself!'
-          )}
-        </Flex>
+        {isThereAStreak ? (
+          <Flex flexDirection="column" py={2}>
+            <Text
+              sx={{
+                textAlign: 'center',
+                fontSize: 3,
+                py: 2,
+                color: isTodayIncluded ? 'gray.800' : 'gray.500',
+              }}
+            >
+              {streak}
+            </Text>
+            <Text
+              sx={{
+                textAlign: 'center',
+                fontSize: [1, 2, 2],
+                color: isTodayIncluded ? 'gray.800' : 'gray.500',
+              }}
+            >
+              Days
+            </Text>
+          </Flex>
+        ) : (
+          <Text py={3}>Build a streak to motivate yourself!</Text>
+        )}
       </Flex>
     </Box>
   )

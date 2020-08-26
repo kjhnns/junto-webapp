@@ -16,6 +16,11 @@ const update = (call, payload) => {
 }
 
 const get = async () => {
+  const currentModel = Storage.read()
+  if (currentModel) {
+    SyncWorker.start()
+    return currentModel
+  }
   return SyncWorker.start()
 }
 
