@@ -36,15 +36,11 @@ const IndexPage = () => {
             junto
           </Heading>
           <Text mb={3} fontSize={4} color="gray.600">
-            social habit tracking
+            simple habit tracking
           </Text>
           <Text fontSize={3} lineHeight="1.4">
-            Good resolutions don’t work — social mechanisms do. Junto levarages
-            behavioral science to help users achieve their personal goals by
-            building good habits and breaking bad habits —{' '}
-            <Text display="inline" fontWeight="bold">
-              together.
-            </Text>
+            Good resolutions don’t work — habits do. Junto is a simple habit
+            tracking app that helps users to follow through on their goals.
           </Text>
         </Box>
       </Box>

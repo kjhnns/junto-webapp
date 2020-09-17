@@ -1,9 +1,9 @@
 module.exports = {
   pathPrefix: `/`,
   url: `https://junto-pwa.netlify.app/`,
-  title: `junto – social habit tracking`,
+  title: `junto – simple habit tracking`,
   titleTemplate: `%s — junto`,
-  description: `Build healthy habits and break bad habits - together.`,
+  description: `Build healthy habits and break bad habits.`,
   image: `/images/meta-image-default.png`, // Path to the default meta image in `static` folder
   siteLanguage: `en`, // Language tag on <html> element
 
@@ -14,7 +14,7 @@ module.exports = {
   backgroundColor: `#ffffff`,
 
   // schema.org JSONLD
-  headline: `Build healthy habits and break bad habits - together.`,
+  headline: `Build healthy habits and break bad habits.`,
   author: `Johannes Klumpe`,
 
   // Twitter
