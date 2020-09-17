@@ -5,21 +5,38 @@ import * as Storage from './Storage'
 const self = {
   syncWorkerProcessId: false,
   syncingApi: false,
-  syncingModelUpdateQueues: [],
+  pendingModelUpdates: [],
+}
+
+const delay = (t, v) => {
+  return new Promise(function(resolve) {
+    setTimeout(resolve.bind(null, v), t)
+  })
+}
+
+const sendHabitUpdateModelEvent = async model => {
+  if (window && CustomEvent && 'dispatchEvent' in window) {
+    const updateEvent = new CustomEvent('habitModelUpdated', {
+      detail: {
+        model,
+      },
+    })
+    window.dispatchEvent(updateEvent)
+  }
+}
+
+const applyPendingModelUpdates = async model => {
+  if (self.pendingModelUpdates.length > 0) {
+    const { call, payload } = self.pendingModelUpdates[0]
+    console.log('Applies Update ', call)
+    const result = await Updates.calls[`${call}`].updateModel(model, payload)
+    self.pendingModelUpdates.shift()
+    return applyPendingModelUpdates(result)
+  }
+  return model
 }
 
 const syncApi = async () => {
-  const applyModelUpdates = async model => {
-    if (self.syncingModelUpdateQueues.length > 0) {
-      const { call, payload } = self.syncingModelUpdateQueues[0]
-      // console.log('Applies Update ', call)
-      const result = await Updates.calls[`${call}`].updateModel(model, payload)
-      self.syncingModelUpdateQueues.shift()
-      return applyModelUpdates(result)
-    }
-    return model
-  }
-
   if (UpdateQueue.length() === 0) {
     // sync starts and syncworker copies every change from the update queue
     // which was not yet pushed to the backend.
@@ -27,25 +44,19 @@ const syncApi = async () => {
     // to not revert the users changes that happen in the time we are waiting for the
     // model from the backend.
     self.syncingApi = true
-    // console.log("[START] sync w/ api – syncModelUpdates: ", self.syncingModelUpdateQueues.length)
+    // console.log("[START] sync w/ api – syncModelUpdates: ", self.pendingModelUpdates.length)
     const model = await Updates.calls.getAll.loadApi()
-    // console.log("[STOP] sync w/ api – syncModelUpdates: ", self.syncingModelUpdateQueues.length)
+    // await delay(3000)
+    // console.log("[STOP] sync w/ api – syncModelUpdates: ", self.pendingModelUpdates.length)
+    self.syncingApi = false
 
     if (model === false) {
       // sync was not possible
-      return Storage.read()
+      return respawnSyncWorker()
     }
-    self.syncingApi = false
-    const syncedModel = await applyModelUpdates(model)
+    const syncedModel = await applyPendingModelUpdates(model)
     Storage.write(syncedModel)
-    if (window && CustomEvent && 'dispatchEvent' in window) {
-      const updateEvent = new CustomEvent('habitModelUpdated', {
-        detail: {
-          model,
-        },
-      })
-      window.dispatchEvent(updateEvent)
-    }
+    sendHabitUpdateModelEvent(model)
 
     self.syncWorkerProcessId = false
   }
@@ -53,26 +64,26 @@ const syncApi = async () => {
   return Storage.read()
 }
 
-const start = async processId => {
-  // console.log('api is currently syncing? ', self.syncingApi)
-  const respawnSync = () => {
-    if (self.syncWorkerProcessId === processId) {
-      setTimeout(() => start(processId), 3000)
-    }
-    if (self.syncWorkerProcessId === false) {
-      setTimeout(() => start(self.syncWorkerProcessId), 3000)
-    }
+const respawnSyncWorker = async processId => {
+  if (
+    self.syncWorkerProcessId === processId ||
+    self.syncWorkerProcessId === false
+  ) {
+    await delay(3000)
+    return start(processId)
   }
+}
+
+const start = async processId => {
+  // console.log('api is currently syncing? ', self.syncingApi, "processId", processId)
 
   if (self.syncingApi === true) {
-    self.syncingModelUpdateQueues = UpdateQueue.copy()
-    respawnSync()
-    return Storage.read()
+    self.pendingModelUpdates = UpdateQueue.copy()
+    return respawnSyncWorker(processId)
   }
 
   if (!window.navigator.onLine) {
-    respawnSync()
-    return Storage.read()
+    return respawnSyncWorker(processId)
   }
 
   // If there are pending updates for the API push them to the backend.
@@ -91,7 +102,7 @@ const start = async processId => {
       UpdateQueue.dequeue()
       return start(self.syncWorkerProcessId)
     }
-    return respawnSync(self.syncWorkerProcessId)
+    return respawnSyncWorker(self.syncWorkerProcessId)
   }
 
   // after SyncWorker digested all updates it syncs with api
