@@ -12,6 +12,7 @@ const syncApi = async () => {
   const applyModelUpdates = async model => {
     if (self.syncingModelUpdateQueues.length > 0) {
       const { call, payload } = self.syncingModelUpdateQueues[0]
+      // console.log('Applies Update ', call)
       const result = await Updates.calls[`${call}`].updateModel(model, payload)
       self.syncingModelUpdateQueues.shift()
       return applyModelUpdates(result)
@@ -26,7 +27,9 @@ const syncApi = async () => {
     // to not revert the users changes that happen in the time we are waiting for the
     // model from the backend.
     self.syncingApi = true
+    // console.log("[START] sync w/ api – syncModelUpdates: ", self.syncingModelUpdateQueues.length)
     const model = await Updates.calls.getAll.loadApi()
+    // console.log("[STOP] sync w/ api – syncModelUpdates: ", self.syncingModelUpdateQueues.length)
 
     if (model === false) {
       // sync was not possible
@@ -37,7 +40,9 @@ const syncApi = async () => {
     Storage.write(syncedModel)
     if (window && CustomEvent && 'dispatchEvent' in window) {
       const updateEvent = new CustomEvent('habitModelUpdated', {
-        detail: { model },
+        detail: {
+          model,
+        },
       })
       window.dispatchEvent(updateEvent)
     }
@@ -49,6 +54,7 @@ const syncApi = async () => {
 }
 
 const start = async processId => {
+  // console.log('api is currently syncing? ', self.syncingApi)
   const respawnSync = () => {
     if (self.syncWorkerProcessId === processId) {
       setTimeout(() => start(processId), 3000)
@@ -60,6 +66,8 @@ const start = async processId => {
 
   if (self.syncingApi === true) {
     self.syncingModelUpdateQueues = UpdateQueue.copy()
+    respawnSync()
+    return Storage.read()
   }
 
   if (!window.navigator.onLine) {
