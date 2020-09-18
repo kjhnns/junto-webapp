@@ -1,6 +1,7 @@
-// show a notification after 15 seconds (the notification
-// permission must be granted first)
-
 self.addEventListener('activate', event => {
-  console.log('Hi this is the service worker active state')
+  console.log('[SERVICE WORKER] active event', JSON.stringify(event))
+})
+
+self.addEventListener('sync', event => {
+  console.log('[SERVICE WORKER] sync event', JSON.stringify(event))
 })
