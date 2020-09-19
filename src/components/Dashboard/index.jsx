@@ -47,9 +47,15 @@ const Dashboard = () => {
     },
     [setRawHabits]
   )
-
-  // Add event listener using our hook
   useEventListener('habitModelUpdated', handler)
+
+  const updateModel = useCallback(async () => {
+    if (document.visibilityState === 'visible' && document.hasFocus()) {
+      Habit.getAll()
+    }
+  }, [setRawHabits])
+  useEventListener('visibilitychange', updateModel)
+  useEventListener('focus', updateModel)
 
   if (loadingState === 'LOADING') {
     return (

@@ -28,7 +28,7 @@ const sendHabitUpdateModelEvent = async model => {
 const applyPendingModelUpdates = async model => {
   if (self.pendingModelUpdates.length > 0) {
     const { call, payload } = self.pendingModelUpdates[0]
-    console.log('Applies Update ', call)
+    // console.log('Applies Update ', call)
     const result = await Updates.calls[`${call}`].updateModel(model, payload)
     self.pendingModelUpdates.shift()
     return applyPendingModelUpdates(result)
