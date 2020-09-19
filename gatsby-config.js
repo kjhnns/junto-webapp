@@ -64,7 +64,6 @@ module.exports = {
     {
       resolve: `gatsby-plugin-offline`,
       options: {
-        appendScript: require.resolve(`./src/util/ServiceWorker.js`),
         runtimeCaching: [
           {
             // Use cacheFirst since these don't need to be revalidated (same RegExp

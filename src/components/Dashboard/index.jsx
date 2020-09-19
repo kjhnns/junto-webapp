@@ -51,9 +51,9 @@ const Dashboard = () => {
 
   const updateModel = useCallback(async () => {
     if (document.visibilityState === 'visible' && document.hasFocus()) {
-      Habit.getAll()
+      Habit.getAll() // trigger model update
     }
-  }, [setRawHabits])
+  }, [])
   useEventListener('visibilitychange', updateModel)
   useEventListener('focus', updateModel)
 
