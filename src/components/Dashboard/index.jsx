@@ -49,13 +49,14 @@ const Dashboard = () => {
   )
   useEventListener('habitModelUpdated', handler)
 
-  const updateModel = useCallback(async () => {
+  const vibilityStateUpdate = useCallback(async () => {
     if (document.visibilityState === 'visible' && document.hasFocus()) {
       Habit.getAll() // trigger model update
+      setSelectedDate(moment())
     }
   }, [])
-  useEventListener('visibilitychange', updateModel)
-  useEventListener('focus', updateModel)
+  useEventListener('visibilitychange', vibilityStateUpdate)
+  useEventListener('focus', vibilityStateUpdate)
 
   if (loadingState === 'LOADING') {
     return (
