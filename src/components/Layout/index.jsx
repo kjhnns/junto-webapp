@@ -1,17 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'theme-ui'
+import { Global, css } from '@emotion/core'
 
-import GlobalStyles from '../../util/style/GlobalStyles'
 import theme from '../../gatsby-plugin-theme-ui'
 import 'typeface-inter'
 
 const Layout = ({ children }) => (
   <ThemeProvider theme={theme}>
-    <>
-      <GlobalStyles />
-      {children}
-    </>
+    <Global
+      styles={css`
+        body {
+          padding: 0;
+        }
+
+        @media (max-width: ${theme.breakpoints[0]}) {
+          body {
+            padding-bottom: 52px;
+          }
+        }
+      `}
+    />
+    <>{children}</>
   </ThemeProvider>
 )
 

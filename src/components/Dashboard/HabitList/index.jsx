@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Link } from '@components/Link'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
+import { Container } from '@components/Container'
 
 import Card from './Card'
 
@@ -19,44 +20,42 @@ const HabitList = ({
         <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
           Start your habit journey now
         </Text>
-        <Box my={3}>
+        <Flex flexDirection="column" alignItems="center" my={3}>
           <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard/new">
             Add habit
           </Link>
-        </Box>
+        </Flex>
       </Flex>
     )
   }
 
   return (
-    <Flex flexDirection="column" alignItems="center" my={[2, 3]}>
-      {habits.map(({ id, title, checked }) => (
-        <Box
-          key={id}
-          maxWidth="800px"
-          width="100%"
-          my={[2, 3]}
-          px={[2, 3, 4, 0]}
-        >
-          <Card
-            title={title}
-            linkTo={`/dashboard/details/${id}`}
-            checked={checked > 0}
-            handleClick={() => {
-              if (checked > 0) {
-                handleUnCheckClick(id, checked)
-              } else {
-                handleCheckClick(id, selectedTimestamp)
-              }
-            }}
-          />
-        </Box>
-      ))}
-      <Box my={3}>
-        <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard/new">
-          Add habit
-        </Link>
-      </Box>
+    <Flex flexDirection="column" alignItems="center">
+      <Container>
+        <Flex flexDirection="column" my={[2, 3]}>
+          {habits.map(({ id, title, checked }) => (
+            <Box key={id} width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
+              <Card
+                title={title}
+                linkTo={`/dashboard/details/${id}`}
+                checked={checked > 0}
+                handleClick={() => {
+                  if (checked > 0) {
+                    handleUnCheckClick(id, checked)
+                  } else {
+                    handleCheckClick(id, selectedTimestamp)
+                  }
+                }}
+              />
+            </Box>
+          ))}
+          <Flex flexDirection="column" alignItems="center" my={3}>
+            <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard/new">
+              Add habit
+            </Link>
+          </Flex>
+        </Flex>
+      </Container>
     </Flex>
   )
 }

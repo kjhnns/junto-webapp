@@ -1,7 +1,7 @@
 import React from 'react'
 import { AppLink } from '@components/Link'
 import { Flex, Box } from '@components/Grid'
-import { getUser } from '../../../../util/auth'
+import { getUser } from '@auth'
 
 const Wrapper = {
   display: 'flex',
@@ -42,4 +42,4 @@ const Menu = () => (
   </Flex>
 )
 
-export default Menu
+export { Menu }

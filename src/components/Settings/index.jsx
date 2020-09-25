@@ -10,85 +10,70 @@ import { Button } from '@components/Button'
 import { signOut } from '@auth'
 
 const menuItem = {
-  boxShadow: ['none', null, 'inset 0 0 0 4px'],
+  boxShadow: ['none', 'inset 0 0 0 4px', null, null],
   p: 4,
+  display: 'block',
   bg: 'gray.200',
+  textDecoration: 'none',
   fontSize: 3,
-  borderBottom: ['4px #000 solid', null, 'none'],
-  borderRadius: [0, 0, 3],
+  borderBottom: ['4px #000 solid', 'none', null, null],
+  borderRadius: [0, 3, null, null],
   fontWeight: 600,
+  my: [0, 3, null, null],
 }
 
 const Settings = () => (
   <Layout>
     <SEO title="Dashboard" />
-    <Box
+    <Flex
+      flexDirection="column"
+      alignItems="center"
       sx={{
-        display: 'grid',
         minHeight: '100vh',
         bg: 'gray.100',
-        gridTemplateAreas: [
-          "'main''close'",
-          null,
-          "'close ... ...' '... main ...' '... ... ...'",
-        ],
-        gridTemplateColumns: ['1fr', null, '.5fr 1fr .5fr'],
-        gridTemplateRows: ['1fr 0.25fr', null, '.25fr 1fr'],
       }}
     >
       <Flex
-        sx={{
-          p: [3, 4],
-          gridArea: 'close',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+        flexDirection="column"
+        flex="1"
+        px={[0, 3, null, null]}
+        width="100%"
+        maxWidth="800px"
       >
-        <Button as={AppLink} to="/dashboard" variant="secondary">
-          close
-        </Button>
-      </Flex>
-      <Flex
-        sx={{
-          gridArea: 'main',
-          justifyContent: 'center',
-        }}
-      >
-        <Flex flexDirection="column" flex="1" maxWidth="800px">
-          <Heading as="h1" textAlign="center" m={4}>
-            Account Settings
-          </Heading>
-          <Box my={[0, 0, 3]}>
-            <AppLink sx={{ textDecoration: 'none' }} to="/settings/username">
-              <Box
-                sx={{
-                  ...menuItem,
-                  borderTop: ['4px #000 solid', null, 'none'],
-                }}
-              >
-                Display Name
-              </Box>
-            </AppLink>
-          </Box>
-          <Box my={[0, 0, 3]}>
-            <AppLink sx={{ textDecoration: 'none' }} to="/settings/email">
-              <Box sx={menuItem}>Email Address</Box>
-            </AppLink>
-          </Box>
-          <Box my={[0, 0, 3]}>
-            <AppLink sx={{ textDecoration: 'none' }} to="/settings/password">
-              <Box sx={menuItem}>Password</Box>
-            </AppLink>
-          </Box>
-
-          <Box sx={{ mt: 4, textAlign: 'center' }}>
-            <Button onClick={signOut} variant="outline">
-              Log out
-            </Button>
-          </Box>
+        <Heading as="h1" textAlign="center" m={4}>
+          Account Settings
+        </Heading>
+        <Box
+          as={AppLink}
+          to="/settings/username"
+          sx={{
+            ...menuItem,
+            borderTop: ['4px #000 solid', 'none', null, null],
+          }}
+        >
+          Display Name
+        </Box>
+        <Box as={AppLink} to="/settings/email" sx={menuItem}>
+          Email Address
+        </Box>
+        <Box as={AppLink} to="/settings/password" sx={menuItem}>
+          Password
+        </Box>
+        <Box onClick={signOut} sx={menuItem}>
+          Log out
+        </Box>
+        <Flex
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          my={3}
+        >
+          <Button as={AppLink} to="/dashboard" variant="secondary">
+            close
+          </Button>
         </Flex>
       </Flex>
-    </Box>
+    </Flex>
   </Layout>
 )
 
