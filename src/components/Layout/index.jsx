@@ -16,7 +16,7 @@ const Layout = ({ children }) => (
 
         @media (max-width: ${theme.breakpoints[0]}) {
           body {
-            padding-bottom: 52px;
+            padding-bottom: 67px;
           }
         }
       `}

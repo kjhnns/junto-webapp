@@ -1,6 +1,8 @@
 import React from 'react'
-
 import { Box } from '@components/Grid'
+
+import { Logo } from './Logo'
+import { UserAvatar } from './UserAvatar'
 
 const Small = () => (
   <Box
@@ -9,14 +11,19 @@ const Small = () => (
       position: 'fixed',
       bottom: 0,
       width: '100%',
-      maxWidth: '1800px',
       margin: 'auto',
-      py: 3,
+      py: 2,
       flexDirection: 'row',
+      justifyContent: 'center',
       bg: 'gray.900',
     }}
   >
-    Test
+    <Box mx={4}>
+      <Logo href="/dashboard" />
+    </Box>
+    <Box mx={4}>
+      <UserAvatar />
+    </Box>
   </Box>
 )
 
