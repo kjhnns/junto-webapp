@@ -15,7 +15,9 @@ const Small = () => (
       py: 2,
       flexDirection: 'row',
       justifyContent: 'center',
-      bg: 'gray.900',
+      bg: 'gray.800',
+      boxShadow:
+        '0 -10px 15px -3px rgba(0,0,0,0.1), 0 -4px 6px -2px rgba(0,0,0,0.05)',
     }}
   >
     <Box mx={4}>
