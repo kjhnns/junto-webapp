@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'theme-ui'
+
 import { Global, css } from '@emotion/core'
 
 import theme from '../../gatsby-plugin-theme-ui'
@@ -16,7 +17,7 @@ const Layout = ({ children }) => (
 
         @media (max-width: ${theme.breakpoints[0]}) {
           body {
-            padding-bottom: 67px;
+            padding-bottom: 56px;
           }
         }
       `}
