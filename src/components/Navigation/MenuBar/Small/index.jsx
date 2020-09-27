@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -58,5 +59,9 @@ const Small = ({ active }) => (
     </Box>
   </Box>
 )
+
+Small.propTypes = {
+  active: PropTypes.string.isRequired,
+}
 
 export { Small }
