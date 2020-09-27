@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { Layout } from '@components/Layout'
+import { MenuBar } from '@components/Navigation'
 import { SEO } from '@components/SEO'
 import { Heading } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
 import { AppLink } from '@components/Link'
-import { Button } from '@components/Button'
 
 import { signOut } from '@auth'
 
@@ -13,7 +13,7 @@ const menuItem = {
   boxShadow: ['none', 'inset 0 0 0 4px', null, null],
   p: 4,
   display: 'block',
-  bg: 'gray.200',
+  bg: 'gray.300',
   textDecoration: 'none',
   fontSize: 3,
   borderBottom: ['4px #000 solid', 'none', null, null],
@@ -24,7 +24,8 @@ const menuItem = {
 
 const Settings = () => (
   <Layout>
-    <SEO title="Dashboard" />
+    <SEO title="Settings" />
+    <MenuBar active="settings" />
     <Flex
       flexDirection="column"
       alignItems="center"
@@ -62,16 +63,6 @@ const Settings = () => (
         <Box onClick={signOut} sx={menuItem}>
           Log out
         </Box>
-        <Flex
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          my={3}
-        >
-          <Button as={AppLink} to="/dashboard" variant="secondary">
-            close
-          </Button>
-        </Flex>
       </Flex>
     </Flex>
   </Layout>

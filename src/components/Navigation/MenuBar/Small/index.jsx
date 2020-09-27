@@ -5,9 +5,9 @@ import { Text } from '@components/Typography'
 import { Link as ReachLink } from '@reach/router'
 
 import { Logo } from './Logo'
-import { UserAvatar } from './UserAvatar'
+import { SettingsIcon } from './SettingsIcon'
 
-const Small = () => (
+const Small = ({ active }) => (
   <Box
     sx={{
       display: ['flex', 'none', null, null],
@@ -31,7 +31,11 @@ const Small = () => (
     >
       <Flex flexDirection="column" alignItems="center">
         <Logo />
-        <Text mt={1} fontSize={0}>
+        <Text
+          mt={1}
+          fontSize={0}
+          sx={{ textDecoration: active === 'dashboard' ? 'underline' : 'none' }}
+        >
           Dashboard
         </Text>
       </Flex>
@@ -42,8 +46,12 @@ const Small = () => (
       to="/settings"
     >
       <Flex flexDirection="column" alignItems="center">
-        <UserAvatar />
-        <Text mt={1} fontSize={0}>
+        <SettingsIcon />
+        <Text
+          mt={1}
+          fontSize={0}
+          sx={{ textDecoration: active === 'settings' ? 'underline' : 'none' }}
+        >
           Settings
         </Text>
       </Flex>

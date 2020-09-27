@@ -63,7 +63,7 @@ const Dashboard = () => {
       <Layout>
         <SEO title="Dashboard" />
         <Box width="100%">
-          <MenuBar />
+          <MenuBar active="dashboard" />
           <Calendar
             selectedDate={selectedDate}
             handleClickOnDate={setSelectedDate}
@@ -79,7 +79,7 @@ const Dashboard = () => {
       <Layout>
         <SEO title="Dashboard" />
         <Box width="100%">
-          <MenuBar />
+          <MenuBar active="dashboard" />
           <Calendar
             selectedDate={selectedDate}
             handleClickOnDate={setSelectedDate}
@@ -112,7 +112,7 @@ const Dashboard = () => {
     <Layout>
       <SEO title="Dashboard" />
       <Box width="100%">
-        <MenuBar />
+        <MenuBar active="dashboard" />
         <Calendar
           selectedDate={selectedDate}
           handleClickOnDate={setSelectedDate}
