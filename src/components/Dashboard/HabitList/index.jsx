@@ -33,27 +33,29 @@ const HabitList = ({
     <Flex flexDirection="column" alignItems="center">
       <Container>
         <Flex flexDirection="column" my={[2, 3]}>
-          {habits.map(({ id, title, checked }) => {
-            const linkTo = window.navigator.onLine
-              ? `/dashboard/details/${id}`
-              : '/dashboard'
-            return (
-              <Box key={id} width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
-                <Card
-                  title={title}
-                  linkTo={linkTo}
-                  checked={checked > 0}
-                  handleClick={() => {
-                    if (checked > 0) {
-                      handleUnCheckClick(id, checked)
-                    } else {
-                      handleCheckClick(id, selectedTimestamp)
-                    }
-                  }}
-                />
-              </Box>
-            )
-          })}
+          {habits.map(
+            ({ id, title, checked, streak, streakDays, streakIncToday }) => {
+              return (
+                <Box key={id} width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
+                  <Card
+                    title={title}
+                    linkTo={`/dashboard/details/${id}`}
+                    checked={checked > 0}
+                    streakDays={streakDays}
+                    streakIncToday={streakIncToday}
+                    streak={streak}
+                    handleClick={() => {
+                      if (checked > 0) {
+                        handleUnCheckClick(id, checked)
+                      } else {
+                        handleCheckClick(id, selectedTimestamp)
+                      }
+                    }}
+                  />
+                </Box>
+              )
+            }
+          )}
           <Flex flexDirection="column" alignItems="center" my={3}>
             <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard/new">
               Add habit

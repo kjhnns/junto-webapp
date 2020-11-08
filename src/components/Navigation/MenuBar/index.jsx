@@ -12,7 +12,11 @@ const MenuBar = ({ active }) => (
 )
 
 MenuBar.propTypes = {
-  active: PropTypes.string.isRequired,
+  active: PropTypes.string,
+}
+
+MenuBar.defaultProps = {
+  active: 'dashboard',
 }
 
 export default MenuBar

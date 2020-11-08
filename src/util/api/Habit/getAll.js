@@ -1,4 +1,5 @@
 import { getIdToken, axios } from '@auth'
+import { streakProcessor } from './streak'
 
 const callName = 'getAll'
 
@@ -13,7 +14,11 @@ const loadApi = async () => {
     if (habits.status !== 200) {
       return false
     }
-    const result = habits.data.data === null ? [] : habits.data.data
+    const habitData = habits.data.data === null ? [] : habits.data.data
+    const result = habitData.map(habit => ({
+      ...habit,
+      ...streakProcessor(habit.checked),
+    }))
 
     return result
   } catch (error) {

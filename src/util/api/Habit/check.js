@@ -1,4 +1,5 @@
 import { getIdToken, axios } from '@auth'
+import { streakProcessor } from './streak'
 
 const callName = 'check'
 
@@ -32,7 +33,7 @@ const updateModel = (model, { id, timestamp }) => {
         habit.checked = [timestamp]
       }
     }
-    return habit
+    return { ...habit, ...streakProcessor(habit.checked) }
   })
   return updatedHabits
 }

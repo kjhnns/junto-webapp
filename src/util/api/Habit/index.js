@@ -1,4 +1,3 @@
-import { getOne } from './getOne'
 import { remove } from './remove'
 import { update } from './update'
 import * as Model from './Model'
@@ -10,7 +9,10 @@ const Habit = {
   getAll: async () => {
     return Model.get()
   },
-  getOne,
+  getOne: async habitId => {
+    const allHabits = await Model.get()
+    return allHabits.filter(habit => habitId === habit.id)[0] || null
+  },
   remove,
   update,
   check: async (id, timestamp) => {

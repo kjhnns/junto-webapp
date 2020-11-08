@@ -19,17 +19,16 @@ const HabitDetails = ({ habitId }) => {
   const [habit, setHabit] = useState({})
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await Habit.getOne(habitId)
-      if (result.success === false) {
+    const fetchData = async () => {
+      const res = await Habit.getOne(habitId)
+      if (res === null) {
         setLoadingState('ERROR')
         return null
       }
       setLoadingState('SUCCESSFUL')
-      setHabit(result.data)
+      setHabit(res)
       return true
     }
-
     fetchData()
   }, [habitId])
 

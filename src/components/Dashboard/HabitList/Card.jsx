@@ -18,7 +18,15 @@ const CheckMarkCircle = styled(Box)(props => ({
   transition: `all .2s ease-out`,
 }))
 
-const Card = ({ title, linkTo, checked, handleClick }) => {
+const Card = ({
+  title,
+  linkTo,
+  checked,
+  handleClick,
+  streak,
+  streakDays,
+  streakIncToday,
+}) => {
   return (
     <Flex
       sx={{
@@ -42,6 +50,22 @@ const Card = ({ title, linkTo, checked, handleClick }) => {
             </Text>
           </Link>
         </Flex>
+        {streak ? (
+          <Flex alignItems="center" flexDirection="row">
+            <Text
+              sx={{
+                textAlign: 'center',
+                fontSize: 3,
+                py: 2,
+                color: streakIncToday ? 'gray.800' : 'gray.500',
+              }}
+            >
+              {streakDays}
+            </Text>
+          </Flex>
+        ) : (
+          ''
+        )}
         <Box onClick={handleClick} ml={3}>
           {checked ? (
             <CheckMarkCircle
@@ -72,6 +96,10 @@ Card.propTypes = {
   linkTo: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
+
+  streak: PropTypes.bool.isRequired,
+  streakIncToday: PropTypes.bool.isRequired,
+  streakDays: PropTypes.number.isRequired,
 }
 
 export default Card
