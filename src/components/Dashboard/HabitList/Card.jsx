@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
+import { motion } from 'framer-motion'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import styled from '@emotion/styled'
@@ -27,67 +28,70 @@ const Card = ({
   streakDays,
   streakIncToday,
 }) => {
+  const ref = useRef(null)
   return (
-    <Flex
-      sx={{
-        bg: 'gray.400',
-        borderRadius: 'default',
-        px: [3, 4, 4],
-        minHeight: ['80px', '93px', '93px'],
-        flex: '1',
-      }}
-    >
+    <motion.div layout ref={ref}>
       <Flex
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="space-between"
-        flex="1"
+        sx={{
+          bg: 'gray.400',
+          borderRadius: 'default',
+          px: [3, 4, 4],
+          minHeight: ['80px', '93px', '93px'],
+          flex: '1',
+        }}
       >
-        <Flex alignItems="center" flexDirection="row" flex="1">
-          <Link flex="1" sx={{ textDecoration: 'none' }} to={`${linkTo}`}>
-            <Text as="h2" sx={{ fontSize: [3, 4, 4] }}>
-              {title}
-            </Text>
-          </Link>
-        </Flex>
-        {streak ? (
-          <Flex alignItems="center" flexDirection="row">
-            <Text
-              sx={{
-                textAlign: 'center',
-                fontSize: 3,
-                py: 2,
-                color: streakIncToday ? 'gray.800' : 'gray.500',
-              }}
-            >
-              {streakDays}
-            </Text>
+        <Flex
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="space-between"
+          flex="1"
+        >
+          <Flex alignItems="center" flexDirection="row" flex="1">
+            <Link flex="1" sx={{ textDecoration: 'none' }} to={`${linkTo}`}>
+              <Text as="h2" sx={{ fontSize: [3, 4, 4] }}>
+                {title}
+              </Text>
+            </Link>
           </Flex>
-        ) : (
-          ''
-        )}
-        <Box onClick={handleClick} ml={3}>
-          {checked ? (
-            <CheckMarkCircle
-              sx={{
-                width: ['45px', '50px', '50px'],
-                height: ['45px', '50px', '50px'],
-              }}
-              border
-            >
-              <CheckmarkIcon />
-            </CheckMarkCircle>
+          {streak ? (
+            <Flex alignItems="center" flexDirection="row">
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontSize: 3,
+                  py: 2,
+                  color: streakIncToday ? 'gray.800' : 'gray.500',
+                }}
+              >
+                {streakDays}
+              </Text>
+            </Flex>
           ) : (
-            <CheckMarkCircle
-              sx={{
-                width: ['45px', '50px', '50px'],
-                height: ['45px', '50px', '50px'],
-              }}
-            />
+            ''
           )}
-        </Box>
+          <Box onClick={handleClick} ml={3}>
+            {checked ? (
+              <CheckMarkCircle
+                sx={{
+                  width: ['45px', '50px', '50px'],
+                  height: ['45px', '50px', '50px'],
+                }}
+                border
+              >
+                <CheckmarkIcon />
+              </CheckMarkCircle>
+            ) : (
+              <CheckMarkCircle
+                sx={{
+                  width: ['45px', '50px', '50px'],
+                  height: ['45px', '50px', '50px'],
+                }}
+              />
+            )}
+          </Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </motion.div>
   )
 }
 
