@@ -5,8 +5,20 @@ import { Text } from '@components/Typography'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Link as ReachLink } from '@reach/router'
 
-import { Logo } from './Logo'
+import { HomeIcon } from './HomeIcon'
 import { SettingsIcon } from './SettingsIcon'
+
+const gray = {
+  100: 'hsl(10, 2%, 98%)',
+  200: 'hsl(10, 2%, 90%)',
+  300: 'hsl(10, 2%, 87%)',
+  400: 'hsl(10, 2%, 83%)',
+  500: 'hsl(10, 2%, 74%)',
+  600: 'hsl(10, 2%, 63%)',
+  700: 'hsl(10, 2%, 49%)',
+  800: 'hsl(10, 2%, 30%)',
+  900: 'hsl(10, 2%, 16%)',
+}
 
 const Small = ({ active }) => (
   <Box
@@ -21,8 +33,7 @@ const Small = ({ active }) => (
       justifyContent: 'center',
       bg: 'gray.900',
       color: 'white',
-      boxShadow:
-        '0 -10px 15px -3px rgba(0,0,0,0.1), 0 -4px 6px -2px rgba(0,0,0,0.05)',
+      borderTop: '1px solid #f2f2f2;',
     }}
   >
     <Box
@@ -31,11 +42,11 @@ const Small = ({ active }) => (
       to="/dashboard"
     >
       <Flex flexDirection="column" alignItems="center">
-        <Logo />
+        <HomeIcon color={active === 'dashboard' ? gray[200] : gray[600]} />
         <Text
           mt={1}
           fontSize={0}
-          sx={{ textDecoration: active === 'dashboard' ? 'underline' : 'none' }}
+          sx={{ color: active === 'dashboard' ? 'gray.200' : 'gray.600' }}
         >
           Dashboard
         </Text>
@@ -47,11 +58,11 @@ const Small = ({ active }) => (
       to="/settings"
     >
       <Flex flexDirection="column" alignItems="center">
-        <SettingsIcon />
+        <SettingsIcon color={active === 'settings' ? gray[200] : gray[600]} />
         <Text
           mt={1}
           fontSize={0}
-          sx={{ textDecoration: active === 'settings' ? 'underline' : 'none' }}
+          sx={{ color: active === 'settings' ? 'gray.200' : 'gray.600' }}
         >
           Settings
         </Text>
