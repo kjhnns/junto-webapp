@@ -35,7 +35,7 @@ const updateModel = (model, { id, timestamp }) => {
     }
     return { ...habit, ...streakProcessor(habit.checked) }
   })
-  return updatedHabits
+  return updatedHabits.sort((a, b) => b.streakDays - a.streakDays)
 }
 
 export { updateModel, updateApi, callName }

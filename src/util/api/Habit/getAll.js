@@ -15,10 +15,11 @@ const loadApi = async () => {
       return false
     }
     const habitData = habits.data.data === null ? [] : habits.data.data
-    const result = habitData.map(habit => ({
+    const habitDataEnriched = habitData.map(habit => ({
       ...habit,
       ...streakProcessor(habit.checked),
     }))
+    const result = habitDataEnriched.sort((a, b) => b.streakDays - a.streakDays)
 
     return result
   } catch (error) {
