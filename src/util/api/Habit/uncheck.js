@@ -24,8 +24,9 @@ const updateModel = (model, { id, timestamp }) => {
     if (habit.id === id) {
       // eslint-disable-next-line no-param-reassign
       habit.checked = habit.checked.filter(tsp => timestamp !== tsp)
+      return { ...habit, ...streakProcessor(habit.checked) }
     }
-    return { ...habit, ...streakProcessor(habit.checked) }
+    return habit
   })
   return updatedHabits.sort((a, b) => b.streakDays - a.streakDays)
 }

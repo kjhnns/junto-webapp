@@ -9,7 +9,8 @@ const self = {
 }
 
 const delay = (t, v) => {
-  return new Promise(function(resolve) {
+  // eslint-disable-next-line compat/compat
+  return new Promise(resolve => {
     setTimeout(resolve.bind(null, v), t)
   })
 }
@@ -72,6 +73,7 @@ const respawnSyncWorker = async processId => {
     await delay(3000)
     return start(processId)
   }
+  return Storage.read()
 }
 
 const start = async processId => {

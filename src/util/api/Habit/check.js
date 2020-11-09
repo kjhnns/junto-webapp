@@ -32,8 +32,9 @@ const updateModel = (model, { id, timestamp }) => {
         // eslint-disable-next-line no-param-reassign
         habit.checked = [timestamp]
       }
+      return { ...habit, ...streakProcessor(habit.checked) }
     }
-    return { ...habit, ...streakProcessor(habit.checked) }
+    return habit
   })
   return updatedHabits.sort((a, b) => b.streakDays - a.streakDays)
 }
