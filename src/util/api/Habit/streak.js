@@ -34,4 +34,32 @@ const streakProcessor = checkedTimeStamps => {
   }
 }
 
-export { streakProcessor }
+const longestStreak = checkedTimeStamps => {
+  if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
+    return 0
+  }
+  const today = moment()
+  const sortedTsps = checkedTimeStamps.sort((a, b) => b - a)
+  const checkedObjs = sortedTsps.map(moment.unix)
+
+  let previous = today.clone()
+  let counter = 0
+  let longest = 0
+  let tstpNo = 0
+  // eslint-disable-next-line guard-for-in,no-restricted-syntax
+  for (tstpNo in checkedObjs) {
+    const tstp = checkedObjs[tstpNo]
+    const diffDays = previous.diff(tstp, 'days')
+    if (diffDays > 1) {
+      longest = Math.max(longest, counter)
+      counter = 1
+    } else {
+      counter += 1
+    }
+    previous = tstp.clone()
+  }
+
+  return longest
+}
+
+export { streakProcessor, longestStreak }

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { longestStreak } from '@api/Habit/streak'
 import { Text } from '@components/Typography'
 import { Flex, Box } from '@components/Grid'
 
@@ -9,6 +10,8 @@ const Streak = ({ habit }) => {
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
     return ''
   }
+
+  const longest = longestStreak(checkedTimeStamps)
 
   return (
     <Box>
@@ -27,29 +30,77 @@ const Streak = ({ habit }) => {
         }}
       >
         {habit.streak ? (
-          <Flex flexDirection="column" py={2}>
-            <Text
-              sx={{
-                textAlign: 'center',
-                fontSize: 3,
-                py: 2,
-                color: habit.streakIncToday ? 'gray.800' : 'gray.500',
-              }}
-            >
-              {habit.streakDays}
-            </Text>
-            <Text
-              sx={{
-                textAlign: 'center',
-                fontSize: [1, 2, 2],
-                color: habit.streakIncToday ? 'gray.800' : 'gray.500',
-              }}
-            >
-              Days
-            </Text>
+          <Flex flexDirection="row">
+            <Flex flexDirection="column" py={2} px={3} pl={0}>
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontSize: 3,
+                  py: 2,
+                  color: habit.streakIncToday ? 'gray.800' : 'gray.500',
+                }}
+              >
+                {habit.streakDays}
+              </Text>
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontSize: [1, 2, 2],
+                  color: habit.streakIncToday ? 'gray.800' : 'gray.500',
+                }}
+              >
+                Current
+              </Text>
+            </Flex>
+            <Flex flexDirection="column" py={2} px={3}>
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontSize: 3,
+                  py: 2,
+                  color: 'gray.800',
+                }}
+              >
+                {longest}
+              </Text>
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontSize: [1, 2, 2],
+                  color: 'gray.800',
+                }}
+              >
+                Record
+              </Text>
+            </Flex>
           </Flex>
         ) : (
-          <Text py={3}>Build a streak to motivate yourself!</Text>
+          <Flex flexDirection="row">
+            <Flex flexDirection="column" py={2} px={3} pl={0}>
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontSize: 4,
+                  py: 2,
+                  color: 'gray.800',
+                }}
+              >
+                {longest}
+              </Text>
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontSize: [1, 2, 2],
+                  color: 'gray.800',
+                }}
+              >
+                Record
+              </Text>
+            </Flex>
+            <Text py={2} px={3}>
+              Build a streak to motivate yourself!
+            </Text>
+          </Flex>
         )}
       </Flex>
     </Box>
