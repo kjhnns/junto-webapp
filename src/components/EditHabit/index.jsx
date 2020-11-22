@@ -16,17 +16,16 @@ const EditHabit = ({ habitId }) => {
   const [habit, setHabit] = useState({})
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await HabitManager.getOne(habitId)
-      if (result.success === false) {
+    const fetchData = async () => {
+      const res = await HabitManager.getOne(habitId)
+      if (res === null) {
         setLoadingState('ERROR')
         return null
       }
-      setHabit(result.data)
+      setHabit(res)
       setLoadingState('SUCCESSFUL')
       return true
     }
-
     fetchData()
   }, [habitId])
 
@@ -54,6 +53,7 @@ const EditHabit = ({ habitId }) => {
             <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
               Oops... Something went wrong.
             </Text>
+            s
             <Flex justifyContent="center">
               <Button
                 variant="clear"

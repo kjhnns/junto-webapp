@@ -25,8 +25,8 @@ const HabitDetails = ({ habitId }) => {
         setLoadingState('ERROR')
         return null
       }
-      setLoadingState('SUCCESSFUL')
       setHabit(res)
+      setLoadingState('SUCCESSFUL')
       return true
     }
     fetchData()
