@@ -24,7 +24,8 @@ const updateModel = (model, { id, timestamp }) => {
     if (habit.id === id) {
       // eslint-disable-next-line no-param-reassign
       habit.checked = habit.checked.filter(tsp => timestamp !== tsp)
-      return { ...habit, ...streakProcessor(habit.checked) }
+      const result = { ...habit, ...streakProcessor(habit.checked) }
+      return result
     }
     return habit
   })

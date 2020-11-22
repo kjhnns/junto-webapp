@@ -1,23 +1,12 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import styled from '@emotion/styled'
 import { Flex, Box } from '@components/Grid'
 import { Link } from '@components/Link'
 import { Text } from '@components/Typography'
 import { CheckmarkIcon } from './CheckmarkIcon'
-
-const CheckMarkCircle = styled(Box)(props => ({
-  cursor: 'pointer',
-  borderRadius: '30px',
-  background: props.theme.colors.gray[200],
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  transition: `all .2s ease-out`,
-}))
 
 const Card = ({
   title,
@@ -28,9 +17,8 @@ const Card = ({
   streakDays,
   streakIncToday,
 }) => {
-  const ref = useRef(null)
   return (
-    <motion.div layout ref={ref}>
+    <motion.div layout>
       <Flex
         sx={{
           bg: 'gray.400',
@@ -70,24 +58,7 @@ const Card = ({
             ''
           )}
           <Box onClick={handleClick} ml={3}>
-            {checked ? (
-              <CheckMarkCircle
-                sx={{
-                  width: ['45px', '50px', '50px'],
-                  height: ['45px', '50px', '50px'],
-                }}
-                border
-              >
-                <CheckmarkIcon />
-              </CheckMarkCircle>
-            ) : (
-              <CheckMarkCircle
-                sx={{
-                  width: ['45px', '50px', '50px'],
-                  height: ['45px', '50px', '50px'],
-                }}
-              />
-            )}
+            <CheckmarkIcon isChecked={checked} />
           </Box>
         </Flex>
       </Flex>
