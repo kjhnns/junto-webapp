@@ -49,13 +49,11 @@ const longestStreak = checkedTimeStamps => {
   // eslint-disable-next-line guard-for-in,no-restricted-syntax
   for (tstpNo in checkedObjs) {
     const tstp = checkedObjs[tstpNo]
-    const diffDays = previous.diff(tstp, 'days')
-    if (diffDays > 1) {
-      longest = Math.max(longest, counter)
-      counter = 1
-    } else {
-      counter += 1
+    if (!tstp.isSame(previous.subtract(1, 'days'), 'day')) {
+      counter = 0
     }
+    counter += 1
+    longest = Math.max(longest, counter)
     previous = tstp.clone()
   }
 

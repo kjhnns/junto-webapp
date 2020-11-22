@@ -10,7 +10,6 @@ const Streak = ({ habit }) => {
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
     return ''
   }
-
   const longest = longestStreak(checkedTimeStamps)
 
   return (
