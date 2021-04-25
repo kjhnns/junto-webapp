@@ -1,14 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { AnimateSharedLayout } from 'framer-motion'
-import { FeedbackFish } from '@feedback-fish/react'
 
 import { Link } from '@components/Link'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 import { Container } from '@components/Container'
-
-import { Button } from '@components/Button'
 
 import Card from './Card'
 
@@ -29,11 +26,6 @@ const HabitList = ({
             Add habit
           </Link>
         </Flex>
-        <FeedbackFish projectId="ecbda4963f3b1f">
-          <Box sx={{ position: `absolute`, bottom: [`72px`, 3], right: [3] }}>
-            <Button>Give us feedback</Button>
-          </Box>
-        </FeedbackFish>
       </Flex>
     )
   }
@@ -72,20 +64,6 @@ const HabitList = ({
               Add habit
             </Link>
           </Flex>
-          <FeedbackFish projectId="ecbda4963f3b1f">
-            <Box
-              sx={{
-                position: [`inherit`, `fixed`, `fixed`],
-                display: 'flex',
-                justifyContent: 'center',
-                bottom: [0, `72px`, 3],
-                right: [0, 3, 3],
-                py: [3, 0, 0],
-              }}
-            >
-              <Button>Give us feedback</Button>
-            </Box>
-          </FeedbackFish>
         </Flex>
       </Container>
     </Flex>

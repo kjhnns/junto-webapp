@@ -28,7 +28,7 @@ const Small = ({ active }) => (
       bottom: 0,
       width: '100%',
       margin: 'auto',
-      py: 2,
+      py: 3,
       flexDirection: 'row',
       justifyContent: 'center',
       bg: 'gray.900',

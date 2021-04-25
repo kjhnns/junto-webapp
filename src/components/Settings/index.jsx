@@ -6,6 +6,8 @@ import { SEO } from '@components/SEO'
 import { Heading } from '@components/Typography'
 import { Box, Flex } from '@components/Grid'
 import { AppLink } from '@components/Link'
+import { FeedbackFish } from '@feedback-fish/react'
+import { Button } from '@components/Button'
 
 import { signOut } from '@auth'
 
@@ -63,6 +65,11 @@ const Settings = () => (
         <Box onClick={signOut} sx={menuItem}>
           Log out
         </Box>
+        <Flex flexDirection="column" alignItems="center" sx={{ my: 3, p: 4 }}>
+          <FeedbackFish projectId="ecbda4963f3b1f">
+            <Button>Give us feedback</Button>
+          </FeedbackFish>
+        </Flex>
       </Flex>
     </Flex>
   </Layout>
