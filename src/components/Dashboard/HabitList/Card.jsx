@@ -36,7 +36,15 @@ const Card = ({
         >
           <Flex alignItems="center" flexDirection="row" flex="1">
             <Link flex="1" sx={{ textDecoration: 'none' }} to={`${linkTo}`}>
-              <Text as="h2" sx={{ fontSize: [3, 4, 4] }}>
+              <Text
+                as="h2"
+                sx={{
+                  fontSize: [3, 4, 4],
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 {title}
               </Text>
             </Link>
@@ -48,6 +56,7 @@ const Card = ({
                   textAlign: 'center',
                   fontSize: 3,
                   py: 2,
+                  pl: 3,
                   color: streakIncToday ? 'gray.800' : 'gray.500',
                 }}
               >

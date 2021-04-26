@@ -9,6 +9,13 @@ const self = {
   pendingModelUpdates: [],
 }
 
+const delay = (t, v) => {
+  // eslint-disable-next-line compat/compat
+  return new Promise(resolve => {
+    setTimeout(resolve.bind(null, v), t)
+  })
+}
+
 const sendHabitUpdateModelEvent = async model => {
   if (window && CustomEvent && 'dispatchEvent' in window) {
     const updateEvent = new CustomEvent('habitModelUpdated', {
@@ -80,6 +87,7 @@ const respawnSyncWorker = async processId => {
     self.syncWorkerProcessId === processId ||
     self.syncWorkerProcessId === false
   ) {
+    await delay(3000)
     return start(processId)
   }
   return Storage.read()
