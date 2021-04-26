@@ -29,7 +29,7 @@ const Small = ({ active }) => (
       width: '100%',
       margin: 'auto',
       py: 3,
-      pb: 'max(env(safe-area-inset-top), 16px)',
+      pb: 'max( calc( env(safe-area-inset-top) + 16px), 16px)',
       flexDirection: 'row',
       justifyContent: 'center',
       bg: 'gray.900',
