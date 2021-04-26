@@ -111,7 +111,6 @@ const HabitDetails = ({ habitId }) => {
                 fontSize: 5,
                 px: [3, 0],
                 pt: 3,
-                textTransform: 'uppercase',
               }}
             >{`${habit.title}`}</Heading>
             <Text px={[3, 0]}>
