@@ -4,15 +4,9 @@ import * as Storage from './Storage'
 
 const self = {
   syncWorkerProcessId: false,
+  lastSyncTimestamp: 0,
   syncingApi: false,
   pendingModelUpdates: [],
-}
-
-const delay = (t, v) => {
-  // eslint-disable-next-line compat/compat
-  return new Promise(resolve => {
-    setTimeout(resolve.bind(null, v), t)
-  })
 }
 
 const sendHabitUpdateModelEvent = async model => {
@@ -38,23 +32,39 @@ const applyPendingModelUpdates = async model => {
 }
 
 const syncApi = async () => {
-  if (UpdateQueue.length() === 0) {
+  const lastSyncDelta = Date.now() - self.lastSyncTimestamp
+  if (lastSyncDelta <= 30000) {
+    console.log(
+      self.pendingModelUpdates.length,
+      lastSyncDelta,
+      self.lastSyncTimestamp
+    )
+  }
+  if (UpdateQueue.length() === 0 && lastSyncDelta > 30000) {
     // sync starts and syncworker copies every change from the update queue
     // which was not yet pushed to the backend.
     // As the backend model will miss these updates, we need to apply them after we received it
     // to not revert the users changes that happen in the time we are waiting for the
     // model from the backend.
     self.syncingApi = true
-    // console.log("[START] sync w/ api – syncModelUpdates: ", self.pendingModelUpdates.length)
+    console.log(
+      '[START] sync w/ api – syncModelUpdates: ',
+      self.pendingModelUpdates.length
+    )
     const model = await Updates.calls.getAll.loadApi()
     // await delay(3000)
-    // console.log("[STOP] sync w/ api – syncModelUpdates: ", self.pendingModelUpdates.length)
+    console.log(
+      '[STOP] sync w/ api – syncModelUpdates: ',
+      self.pendingModelUpdates.length
+    )
     self.syncingApi = false
 
     if (model === false) {
       // sync was not possible
       return respawnSyncWorker()
     }
+    self.lastSyncTimestamp = Date.now() // This last sync mechanism prevents the system from being to just in time
+    // But it criples the system.
     const syncedModel = await applyPendingModelUpdates(model)
     Storage.write(syncedModel)
     sendHabitUpdateModelEvent(model)
@@ -70,7 +80,6 @@ const respawnSyncWorker = async processId => {
     self.syncWorkerProcessId === processId ||
     self.syncWorkerProcessId === false
   ) {
-    await delay(3000)
     return start(processId)
   }
   return Storage.read()
@@ -101,7 +110,7 @@ const start = async processId => {
     const { call, payload } = currentItem
     const result = await Updates.calls[`${call}`].updateApi(payload)
     if (result) {
-      UpdateQueue.dequeue()
+      UpdateQueue.dequeue() // Dequeue is the problem as it always kills the updates that should be apllied to the model
       return start(self.syncWorkerProcessId)
     }
     return respawnSyncWorker(self.syncWorkerProcessId)
