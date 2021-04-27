@@ -38,32 +38,40 @@ const applyPendingModelUpdates = async model => {
   return model
 }
 
+const respawnSyncWorker = async processId => {
+  if (
+    self.syncWorkerProcessId === processId ||
+    self.syncWorkerProcessId === false
+  ) {
+    await delay(3000)
+    // eslint-disable-next-line no-use-before-define
+    return start(processId)
+  }
+  return Storage.read()
+}
+
 const syncApi = async () => {
   const lastSyncDelta = Date.now() - self.lastSyncTimestamp
-  if (lastSyncDelta <= 30000) {
-    console.log(
-      self.pendingModelUpdates.length,
-      lastSyncDelta,
-      self.lastSyncTimestamp
-    )
+  if (lastSyncDelta <= 10000) {
+    return respawnSyncWorker()
   }
-  if (UpdateQueue.length() === 0 && lastSyncDelta > 30000) {
+  if (UpdateQueue.length() === 0) {
     // sync starts and syncworker copies every change from the update queue
-    // which was not yet pushed to the backend.
+    // which was not yet pushed to the backend (no copy acutally needed as it only starts when empty).
     // As the backend model will miss these updates, we need to apply them after we received it
     // to not revert the users changes that happen in the time we are waiting for the
     // model from the backend.
     self.syncingApi = true
-    console.log(
-      '[START] sync w/ api – syncModelUpdates: ',
-      self.pendingModelUpdates.length
-    )
+    // console.log(
+    //   '[START] sync w/ api – syncModelUpdates: ',
+    //   self.pendingModelUpdates.length
+    // )
     const model = await Updates.calls.getAll.loadApi()
     // await delay(3000)
-    console.log(
-      '[STOP] sync w/ api – syncModelUpdates: ',
-      self.pendingModelUpdates.length
-    )
+    // console.log(
+    //   '[STOP] sync w/ api – syncModelUpdates: ',
+    //   self.pendingModelUpdates.length
+    // )
     self.syncingApi = false
 
     if (model === false) {
@@ -79,17 +87,6 @@ const syncApi = async () => {
     self.syncWorkerProcessId = false
   }
 
-  return Storage.read()
-}
-
-const respawnSyncWorker = async processId => {
-  if (
-    self.syncWorkerProcessId === processId ||
-    self.syncWorkerProcessId === false
-  ) {
-    await delay(3000)
-    return start(processId)
-  }
   return Storage.read()
 }
 
