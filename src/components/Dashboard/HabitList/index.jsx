@@ -19,7 +19,7 @@ const HabitList = ({
     return (
       <Flex flexDirection="column" alignItems="center" my={[2, 3]}>
         <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
-          This looks empty. Let&apros;s fix this! Start your habit journey now.
+          This looks empty. Let&apos;s fix this! Start your habit journey now.
         </Text>
         <Flex flexDirection="column" alignItems="center" my={3}>
           <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard/new">

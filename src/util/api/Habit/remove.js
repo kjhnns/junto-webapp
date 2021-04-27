@@ -1,10 +1,12 @@
 import { axios, getIdToken } from '@auth'
 
-const remove = async habitId => {
+const callName = 'remove'
+
+const updateApi = async ({ id }) => {
   try {
     const idToken = await getIdToken()
     const habit = await axios.delete(
-      `${process.env.GATSBY_API_URL}/action/${habitId}`,
+      `${process.env.GATSBY_API_URL}/action/${id}`,
       {
         headers: {
           Bearer: idToken,
@@ -27,4 +29,9 @@ const remove = async habitId => {
   }
 }
 
-export { remove }
+const updateModel = (model, { id }) => {
+  const updatedHabits = model.filter(habit => habit.id !== id)
+  return updatedHabits
+}
+
+export { updateModel, updateApi, callName }
