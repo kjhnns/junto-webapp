@@ -21,6 +21,10 @@ const isModelEqual = (a, b) => {
       modelx.id === modely.id &&
       modelx.created_at === modely.created_at
 
+    if (modelx.checked === null || modely.checked === null) {
+      return equalMeta && modelx.checked === modely.checked
+    }
+
     const equalChecks = modelx.checked
       .map((modelxitem, itemIdx) => modelxitem === modely.checked[itemIdx])
       .reduce((i, j) => i && j)

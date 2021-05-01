@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'theme-ui'
@@ -18,10 +19,7 @@ const Layout = ({ children }) => (
 
         @media (max-width: ${theme.breakpoints[0]}) {
           body {
-            padding-bottom: max(
-              calc (env(safe-area-inset-bottom) + 70px),
-              70px
-            );
+            padding-bottom: max(calc(env(safe-area-inset-bottom) + 70px), 70px);
           }
         }
       `}
