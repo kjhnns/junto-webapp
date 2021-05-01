@@ -18,7 +18,10 @@ const Layout = ({ children }) => (
 
         @media (max-width: ${theme.breakpoints[0]}) {
           body {
-            padding-bottom: 70px;
+            padding-bottom: max(
+              calc (env(safe-area-inset-bottom) + 70px),
+              70px
+            );
           }
         }
       `}
