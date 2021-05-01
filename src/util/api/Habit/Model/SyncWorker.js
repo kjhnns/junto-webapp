@@ -79,16 +79,7 @@ const syncApi = async () => {
     // to not revert the users changes that happen in the time we are waiting for the
     // model from the backend.
     self.syncingApi = true
-    // console.log(
-    //   '[START] sync w/ api – syncModelUpdates: ',
-    //   self.pendingModelUpdates.length
-    // )
     const model = await Updates.calls.getAll.loadApi()
-    // await delay(3000)
-    // console.log(
-    //   '[STOP] sync w/ api – syncModelUpdates: ',
-    //   self.pendingModelUpdates.length
-    // )
     self.syncingApi = false
 
     if (model === false) {
@@ -109,8 +100,6 @@ const syncApi = async () => {
 }
 
 const start = async processId => {
-  // console.log('api is currently syncing? ', self.syncingApi, "processId", processId)
-
   if (self.syncingApi === true) {
     self.pendingModelUpdates = UpdateQueue.copy()
     return respawnSyncWorker(processId)
@@ -133,7 +122,7 @@ const start = async processId => {
     const { call, payload } = currentItem
     const result = await Updates.calls[`${call}`].updateApi(payload)
     if (result) {
-      UpdateQueue.dequeue() // Dequeue is the problem as it always kills the updates that should be apllied to the model
+      UpdateQueue.dequeue()
       return start(self.syncWorkerProcessId)
     }
     return respawnSyncWorker(self.syncWorkerProcessId)

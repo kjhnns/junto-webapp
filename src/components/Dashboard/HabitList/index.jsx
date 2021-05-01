@@ -15,6 +15,8 @@ const HabitList = ({
   handleUnCheckClick,
   handleCheckClick,
 }) => {
+  const sortedHabits = habits.sort((a, b) => b.streakDays - a.streakDays)
+
   if (!habits.length) {
     return (
       <Flex flexDirection="column" alignItems="center" my={[2, 3]}>
@@ -35,7 +37,7 @@ const HabitList = ({
       <Container>
         <Flex flexDirection="column" my={[2, 3]}>
           <AnimateSharedLayout>
-            {habits.map(
+            {sortedHabits.map(
               ({ id, title, checked, streak, streakDays, streakIncToday }) => {
                 return (
                   <Box key={id} width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
