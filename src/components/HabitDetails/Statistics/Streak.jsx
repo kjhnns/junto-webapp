@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { longestStreak } from '@api/Habit/streak'
+import { longestStreak, streakProcessor } from '@api/Habit/streak'
 import { Text } from '@components/Typography'
 import { Flex, Box } from '@components/Grid'
 
 const Streak = ({ habit }) => {
+  const streakData = streakProcessor(habit.checked)
   const checkedTimeStamps = habit.checked
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
     return ''
@@ -28,7 +29,7 @@ const Streak = ({ habit }) => {
           justifyContent: 'space-between',
         }}
       >
-        {habit.streak ? (
+        {streakData.streak ? (
           <Flex flexDirection="row">
             <Flex flexDirection="column" py={2} px={3} pl={0}>
               <Text
@@ -36,16 +37,16 @@ const Streak = ({ habit }) => {
                   textAlign: 'center',
                   fontSize: 3,
                   py: 2,
-                  color: habit.streakIncToday ? 'gray.800' : 'gray.500',
+                  color: streakData.streakIncToday ? 'gray.800' : 'gray.500',
                 }}
               >
-                {habit.streakDays}
+                {streakData.streakDays}
               </Text>
               <Text
                 sx={{
                   textAlign: 'center',
                   fontSize: [1, 2, 2],
-                  color: habit.streakIncToday ? 'gray.800' : 'gray.500',
+                  color: streakData.streakIncToday ? 'gray.800' : 'gray.500',
                 }}
               >
                 Current

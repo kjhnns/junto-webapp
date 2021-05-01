@@ -8,6 +8,7 @@ import { MenuBar } from '@components/Navigation'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 import { Button } from '@components/Button'
+import { streakProcessor } from '@api/Habit/streak'
 
 import { Calendar } from './Calendar'
 import { HabitList } from './HabitList'
@@ -105,6 +106,7 @@ const Dashboard = () => {
   // transform habits
   const habits = rawHabits.map(habit => ({
     ...habit,
+    ...streakProcessor(habit.checked),
     checked: getTimestamp(habit.checked, selectedDate),
   }))
 

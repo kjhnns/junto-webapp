@@ -4,9 +4,30 @@ import * as Storage from './Storage'
 
 const self = {
   syncWorkerProcessId: false,
-  lastSyncTimestamp: 0,
   syncingApi: false,
   pendingModelUpdates: [],
+}
+
+const isModelEqual = (a, b) => {
+  if (b === null || a === null) {
+    return false
+  }
+  const aSorted = a.sort((x, y) => (x.created_at < y.created_at ? 1 : -1))
+  const bSorted = b.sort((x, y) => (x.created_at < y.created_at ? 1 : -1))
+  const equalMap = aSorted.map((modelx, idx) => {
+    const modely = bSorted[idx]
+    const equalMeta =
+      modelx.title === modely.title &&
+      modelx.id === modely.id &&
+      modelx.created_at === modely.created_at
+
+    const equalChecks = modelx.checked
+      .map((modelxitem, itemIdx) => modelxitem === modely.checked[itemIdx])
+      .reduce((i, j) => i && j)
+
+    return equalMeta && equalChecks
+  })
+  return equalMap.reduce((i, j) => i && j)
 }
 
 const delay = (t, v) => {
@@ -51,10 +72,6 @@ const respawnSyncWorker = async processId => {
 }
 
 const syncApi = async () => {
-  const lastSyncDelta = Date.now() - self.lastSyncTimestamp
-  if (lastSyncDelta <= 10000) {
-    return respawnSyncWorker()
-  }
   if (UpdateQueue.length() === 0) {
     // sync starts and syncworker copies every change from the update queue
     // which was not yet pushed to the backend (no copy acutally needed as it only starts when empty).
@@ -78,11 +95,12 @@ const syncApi = async () => {
       // sync was not possible
       return respawnSyncWorker()
     }
-    self.lastSyncTimestamp = Date.now() // This last sync mechanism prevents the system from being to just in time
-    // But it criples the system.
     const syncedModel = await applyPendingModelUpdates(model)
-    Storage.write(syncedModel)
-    sendHabitUpdateModelEvent(model)
+    const currentModel = Storage.read()
+    if (isModelEqual(currentModel, syncedModel) === false) {
+      Storage.write(syncedModel)
+      sendHabitUpdateModelEvent(model)
+    }
 
     self.syncWorkerProcessId = false
   }
