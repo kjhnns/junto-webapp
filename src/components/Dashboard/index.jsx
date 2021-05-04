@@ -15,7 +15,7 @@ import { HabitList } from './HabitList'
 import { HabitListLoading } from './HabitListLoading'
 import { useEventListener } from './EventListener'
 
-const getTimestamp = (checkedTimeStamps, selectedDay) => {
+const getHabitTimestampOfSelectedDay = (checkedTimeStamps, selectedDay) => {
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
     return null
   }
@@ -24,6 +24,40 @@ const getTimestamp = (checkedTimeStamps, selectedDay) => {
     date.isSame(selectedDay, 'day') ? date.unix() : 0
   )
   return checked.reduce((pv, cv) => Math.max(pv, cv))
+}
+
+const getLast5Days = habits => {
+  const last5Days = [
+    moment().subtract(4, 'day'),
+    moment().subtract(3, 'day'),
+    moment().subtract(2, 'day'),
+    moment().subtract(1, 'day'),
+    moment(),
+  ]
+  const lengthHabits = habits.length
+
+  return last5Days.map(selectedDate => {
+    const countHabitChecks = habits.map(habit =>
+      getHabitTimestampOfSelectedDay(habit.checked, selectedDate)
+    )
+    if (countHabitChecks.length <= 0) {
+      return { count: 0, date: selectedDate, progress: 0 }
+    }
+    const count = countHabitChecks.reduce((pV, cV, idx) => {
+      let current = pV
+      if (idx === 1 && pV > 0) {
+        current = 1
+      }
+      if (pV === null) {
+        return 0
+      }
+      if (cV > 0) {
+        return current + 1
+      }
+      return current
+    })
+    return { count, date: selectedDate, progress: count / lengthHabits }
+  })
 }
 
 const Dashboard = () => {
@@ -66,6 +100,7 @@ const Dashboard = () => {
         <Box width="100%">
           <MenuBar active="dashboard" />
           <Calendar
+            days={getLast5Days(rawHabits)}
             selectedDate={selectedDate}
             handleClickOnDate={setSelectedDate}
           />
@@ -82,6 +117,7 @@ const Dashboard = () => {
         <Box width="100%">
           <MenuBar active="dashboard" />
           <Calendar
+            days={getLast5Days(rawHabits)}
             selectedDate={selectedDate}
             handleClickOnDate={setSelectedDate}
           />
@@ -107,7 +143,7 @@ const Dashboard = () => {
   const habits = rawHabits.map(habit => ({
     ...habit,
     ...streakProcessor(habit.checked),
-    checked: getTimestamp(habit.checked, selectedDate),
+    checked: getHabitTimestampOfSelectedDay(habit.checked, selectedDate),
   }))
 
   return (
@@ -116,6 +152,7 @@ const Dashboard = () => {
       <Box width="100%">
         <MenuBar active="dashboard" />
         <Calendar
+          days={getLast5Days(rawHabits)}
           selectedDate={selectedDate}
           handleClickOnDate={setSelectedDate}
         />

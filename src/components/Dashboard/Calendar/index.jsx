@@ -1,19 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import styled from '@emotion/styled'
 
 import { Box, Flex } from '@components/Grid'
 import { Text } from '@components/Typography'
 
-const last5Days = [
-  moment().subtract(4, 'day'),
-  moment().subtract(3, 'day'),
-  moment().subtract(2, 'day'),
-  moment().subtract(1, 'day'),
-  moment(),
-]
+const UnderlinedText = styled(Text)`
+  position: relative;
+  padding-bottom: 3px;
+  margin-bottom: 4px;
 
-const Calendar = ({ selectedDate, handleClickOnDate }) => {
+  &::after {
+    content: '';
+    left: 0;
+    bottom: -4px;
+    right: 0;
+    margin: 0 auto;
+    position: absolute;
+    width: 25px;
+    height: 3px;
+    border-radius: 15px;
+    background: #fff;
+    background-image: linear-gradient(
+      90deg,
+      transparent ${props => props.progress}%,
+      ${props => props.theme.colors.gray[700]} ${props => props.progress}%
+    );
+  }
+`
+
+const Calendar = ({ days, selectedDate, handleClickOnDate }) => {
   const today = moment()
 
   return (
@@ -26,7 +44,7 @@ const Calendar = ({ selectedDate, handleClickOnDate }) => {
     >
       <Flex flexDirection="column" maxWidth="800px" flex="1">
         <Flex flexDirection="row">
-          {last5Days.map(date => (
+          {days.map(({ date, progress }) => (
             <Box
               sx={{
                 flexDirection: 'column',
@@ -48,13 +66,14 @@ const Calendar = ({ selectedDate, handleClickOnDate }) => {
               >
                 {date.format('DD')}
               </Text>
-              <Text
+              <UnderlinedText
+                progress={Math.round(progress * 100)}
                 color="white"
                 fontWeight={date.isSame(selectedDate, 'day') ? '700' : 'normal'}
                 textAlign="center"
               >
                 {today.isSame(date, 'day') ? 'Today' : date.format('ddd')}
-              </Text>
+              </UnderlinedText>
             </Box>
           ))}
         </Flex>
@@ -64,6 +83,8 @@ const Calendar = ({ selectedDate, handleClickOnDate }) => {
 }
 
 Calendar.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  days: PropTypes.array.isRequired,
   selectedDate: PropTypes.instanceOf(moment).isRequired,
   handleClickOnDate: PropTypes.func.isRequired,
 }
