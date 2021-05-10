@@ -61,14 +61,14 @@ const Calendar = ({ days, selectedDate, handleClickOnDate }) => {
               <Text
                 fontWeight={date.isSame(selectedDate, 'day') ? '700' : 'normal'}
                 fontSize={3}
-                color="white"
+                color={date.isSame(selectedDate, 'day') ? 'white' : 'gray.400'}
                 textAlign="center"
               >
                 {date.format('DD')}
               </Text>
               <UnderlinedText
-                progress={Math.round(progress * 100)}
-                color="white"
+                progress={progress}
+                color={date.isSame(selectedDate, 'day') ? 'white' : 'gray.400'}
                 fontWeight={date.isSame(selectedDate, 'day') ? '700' : 'normal'}
                 textAlign="center"
               >

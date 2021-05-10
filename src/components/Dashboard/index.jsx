@@ -56,7 +56,8 @@ const getLast5Days = habits => {
       }
       return current
     })
-    return { count, date: selectedDate, progress: count / lengthHabits }
+    const progress = Math.round((count / lengthHabits) * 100)
+    return { count, date: selectedDate, progress }
   })
 }
 
