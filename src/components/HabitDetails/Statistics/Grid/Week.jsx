@@ -8,7 +8,7 @@ const Week = ({ column, columns, checks, week, createdAt }) => {
   return week.map((day, idx) => {
     const isChecked = checks
       .map(check => check.isSame(day, 'day'))
-      .reduce((pv, cv) => pv || cv)
+      .reduce((pv, cv) => pv || cv, false)
 
     const xCoo = calcXCoo(columns, column)
     const yCoo = calcYCoo(idx)
