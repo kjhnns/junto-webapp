@@ -56,11 +56,11 @@ const Grid = ({ habit }) => {
   const ref = useRef()
   const { width: componentWidth } = useResize(ref)
 
-  const momentHabits = habit.checked.map(check => moment.unix(check))
+  const momentChecked = habit.checked.map(check => moment.unix(check))
   const weeksFromSpace = Defaults.calcColumns(componentWidth)
 
   const weeksFromFirstDay = moment().diff(
-    moment.unix(habit.created_at),
+    momentChecked[0] || moment.unix(habit.created_at),
     'weeks'
   )
   const adjustedWeeks = Math.min(weeksFromFirstDay, weeksFromSpace)
@@ -70,7 +70,7 @@ const Grid = ({ habit }) => {
     .subtract(adjustedWeeks, 'week')
     .startOf('isoWeek')
     .subtract(1, 'day')
-  const filteredChecks = momentHabits.filter(d => d.isAfter(gridFirstDay))
+  const filteredChecks = momentChecked.filter(d => d.isAfter(gridFirstDay))
 
   return (
     <Flex flexDirection="column" py={3}>
