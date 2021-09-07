@@ -60,7 +60,8 @@ const Grid = ({ habit }) => {
   const weeksFromSpace = Defaults.calcColumns(componentWidth)
 
   const weeksFromFirstDay = moment().diff(
-    momentChecked[0] || moment.unix(habit.created_at),
+    // momentChecked[0] ||
+    moment.unix(habit.created_at),
     'weeks'
   )
   const adjustedWeeks = Math.min(weeksFromFirstDay, weeksFromSpace)
