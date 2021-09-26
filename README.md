@@ -1,6 +1,6 @@
 # junto - web app
 
-Yet another Gatsby starter boilerplate. I built this for my personal use, but maybe someone finds it helpful.
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/kjhnns/junto-webapp)
 
 ## Features
 
