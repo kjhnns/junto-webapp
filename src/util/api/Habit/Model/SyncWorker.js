@@ -9,7 +9,7 @@ const self = {
 }
 
 const isModelEqual = (a, b) => {
-  if (b === null || a === null) {
+  if (b === null || a === null || b.length === 0 || a.length === 0) {
     return false
   }
   const aSorted = a.sort((x, y) => (x.created_at < y.created_at ? 1 : -1))
