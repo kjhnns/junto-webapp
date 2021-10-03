@@ -4,6 +4,9 @@ const streakProcessor = checkedTimeStamps => {
   const countDays = (curr, checks) => {
     if (checks.length > 0 && curr.isSame(checks[0], 'day')) {
       checks.shift()
+      if (curr.isSame(checks[0], 'day')) {
+        return 0 + countDays(curr, checks)
+      }
       return 1 + countDays(curr.subtract(1, 'days'), checks)
     }
     return 0
