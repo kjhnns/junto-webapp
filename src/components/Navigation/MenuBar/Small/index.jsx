@@ -53,6 +53,23 @@ const Small = ({ active }) => (
         </Text>
       </Flex>
     </Box>
+
+    <Box
+      sx={{ mx: 4, color: 'white', textDecoration: 'none' }}
+      as={ReachLink}
+      to="/dashboard/tags"
+    >
+      <Flex flexDirection="column" alignItems="center">
+        <HomeIcon color={active === 'tags' ? gray[200] : gray[600]} />
+        <Text
+          mt={1}
+          fontSize={0}
+          sx={{ color: active === 'tags' ? 'gray.200' : 'gray.600' }}
+        >
+          Tags
+        </Text>
+      </Flex>
+    </Box>
     <Box
       sx={{ mx: 4, color: 'white', textDecoration: 'none' }}
       as={ReachLink}

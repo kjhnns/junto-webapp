@@ -1,3 +1,4 @@
 import { Habit } from './Habit'
+import { Tag } from './Tag'
 
-export { Habit }
+export { Habit, Tag }

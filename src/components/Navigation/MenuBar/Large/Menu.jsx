@@ -21,6 +21,24 @@ const Menu = () => (
         mr: [0, 2, 3, 4],
       }}
     >{`Hello, ${getUser().displayName}`}</Box>
+
+    <Box
+      sx={{
+        display: ['none', 'flex'],
+        color: 'white',
+        mr: [0, 2, 3, 4],
+      }}
+    >
+      <AppLink to="/dashboard/tags">
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          sx={{ color: 'white' }}
+        >
+          Tags
+        </Flex>
+      </AppLink>
+    </Box>
     <Box mx={3}>
       <AppLink sx={{ textDecoration: 'none' }} to="/settings">
         <Flex

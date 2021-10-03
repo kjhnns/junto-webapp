@@ -8,8 +8,10 @@ const self = {
   pendingModelUpdates: [],
 }
 
+const isArrayIteratable = a => a !== null && a.length !== 0
+
 const isModelEqual = (a, b) => {
-  if (b === null || a === null || b.length === 0 || a.length === 0) {
+  if (!isArrayIteratable(a) || !isArrayIteratable(b)) {
     return false
   }
   const aSorted = a.sort((x, y) => (x.created_at < y.created_at ? 1 : -1))
@@ -21,16 +23,37 @@ const isModelEqual = (a, b) => {
       modelx.id === modely.id &&
       modelx.created_at === modely.created_at
 
-    if (modelx.checked === null || modely.checked === null) {
-      return equalMeta && modelx.checked === modely.checked
+    const equalChecks = (modelx, modely) => {
+      if (
+        !isArrayIteratable(modelx.checked) ||
+        !isArrayIteratable(modely.checked)
+      ) {
+        return modelx.checked === modely.checked
+      }
+      return (
+        modelx.checked
+          .map((modelxitem, itemIdx) => modelxitem === modely.checked[itemIdx])
+          .reduce((i, j) => i && j) &&
+        modelx.checked.length === modely.checked.length
+      )
     }
 
-    const equalChecks = modelx.checked
-      .map((modelxitem, itemIdx) => modelxitem === modely.checked[itemIdx])
-      .reduce((i, j) => i && j)
+    const equalTags = (modelx, modely) => {
+      if (!isArrayIteratable(modelx.tags) || !isArrayIteratable(modely.tags)) {
+        return modelx.tags === modely.tags
+      }
+      const xsorted = modelx.tags.sort()
+      const ysorted = modely.tags.sort()
+      return (
+        xsorted
+          .map((modelxitem, itemIdx) => modelxitem === ysorted[itemIdx])
+          .reduce((i, j) => i && j) && modelx.tags.length === modely.tags.length
+      )
+    }
 
-    return equalMeta && equalChecks
+    return equalMeta && equalChecks(modelx, modely) && equalTags(modelx, modely)
   })
+
   return equalMap.reduce((i, j) => i && j)
 }
 
