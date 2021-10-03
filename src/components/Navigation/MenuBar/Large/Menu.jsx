@@ -35,7 +35,7 @@ const Menu = () => (
           justifyContent="center"
           sx={{ color: 'white' }}
         >
-          Tags
+          Motivations
         </Flex>
       </AppLink>
     </Box>

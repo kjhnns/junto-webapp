@@ -134,7 +134,7 @@ const HabitDetails = ({ habitId }) => {
                   }}
                   variant="outline"
                 >
-                  Tags
+                  Motivations
                 </Button>
               </Box>
               <Box mr={2}>

@@ -6,6 +6,7 @@ import { Text } from '@components/Typography'
 import { Link as ReachLink } from '@reach/router'
 
 import { HomeIcon } from './HomeIcon'
+import { MotivationIcon } from './MotivationIcon'
 import { SettingsIcon } from './SettingsIcon'
 
 const gray = {
@@ -60,13 +61,13 @@ const Small = ({ active }) => (
       to="/dashboard/tags"
     >
       <Flex flexDirection="column" alignItems="center">
-        <HomeIcon color={active === 'tags' ? gray[200] : gray[600]} />
+        <MotivationIcon color={active === 'tags' ? gray[200] : gray[600]} />
         <Text
           mt={1}
           fontSize={0}
           sx={{ color: active === 'tags' ? 'gray.200' : 'gray.600' }}
         >
-          Tags
+          Motivations
         </Text>
       </Flex>
     </Box>

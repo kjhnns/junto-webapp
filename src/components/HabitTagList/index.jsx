@@ -5,10 +5,49 @@ import { Habit as HabitManager, Tag as TagManager } from '@api'
 import { Layout } from '@components/Layout'
 import { Button } from '@components/Button'
 import { SEO } from '@components/SEO'
-import { Flex } from '@components/Grid'
+import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 import { MenuBar } from '@components/Navigation'
 import { Link } from '@components/Link'
+
+const TagCard = ({ tag, active, onClickHandler }) => (
+  <Box width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
+    <Flex
+      sx={{
+        borderRadius: 'default',
+        px: [3, 4, 4],
+        // minHeight: ['80px', '93px', '93px'],
+        flex: '1',
+      }}
+    >
+      <Flex
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        flex="1"
+      >
+        <Flex alignItems="center" flexDirection="row" flex="1">
+          <Box>
+            <Text
+              onClick={onClickHandler}
+              // as="h2"
+              sx={{
+                fontSize: [3, 4, 4],
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer',
+              }}
+            >
+              {tag.label}
+            </Text>
+          </Box>
+          <Box pl={2}>{active ? ' (active)' : ''}</Box>
+        </Flex>
+      </Flex>
+    </Flex>
+  </Box>
+)
 
 const HabitTagList = ({ habitId }) => {
   const [loadingState, setLoadingState] = useState('LOADING')
@@ -68,37 +107,69 @@ const HabitTagList = ({ habitId }) => {
       </Layout>
     )
   }
-  console.log(habit.tags)
 
   return (
     <Layout>
-      <SEO title="Tags" />
-      <h1>Tags</h1>
-      {tags.map(tag => {
-        if (habit.tags && habit.tags.indexOf(tag.label) >= 0) {
-          return (
-            <p
-              style={{ fontWeight: 800, cursor: 'pointer' }}
-              onClick={() => TagManager.remove({ habitId, tagId: tag.id })}
-            >
-              {tag.label}
-            </p>
-          )
-        }
-        return (
-          <p
-            style={{ fontWeight: 300, cursor: 'pointer' }}
-            onClick={() => TagManager.append({ habitId, tagId: tag.id })}
-          >
-            {tag.label}
-          </p>
-        )
-      })}
+      <Flex
+        sx={{
+          minHeight: '100vh',
+          bg: 'gray.100',
+          flexDirection: 'column',
+        }}
+        flexDirection="column"
+      >
+        <SEO title="Motivations" />
+        <Flex
+          sx={{
+            p: [3, 4],
+            flex: '1',
+            minHeight: '100%',
+            bg: 'gray.100',
+            flexDirection: 'column',
+          }}
+        >
+          <h1>Motivations</h1>
+          {tags.map(tag => {
+            const active =
+              habit.tags &&
+              habit.tags.filter(htag => htag.id == tag.id).length > 0
+            return (
+              <TagCard
+                key={tag.id}
+                onClickHandler={async () => {
+                  if (active) {
+                    if (await TagManager.remove({ habitId, tagId: tag.id })) {
+                      const updatedTags = habit.tags.filter(
+                        tagp => tagp.id != tag.id
+                      )
+                      setHabit({ ...habit, tags: updatedTags })
+                    }
+                  } else {
+                    if (await TagManager.append({ habitId, tagId: tag.id })) {
+                      const updatedTags = [
+                        { id: tag.id, label: tag.label },
+                        ...habit.tags,
+                      ]
+                      setHabit({ ...habit, tags: updatedTags })
+                    }
+                  }
+                }}
+                tag={tag}
+                active={active}
+              />
+            )
+          })}
 
-      <Flex flexDirection="column" alignItems="center" my={3}>
-        <Button variant="clear" as={Link} to={`/dashboard/details/${habitId}`}>
-          close
-        </Button>
+          <Flex flexDirection="column" alignItems="center" my={3}>
+            <Button
+              variant="clear"
+              as={Link}
+              to={`/dashboard/details/${habitId}`}
+            >
+              close
+            </Button>
+          </Flex>
+        </Flex>
       </Flex>
     </Layout>
   )

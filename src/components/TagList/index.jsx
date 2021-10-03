@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { Tag as TagManager } from '@api'
+import { Tag as TagManager, Habit as HabitManager } from '@api'
 import { Layout } from '@components/Layout'
 import { Button } from '@components/Button'
 import { SEO } from '@components/SEO'
@@ -9,6 +9,72 @@ import { Text } from '@components/Typography'
 import { MenuBar } from '@components/Navigation'
 import { Link } from '@components/Link'
 import { streakProcessor } from '@api/Habit/streak'
+
+const TagCard = ({
+  tag: { label, actions, streak, streakDays, streakIncToday },
+}) => (
+  <Box width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
+    <Flex
+      sx={{
+        borderRadius: 'default',
+        px: [3, 4, 4],
+        // minHeight: ['80px', '93px', '93px'],
+        flex: '1',
+      }}
+    >
+      <Flex
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        flex="1"
+      >
+        <Flex alignItems="center" flexDirection="row" flex="1">
+          <Box>
+            <Text
+              // as="h2"
+              sx={{
+                fontSize: [3, 4, 4],
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer',
+              }}
+            >
+              {label}
+            </Text>
+          </Box>
+          <Box>
+            <Flex alignItems="center" flexDirection="row" flex="1">
+              {actions
+                ? actions.map(action => {
+                    return <Box>{action.title}, </Box>
+                  })
+                : ''}
+            </Flex>
+          </Box>
+          <Box pl={2}>
+            {streak ? (
+              <Flex alignItems="center" flexDirection="row">
+                <Text
+                  sx={{
+                    textAlign: 'center',
+                    py: 2,
+                    pl: 3,
+                    color: streakIncToday ? 'gray.800' : 'gray.500',
+                  }}
+                >
+                  {streakDays}
+                </Text>
+              </Flex>
+            ) : (
+              ''
+            )}
+          </Box>
+        </Flex>
+      </Flex>
+    </Flex>
+  </Box>
+)
 
 const TagList = () => {
   const [loadingState, setLoadingState] = useState('LOADING')
@@ -71,41 +137,20 @@ const TagList = () => {
     ...tag,
     ...streakProcessor(tag.checked),
   }))
-
   return (
     <Layout>
-      <SEO title="Tags" />
+      <SEO title="Motivations" />
       <Box width="100%">
         <MenuBar active="tags" />
-        <h1>Tags</h1>
-        {tags.map(({ label, streak, streakDays, streakIncToday }) => {
-          return (
-            <Flex>
-              <p style={{ fontWeight: 300 }}>{label}</p>
-              {streak ? (
-                <Flex alignItems="center" flexDirection="row">
-                  <Text
-                    sx={{
-                      textAlign: 'center',
-                      fontSize: 3,
-                      py: 2,
-                      pl: 3,
-                      color: streakIncToday ? 'gray.800' : 'gray.500',
-                    }}
-                  >
-                    {streakDays}
-                  </Text>
-                </Flex>
-              ) : (
-                ''
-              )}
-            </Flex>
-          )
-        })}
+        <h1>Motivations</h1>
+
+        {tags.map(tag => (
+          <TagCard tag={tag} />
+        ))}
 
         <Flex flexDirection="column" alignItems="center" my={3}>
           <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard/tags/new">
-            Add Tag
+            Add Motivation
           </Link>
         </Flex>
       </Box>
