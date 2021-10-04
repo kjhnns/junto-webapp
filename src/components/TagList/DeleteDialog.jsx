@@ -23,8 +23,8 @@ const DeleteDialog = ({ deleteHandler }) => {
   const close = () => setshowDialog(false)
   return (
     <Box>
-      <Button onClick={open} variant="outline">
-        Delete
+      <Button onClick={open} variant="clear">
+        X
       </Button>
       <ResponsiveDialog
         aria-label="Warning about next steps"
