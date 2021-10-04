@@ -61,7 +61,7 @@ const TagCard = ({
               alignItems="center"
               flexDirection="row"
               flex="1"
-              flexFlow="wrap"
+              sx={{ flexFlow: 'wrap' }}
             >
               {actions
                 ? actions.map(action => {
@@ -83,6 +83,7 @@ const TagCard = ({
                   sx={{
                     textAlign: 'center',
                     pt: 2,
+                    fontSize: 3,
                     pl: 3,
                     color: streakIncToday ? 'gray.800' : 'gray.500',
                   }}
