@@ -146,11 +146,16 @@ const HabitTagList = ({ habitId }) => {
                     }
                   } else {
                     if (await TagManager.append({ habitId, tagId: tag.id })) {
-                      const updatedTags = [
-                        { id: tag.id, label: tag.label },
-                        ...habit.tags,
-                      ]
-                      setHabit({ ...habit, tags: updatedTags })
+                      if (habit.tags !== null) {
+                        const updatedTags = [
+                          { id: tag.id, label: tag.label },
+                          ...habit.tags,
+                        ]
+                        setHabit({ ...habit, tags: updatedTags })
+                      } else {
+                        const updatedTags = [{ id: tag.id, label: tag.label }]
+                        setHabit({ ...habit, tags: updatedTags })
+                      }
                     }
                   }
                 }}
