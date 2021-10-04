@@ -57,7 +57,12 @@ const TagCard = ({
             </Text>
           </Box>
           <Box>
-            <Flex alignItems="center" flexDirection="row" flex="1">
+            <Flex
+              alignItems="center"
+              flexDirection="row"
+              flex="1"
+              flexFlow="wrap"
+            >
               {actions
                 ? actions.map(action => {
                     return (
