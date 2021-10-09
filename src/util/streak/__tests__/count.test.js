@@ -1,5 +1,8 @@
 import moment from 'moment'
-import { count, getRange, getMax, getLatest } from '../count'
+import count from '../count'
+import getMax from '../getMax'
+import getLatest from '../getLatest'
+import getRange from '../getRange'
 
 describe('StreakProcessor - count', () => {
   test('After 7 continious days it should count a seven day streak', async () => {

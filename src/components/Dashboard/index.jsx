@@ -8,7 +8,7 @@ import { MenuBar } from '@components/Navigation'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 import { Button } from '@components/Button'
-import { streakProcessor } from '@api/Streak'
+import { streakProcessor } from '@streak'
 
 import { Calendar } from './Calendar'
 import { HabitList } from './HabitList'

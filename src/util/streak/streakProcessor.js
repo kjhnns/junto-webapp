@@ -1,11 +1,8 @@
 import moment from 'moment'
-import {
-  count,
-  getMax,
-  getLatest,
-  getRange,
-  maximumStreakFreezes,
-} from './count'
+import { maximumStreakFreezes } from './common'
+
+import getLatest from './getLatest'
+import getRange from './getRange'
 
 const streakProcessor = checkedTimeStamps => {
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
@@ -23,10 +20,12 @@ const streakProcessor = checkedTimeStamps => {
 
   const today = moment()
   const yesterday = moment().subtract(1, 'day')
-  const isToday =
+
+  const isTodayChecked =
     checkedObjsDescending.length > 0 &&
     checkedObjsDescending[0].isSame(today, 'day')
-  const isYesterday =
+
+  const isYesterdayChecked =
     checkedObjsDescending.length > 0 &&
     checkedObjsDescending[0].isSame(yesterday, 'day')
 
@@ -34,7 +33,7 @@ const streakProcessor = checkedTimeStamps => {
     checkedObjsDescending.length > 0 &&
     today.diff(checkedObjsDescending[0], 'day') > maximumStreakFreezes
 
-  // console.log(today.diff(checkedObjsDescending[0], 'day'), maximumStreakFreezes + 1)
+  // Easy termination to prevent unnecessary comuputing
   if (daysFromTodayGTMaxFreeze) {
     return {
       streak: false,
@@ -49,31 +48,19 @@ const streakProcessor = checkedTimeStamps => {
   const [streakDayCount, streakFreezes] = getLatest(
     checkedObjsAscending,
     0,
-    yesterday
+    isTodayChecked ? today : yesterday
   )
+
   // TODO ADD STREAKFREEZE CONSIDERATIONS
   const isThereAStreak = streakDayCount > 0
 
   return {
     streak: isThereAStreak,
-    streakIncToday: isToday,
-    streakFrozen: !isToday && !isYesterday,
+    streakIncToday: isTodayChecked,
+    streakFrozen: !isTodayChecked && !isYesterdayChecked,
     streakFreezes: streakFreezes,
     streakDays: streakDayCount,
   }
 }
 
-const longestStreak = checkedTimeStamps => {
-  if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
-    return 0
-  }
-
-  const sortedTsps = checkedTimeStamps.sort((a, b) => a - b)
-  const checkedObjsAscending = sortedTsps.map(moment.unix)
-
-  const longestStreak = getMax(checkedObjsAscending, 0)
-
-  return longestStreak
-}
-
-export { streakProcessor, longestStreak, count }
+export default streakProcessor

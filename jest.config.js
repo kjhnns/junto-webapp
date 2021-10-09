@@ -22,6 +22,7 @@ module.exports = {
     // Import aliases
     '^@style$': '<rootDir>/src/util/style/',
     '^@auth$': '<rootDir>/src/util/auth/',
+    '^@streak$': '<rootDir>/src/util/streak/',
     '^@api$': '<rootDir>/src/util/api/',
     '^@components(.*)$': '<rootDir>/src/components/$1',
     '^@test$': '<rootDir>/src/util/test/',

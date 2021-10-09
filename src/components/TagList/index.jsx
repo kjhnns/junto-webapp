@@ -9,7 +9,7 @@ import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 import { MenuBar } from '@components/Navigation'
 import { Link } from '@components/Link'
-import { streakProcessor } from '@api/Streak'
+import { streakProcessor } from '@streak'
 import { DeleteDialog } from './DeleteDialog'
 
 const TagCard = ({

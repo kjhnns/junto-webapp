@@ -47,7 +47,8 @@
           ["@components", "./src/components"],
           ["@test", "./src/util/test"],
           ["@api", "./src/util/api"],
-          ["@auth", "./src/util/auth"]
+          ["@auth", "./src/util/auth"],
+          ["@streak", "./src/util/streak"]
         ],
         "extensions": [".js", ".jsx"]
       }

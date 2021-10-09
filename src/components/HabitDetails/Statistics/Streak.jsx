@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { longestStreak, streakProcessor } from '@api/Streak'
+import { longestStreak, streakProcessor } from '@streak'
 import { Text } from '@components/Typography'
 import { Flex, Box } from '@components/Grid'
 

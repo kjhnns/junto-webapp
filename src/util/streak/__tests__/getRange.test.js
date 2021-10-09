@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { count, getRange } from '../count'
+import getRange from '../getRange'
 
 describe('StreakProcessor - getRange', () => {
   test('getRange empty array should be robust', async () => {
