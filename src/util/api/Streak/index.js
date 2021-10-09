@@ -1,16 +1,7 @@
 import moment from 'moment'
+import { count, getMax, getRange } from './count'
 
 const streakProcessor = checkedTimeStamps => {
-  const countDays = (curr, checks) => {
-    if (checks.length > 0 && curr.isSame(checks[0], 'day')) {
-      checks.shift()
-      if (curr.isSame(checks[0], 'day')) {
-        return 0 + countDays(curr, checks)
-      }
-      return 1 + countDays(curr.subtract(1, 'days'), checks)
-    }
-    return 0
-  }
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
     return {
       streak: false,
@@ -18,22 +9,28 @@ const streakProcessor = checkedTimeStamps => {
       streakDays: 0,
     }
   }
-  const yesterday = moment().subtract(1, 'days')
-  const today = moment()
 
   const sortedTsps = checkedTimeStamps.sort((a, b) => b - a)
-  const checkedObjs = sortedTsps.map(moment.unix)
-  const streakIncToday = countDays(today, checkedObjs)
-  const streakExcToday = countDays(yesterday, checkedObjs)
+  const checkedObjsDescending = sortedTsps.map(moment.unix)
 
-  const isThereAStreak = streakIncToday > 1 || streakExcToday > 1
-  const isTodayIncluded = streakIncToday > streakExcToday
-  const streak = isTodayIncluded ? streakIncToday : streakExcToday
+  const today = moment()
+  const yesterday = moment().subtract(1, 'day')
+  const isToday =
+    checkedObjsDescending.length > 0 &&
+    checkedObjsDescending[0].isSame(today, 'day')
+  const isYesterday =
+    checkedObjsDescending.length > 0 &&
+    checkedObjsDescending[0].isSame(yesterday, 'day')
+
+  const checkedObjsAscending = getRange(checkedObjsDescending, [])
+  const streakDayCount = getMax(checkedObjsAscending, 0)
+
+  const isThereAStreak = streakDayCount > 0 && (isToday || isYesterday)
 
   return {
     streak: isThereAStreak,
-    streakIncToday: isTodayIncluded,
-    streakDays: streak,
+    streakIncToday: isToday,
+    streakDays: streakDayCount,
   }
 }
 
@@ -63,4 +60,4 @@ const longestStreak = checkedTimeStamps => {
   return longest
 }
 
-export { streakProcessor, longestStreak }
+export { streakProcessor, longestStreak, count }
