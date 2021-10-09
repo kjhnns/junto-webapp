@@ -1,18 +1,21 @@
 import { maximumStreakFreezes, streakFreezeSpeed } from './common'
 
+const incrementFreezeDays = freeze =>
+  Math.min(
+    /// Shady hack because javascript is so bad with floating point numbers
+    Math.round(
+      freeze * 100000 +
+        Math.round(streakFreezeSpeed[Math.floor(freeze)] * 100000) +
+        1
+    ) / 100000,
+    maximumStreakFreezes
+  )
+
+const isStopCriteriaMet = (currDate, stopDate) =>
+  currDate.isSameOrAfter(stopDate)
+
 const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
   const failSafeCounter = counter || 0
-
-  const incrementFreezeDays = freeze =>
-    Math.min(
-      /// Shady hack because javascript is so bad with floating point numbers
-      Math.round(
-        freeze * 100000 +
-          Math.round(streakFreezeSpeed[Math.floor(freezeDays)] * 100000) +
-          1
-      ) / 100000,
-      maximumStreakFreezes
-    )
 
   console.log(
     stopDate.format('MMDD'),
@@ -31,7 +34,7 @@ const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
       if (checkDates.length > 0 && currDate.isSame(checkDates[0], 'day')) {
         // This avoids double counting the same day
         // Add zero so it skips until the next day that it looks at is not the same
-        console.log('+0 double counting')
+        console.log('1 return +0 double counting')
         return count(
           stopDate,
           currDate,
@@ -43,7 +46,8 @@ const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
       console.log('+1')
 
       // Stop criteria is met ,
-      if (currDate.diff(stopDate, 'days') >= 0) {
+      if (isStopCriteriaMet(currDate, stopDate)) {
+        console.log('2 return +1 stop criteria')
         return [
           failSafeCounter + 1,
           Math.floor(incrementFreezeDays(freezeDays)),
@@ -51,6 +55,7 @@ const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
       }
 
       // Stop criteria is not met, continue counting
+      console.log('3 return +1 continue')
       return count(
         stopDate,
         currDate.add(1, 'days'),
@@ -65,11 +70,13 @@ const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
       console.log('+0 freeze')
 
       // Stop criteria is met ,
-      if (currDate.diff(stopDate, 'days') >= 0) {
+      if (isStopCriteriaMet(currDate, stopDate)) {
+        console.log('4 return +0 stop criteria')
         return [failSafeCounter, Math.floor(freezeDays) - 1]
       }
 
       // Stop criteria is not met, continue counting
+      console.log('5 return +0 continue')
       return count(
         stopDate,
         currDate.add(1, 'days'),
@@ -80,6 +87,7 @@ const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
     }
 
     // Reset the counter and continue counting with the next day
+    console.log('6 return +0 done')
     return [failSafeCounter, freezeDays]
     // return count(
     //   stopDate,
@@ -98,7 +106,7 @@ const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
     )
 
     // Stop Date criteria is met
-    if (currDate.diff(stopDate, 'days') >= 0) {
+    if (isStopCriteriaMet(currDate, stopDate)) {
       console.log('stopDate trigger', currDate.diff(stopDate, 'days'), [
         failSafeCounter,
         freezeDays,
@@ -109,12 +117,14 @@ const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
       }
 
       // No streak, if you have no freezes and no checks, so close yet so far.
+      console.log('7 return no streak')
       return [0, 0]
     }
 
     // Stop criteria is not met but you still have freezes then good luck!
     if (Math.floor(freezeDays) > 0) {
       console.log('+0 crunch freeze days till stopDate')
+      console.log('8 return +0 crunch freeze days')
       return count(
         stopDate,
         currDate.add(1, 'days'),
@@ -125,6 +135,9 @@ const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
     }
 
     // no more checks, no more freezes, not stop date, you are out.
+    console.log(
+      '9 return no more checks, no more freezes, not stop date, you are out.'
+    )
     return [0, 0]
   }
 }

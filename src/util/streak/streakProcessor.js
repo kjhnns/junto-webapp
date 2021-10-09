@@ -58,7 +58,7 @@ const streakProcessor = checkedTimeStamps => {
   return {
     streak: isThereAStreak,
     streakIncToday: isTodayChecked,
-    streakFrozen: !isTodayChecked && !isYesterdayChecked,
+    streakFrozen: isThereAStreak && !isTodayChecked && !isYesterdayChecked,
     streakFreezes,
     streakDays: streakDayCount,
   }
