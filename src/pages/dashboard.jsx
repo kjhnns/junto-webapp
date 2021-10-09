@@ -9,6 +9,7 @@ import { CreateNewTag } from '@components/CreateNewTag'
 import { HabitTagList } from '@components/HabitTagList'
 import { TagList } from '@components/TagList'
 import { EditHabit } from '@components/EditHabit'
+import { EditTag } from '@components/EditTag'
 import { HabitDetails } from '@components/HabitDetails'
 import { PrivateRoute } from '@components/PrivateRoute'
 
@@ -22,6 +23,7 @@ const DashboardPage = () => (
       <PrivateRoute path="/dashboard/tags" component={TagList} />
       <PrivateRoute path="/dashboard/tags/new" component={CreateNewTag} />
       <PrivateRoute path="/dashboard/tags/:habitId" component={HabitTagList} />
+      <PrivateRoute path="/dashboard/tags/edit/:tagId" component={EditTag} />
       <PrivateRoute
         path="/dashboard/details/:habitId"
         component={HabitDetails}
