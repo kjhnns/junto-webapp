@@ -43,7 +43,7 @@ const TagCard = ({ tag, active, onClickHandler }) => (
   </Box>
 )
 
-Card.propTypes = {
+TagCard.propTypes = {
   tag: PropTypes.objectOf({
     label: PropTypes.string.isRequired,
   }).isRequired,

@@ -50,6 +50,7 @@ const streakProcessor = checkedTimeStamps => {
     0,
     isTodayChecked ? today : yesterday
   )
+  console.log(streakDayCount, streakFreezes)
 
   // TODO ADD STREAKFREEZE CONSIDERATIONS
   const isThereAStreak = streakDayCount > 0
@@ -58,7 +59,7 @@ const streakProcessor = checkedTimeStamps => {
     streak: isThereAStreak,
     streakIncToday: isTodayChecked,
     streakFrozen: !isTodayChecked && !isYesterdayChecked,
-    streakFreezes: streakFreezes,
+    streakFreezes,
     streakDays: streakDayCount,
   }
 }

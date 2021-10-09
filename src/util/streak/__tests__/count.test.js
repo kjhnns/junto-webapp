@@ -18,15 +18,10 @@ describe('StreakProcessor - count', () => {
 
     const sortedTsps = days.sort((a, b) => b - a)
     const checkedObjs = sortedTsps.map(moment.unix)
+    const stopdate = checkedObjs[0]
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(
-      checkedObjs[0],
-      startDate,
-      selectedTimeFrame,
-      0,
-      0
-    )
+    const countedDays = count(stopdate, startDate, selectedTimeFrame, 0, 0)
 
     expect(countedDays[0]).toBe(7)
   })
@@ -44,15 +39,10 @@ describe('StreakProcessor - count', () => {
 
     const sortedTsps = streakChecks.sort((a, b) => b - a)
     const checkedObjs = sortedTsps.map(moment.unix)
+    const stopdate = checkedObjs[0]
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(
-      checkedObjs[0],
-      startDate,
-      selectedTimeFrame,
-      0,
-      0
-    )
+    const countedDays = count(stopdate, startDate, selectedTimeFrame, 0, 0)
     expect(countedDays[0]).toBe(6)
   })
 
@@ -81,15 +71,10 @@ describe('StreakProcessor - count', () => {
 
     const sortedTsps = streakChecks.sort((a, b) => b - a)
     const checkedObjs = sortedTsps.map(moment.unix)
+    const stopdate = checkedObjs[0]
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(
-      checkedObjs[0],
-      startDate,
-      selectedTimeFrame,
-      0,
-      0
-    )
+    const countedDays = count(stopdate, startDate, selectedTimeFrame, 0, 0)
     expect(countedDays[0]).toBe(15)
   })
 
@@ -104,15 +89,10 @@ describe('StreakProcessor - count', () => {
 
     const sortedTsps = streakChecks.sort((a, b) => b - a)
     const checkedObjs = sortedTsps.map(moment.unix)
+    const stopdate = checkedObjs[0]
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(
-      checkedObjs[0],
-      startDate,
-      selectedTimeFrame,
-      0,
-      0
-    )
+    const countedDays = count(stopdate, startDate, selectedTimeFrame, 0, 0)
     expect(countedDays[0]).toBe(4)
   })
 
@@ -126,15 +106,10 @@ describe('StreakProcessor - count', () => {
 
     const sortedTsps = streakChecks.sort((a, b) => b - a)
     const checkedObjs = sortedTsps.map(moment.unix)
+    const stopdate = checkedObjs[0]
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(
-      checkedObjs[0],
-      startDate,
-      selectedTimeFrame,
-      0,
-      0
-    )
+    const countedDays = count(stopdate, startDate, selectedTimeFrame, 0, 0)
     expect(countedDays[0]).toBe(2)
   })
 
@@ -164,15 +139,10 @@ describe('StreakProcessor - count', () => {
 
     const sortedTsps = streakChecks.sort((a, b) => b - a)
     const checkedObjs = sortedTsps.map(moment.unix)
+    const stopdate = checkedObjs[0]
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(
-      checkedObjs[0],
-      startDate,
-      selectedTimeFrame,
-      0,
-      0
-    )
+    const countedDays = count(stopdate, startDate, selectedTimeFrame, 0, 0)
     expect(countedDays[0]).toBe(18)
   })
 
@@ -202,10 +172,11 @@ describe('StreakProcessor - count', () => {
 
     const sortedTsps = streakChecks.sort((a, b) => b - a)
     const checkedObjs = sortedTsps.map(moment.unix)
+    const stopdate = checkedObjs[0]
     const selectedTimeFrame = getRange(checkedObjs, [])
 
     const countedDays01 = count(
-      checkedObjs[0],
+      stopdate,
       selectedTimeFrame[0],
       selectedTimeFrame,
       0,
@@ -213,7 +184,7 @@ describe('StreakProcessor - count', () => {
     )
     expect(countedDays01[0]).toBe(2)
     const countedDays02 = count(
-      checkedObjs[0],
+      stopdate,
       selectedTimeFrame[0],
       selectedTimeFrame,
       0,
