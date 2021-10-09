@@ -14,7 +14,7 @@ const create = async ({ label }) => {
         },
       }
     )
-    console.log(result)
+
     if (result.status !== 200 && result.status !== 201) {
       return {
         error: true,

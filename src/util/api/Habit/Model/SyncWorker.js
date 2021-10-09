@@ -23,31 +23,27 @@ const isModelEqual = (a, b) => {
       modelx.id === modely.id &&
       modelx.created_at === modely.created_at
 
-    const equalChecks = (modelx, modely) => {
-      if (
-        !isArrayIteratable(modelx.checked) ||
-        !isArrayIteratable(modely.checked)
-      ) {
-        return modelx.checked === modely.checked
+    const equalChecks = (x, y) => {
+      if (!isArrayIteratable(x.checked) || !isArrayIteratable(y.checked)) {
+        return x.checked === y.checked
       }
       return (
-        modelx.checked
-          .map((modelxitem, itemIdx) => modelxitem === modely.checked[itemIdx])
-          .reduce((i, j) => i && j) &&
-        modelx.checked.length === modely.checked.length
+        x.checked
+          .map((xitem, itemIdx) => xitem === y.checked[itemIdx])
+          .reduce((i, j) => i && j) && x.checked.length === y.checked.length
       )
     }
 
-    const equalTags = (modelx, modely) => {
-      if (!isArrayIteratable(modelx.tags) || !isArrayIteratable(modely.tags)) {
-        return modelx.tags === modely.tags
+    const equalTags = (x, y) => {
+      if (!isArrayIteratable(x.tags) || !isArrayIteratable(y.tags)) {
+        return x.tags === y.tags
       }
-      const xsorted = modelx.tags.sort()
-      const ysorted = modely.tags.sort()
+      const xsorted = x.tags.sort()
+      const ysorted = y.tags.sort()
       return (
         xsorted
-          .map((modelxitem, itemIdx) => modelxitem === ysorted[itemIdx])
-          .reduce((i, j) => i && j) && modelx.tags.length === modely.tags.length
+          .map((xitem, itemIdx) => xitem === ysorted[itemIdx])
+          .reduce((i, j) => i && j) && x.tags.length === y.tags.length
       )
     }
 

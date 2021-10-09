@@ -41,7 +41,6 @@ const PureCreateNewTag = ({ handleSubmit }) => {
             setErrorMessage('')
             setSubmitting(true)
             const response = await handleSubmit(values)
-            console.log(response)
             if (response.error) {
               setErrorMessage(response.description)
             }

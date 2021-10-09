@@ -5,49 +5,12 @@ import { Habit as HabitManager, Tag as TagManager } from '@api'
 import { Layout } from '@components/Layout'
 import { Button } from '@components/Button'
 import { SEO } from '@components/SEO'
-import { Flex, Box } from '@components/Grid'
+import { Flex } from '@components/Grid'
 import { Text } from '@components/Typography'
 import { MenuBar } from '@components/Navigation'
 import { Link } from '@components/Link'
 
-const TagCard = ({ tag, active, onClickHandler }) => (
-  <Box width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
-    <Flex
-      sx={{
-        borderRadius: 'default',
-        px: [3, 4, 4],
-        // minHeight: ['80px', '93px', '93px'],
-        flex: '1',
-      }}
-    >
-      <Flex
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="space-between"
-        flex="1"
-      >
-        <Flex alignItems="center" flexDirection="row" flex="1">
-          <Box>
-            <Text
-              onClick={onClickHandler}
-              // as="h2"
-              sx={{
-                fontSize: [3, 4, 4],
-                textOverflow: 'ellipsis',
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                cursor: 'pointer',
-              }}
-            >
-              {tag.label}
-            </Text>
-          </Box>
-          <Box pl={2}>{active ? ' (active)' : ''}</Box>
-        </Flex>
-      </Flex>
-    </Flex>
-  </Box>
-)
+import TagCard from './TagCard'
 
 const HabitTagList = ({ habitId }) => {
   const [loadingState, setLoadingState] = useState('LOADING')
@@ -132,7 +95,7 @@ const HabitTagList = ({ habitId }) => {
           {tags.map(tag => {
             const active =
               habit.tags &&
-              habit.tags.filter(htag => htag.id == tag.id).length > 0
+              habit.tags.filter(htag => htag.id === tag.id).length > 0
             return (
               <TagCard
                 key={tag.id}
@@ -140,22 +103,21 @@ const HabitTagList = ({ habitId }) => {
                   if (active) {
                     if (await TagManager.remove({ habitId, tagId: tag.id })) {
                       const updatedTags = habit.tags.filter(
-                        tagp => tagp.id != tag.id
+                        tagp => tagp.id !== tag.id
                       )
                       setHabit({ ...habit, tags: updatedTags })
                     }
                   } else {
-                    if (await TagManager.append({ habitId, tagId: tag.id })) {
-                      if (habit.tags !== null) {
-                        const updatedTags = [
-                          { id: tag.id, label: tag.label },
-                          ...habit.tags,
-                        ]
-                        setHabit({ ...habit, tags: updatedTags })
-                      } else {
-                        const updatedTags = [{ id: tag.id, label: tag.label }]
-                        setHabit({ ...habit, tags: updatedTags })
-                      }
+                    await TagManager.append({ habitId, tagId: tag.id })
+                    if (habit.tags !== null) {
+                      const updatedTags = [
+                        { id: tag.id, label: tag.label },
+                        ...habit.tags,
+                      ]
+                      setHabit({ ...habit, tags: updatedTags })
+                    } else {
+                      const updatedTags = [{ id: tag.id, label: tag.label }]
+                      setHabit({ ...habit, tags: updatedTags })
                     }
                   }
                 }}
@@ -182,6 +144,7 @@ const HabitTagList = ({ habitId }) => {
 
 HabitTagList.propTypes = {
   habitId: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
 }
 
 export { HabitTagList }
