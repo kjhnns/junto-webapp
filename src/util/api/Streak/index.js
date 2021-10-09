@@ -26,8 +26,9 @@ const streakProcessor = checkedTimeStamps => {
 
   const daysFromTodayGTMaxFreeze =
     checkedObjsDescending.length > 0 &&
-    today.diff(checkedObjsDescending[0], 'day') > maximumStreakFreezes + 1
+    today.diff(checkedObjsDescending[0], 'day') > maximumStreakFreezes
 
+  // console.log(today.diff(checkedObjsDescending[0], 'day'), maximumStreakFreezes + 1)
   if (daysFromTodayGTMaxFreeze) {
     return {
       streak: false,
