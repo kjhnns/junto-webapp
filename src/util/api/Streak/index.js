@@ -45,6 +45,7 @@ const streakProcessor = checkedTimeStamps => {
     0,
     yesterday
   )
+  // TODO ADD STREAKFREEZE CONSIDERATIONS
   const isThereAStreak = streakDayCount > 0
 
   return {

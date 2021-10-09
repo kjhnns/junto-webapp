@@ -73,6 +73,27 @@ const Streak = ({ habit }) => {
                 Record
               </Text>
             </Flex>
+            <Flex flexDirection="column" py={2} px={3}>
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontSize: 3,
+                  py: 2,
+                  color: 'gray.800',
+                }}
+              >
+                {streakData.streakFreezes}
+              </Text>
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  fontSize: [1, 2, 2],
+                  color: 'gray.800',
+                }}
+              >
+                Freezes
+              </Text>
+            </Flex>
           </Flex>
         ) : (
           <Flex flexDirection="row">
