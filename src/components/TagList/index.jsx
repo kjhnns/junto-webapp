@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { navigate } from 'gatsby'
 
-import { Tag as TagManager, Habit as HabitManager } from '@api'
+import { Tag as TagManager } from '@api'
 import { Layout } from '@components/Layout'
 import { Button } from '@components/Button'
 import { SEO } from '@components/SEO'
@@ -10,6 +10,7 @@ import { Text } from '@components/Typography'
 import { MenuBar } from '@components/Navigation'
 import { Link } from '@components/Link'
 import { streakProcessor } from '@api/Streak'
+import { DeleteDialog } from './DeleteDialog'
 
 const TagCard = ({
   tag: { id, label, actions, streak, streakDays, streakIncToday },

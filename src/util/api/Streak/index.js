@@ -1,11 +1,13 @@
 import moment from 'moment'
-import { count, getMax, getRange } from './count'
+import { count, getMax, getRange, maximumStreakFreezes } from './count'
 
 const streakProcessor = checkedTimeStamps => {
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
     return {
       streak: false,
       streakIncToday: false,
+      streakFrozen: false,
+      streakFreezes: 0,
       streakDays: 0,
     }
   }
@@ -22,14 +24,33 @@ const streakProcessor = checkedTimeStamps => {
     checkedObjsDescending.length > 0 &&
     checkedObjsDescending[0].isSame(yesterday, 'day')
 
-  const checkedObjsAscending = getRange(checkedObjsDescending, [])
-  const streakDayCount = getMax(checkedObjsAscending, 0)
+  const daysFromTodayGTMaxFreeze =
+    checkedObjsDescending.length > 0 &&
+    today.diff(checkedObjsDescending[0], 'day') > maximumStreakFreezes + 1
 
-  const isThereAStreak = streakDayCount > 0 && (isToday || isYesterday)
+  if (daysFromTodayGTMaxFreeze) {
+    return {
+      streak: false,
+      streakIncToday: false,
+      streakFrozen: false,
+      streakFreezes: 0,
+      streakDays: 0,
+    }
+  }
+
+  const checkedObjsAscending = getRange(checkedObjsDescending, [])
+  const [streakDayCount, streakFreezes] = getMax(
+    checkedObjsAscending,
+    0,
+    yesterday
+  )
+  const isThereAStreak = streakDayCount > 0
 
   return {
     streak: isThereAStreak,
     streakIncToday: isToday,
+    streakFrozen: !isToday && !isYesterday,
+    streakFreezes: streakFreezes,
     streakDays: streakDayCount,
   }
 }
@@ -38,26 +59,13 @@ const longestStreak = checkedTimeStamps => {
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
     return 0
   }
-  const today = moment()
-  const sortedTsps = checkedTimeStamps.sort((a, b) => b - a)
-  const checkedObjs = sortedTsps.map(moment.unix)
 
-  let previous = today.clone()
-  let counter = 0
-  let longest = 0
-  let tstpNo = 0
-  // eslint-disable-next-line guard-for-in,no-restricted-syntax
-  for (tstpNo in checkedObjs) {
-    const tstp = checkedObjs[tstpNo]
-    if (!tstp.isSame(previous.subtract(1, 'days'), 'day')) {
-      counter = 0
-    }
-    counter += 1
-    longest = Math.max(longest, counter)
-    previous = tstp.clone()
-  }
+  const sortedTsps = checkedTimeStamps.sort((a, b) => a - b)
+  const checkedObjsAscending = sortedTsps.map(moment.unix)
 
-  return longest
+  const longestStreak = getMax(checkedObjsAscending, 0)
+
+  return longestStreak
 }
 
 export { streakProcessor, longestStreak, count }

@@ -17,9 +17,15 @@ describe('StreakProcessor - count', () => {
     const checkedObjs = sortedTsps.map(moment.unix)
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(startDate, selectedTimeFrame, 0)
+    const countedDays = count(
+      checkedObjs[0],
+      startDate,
+      selectedTimeFrame,
+      0,
+      0
+    )
 
-    expect(countedDays).toBe(7)
+    expect(countedDays[0]).toBe(7)
   })
 
   test('After 3 days of checking you should get a one day streak freeze', async () => {
@@ -37,8 +43,14 @@ describe('StreakProcessor - count', () => {
     const checkedObjs = sortedTsps.map(moment.unix)
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(startDate, selectedTimeFrame, 0)
-    expect(countedDays).toBe(6)
+    const countedDays = count(
+      checkedObjs[0],
+      startDate,
+      selectedTimeFrame,
+      0,
+      0
+    )
+    expect(countedDays[0]).toBe(6)
   })
 
   test('should recharge and not count as days. 19 days with two missed days should give you a 17 day streak', async () => {
@@ -68,8 +80,14 @@ describe('StreakProcessor - count', () => {
     const checkedObjs = sortedTsps.map(moment.unix)
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(startDate, selectedTimeFrame, 0)
-    expect(countedDays).toBe(15)
+    const countedDays = count(
+      checkedObjs[0],
+      startDate,
+      selectedTimeFrame,
+      0,
+      0
+    )
+    expect(countedDays[0]).toBe(15)
   })
 
   test('After 3 days of checking you should get a one day streak freeze, but you need three days to recharge before you get to use it again.', async () => {
@@ -85,8 +103,14 @@ describe('StreakProcessor - count', () => {
     const checkedObjs = sortedTsps.map(moment.unix)
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(startDate, selectedTimeFrame, 0)
-    expect(countedDays).toBe(4)
+    const countedDays = count(
+      checkedObjs[0],
+      startDate,
+      selectedTimeFrame,
+      0,
+      0
+    )
+    expect(countedDays[0]).toBe(4)
   })
 
   test('You need three days to charge a streakfreeze.', async () => {
@@ -101,8 +125,14 @@ describe('StreakProcessor - count', () => {
     const checkedObjs = sortedTsps.map(moment.unix)
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(startDate, selectedTimeFrame, 0)
-    expect(countedDays).toBe(2)
+    const countedDays = count(
+      checkedObjs[0],
+      startDate,
+      selectedTimeFrame,
+      0,
+      0
+    )
+    expect(countedDays[0]).toBe(2)
   })
 
   test('After 10 days you have 2 streak freezes', async () => {
@@ -133,8 +163,14 @@ describe('StreakProcessor - count', () => {
     const checkedObjs = sortedTsps.map(moment.unix)
     const selectedTimeFrame = getRange(checkedObjs, [])
     const startDate = selectedTimeFrame[0]
-    const countedDays = count(startDate, selectedTimeFrame, 0)
-    expect(countedDays).toBe(18)
+    const countedDays = count(
+      checkedObjs[0],
+      startDate,
+      selectedTimeFrame,
+      0,
+      0
+    )
+    expect(countedDays[0]).toBe(18)
   })
 
   test('After 10 days you have 2 streak freezes - you should find the longest streak after two times counting', async () => {
@@ -165,10 +201,22 @@ describe('StreakProcessor - count', () => {
     const checkedObjs = sortedTsps.map(moment.unix)
     const selectedTimeFrame = getRange(checkedObjs, [])
 
-    const countedDays01 = count(selectedTimeFrame[0], selectedTimeFrame, 0)
-    expect(countedDays01).toBe(2)
-    const countedDays02 = count(selectedTimeFrame[0], selectedTimeFrame, 0)
-    expect(countedDays02).toBe(14)
+    const countedDays01 = count(
+      checkedObjs[0],
+      selectedTimeFrame[0],
+      selectedTimeFrame,
+      0,
+      0
+    )
+    expect(countedDays01[0]).toBe(2)
+    const countedDays02 = count(
+      checkedObjs[0],
+      selectedTimeFrame[0],
+      selectedTimeFrame,
+      0,
+      0
+    )
+    expect(countedDays02[0]).toBe(14)
   })
 
   test('After 10 days you have 2 streak freezes - you should find the longest streak in a given range with getMax', async () => {
@@ -185,7 +233,7 @@ describe('StreakProcessor - count', () => {
     const selectedTimeFrame = getRange(checkedObjs, [])
 
     const countedMax = getMax(selectedTimeFrame, 0)
-    expect(countedMax).toBe(1)
+    expect(countedMax[0]).toBe(1)
   })
 
   test('After 10 days you have 2 streak freezes - you should find the longest streak in a given range with getMax', async () => {
@@ -217,6 +265,6 @@ describe('StreakProcessor - count', () => {
     const selectedTimeFrame = getRange(checkedObjs, [])
 
     const countedMax = getMax(selectedTimeFrame, 0)
-    expect(countedMax).toBe(14)
+    expect(countedMax[0]).toBe(14)
   })
 })

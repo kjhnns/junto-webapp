@@ -2,13 +2,13 @@ import moment from 'moment'
 import { count, getRange } from '../count'
 
 describe('StreakProcessor - getRange', () => {
-  test.only('getRange empty array should be robust', async () => {
+  test('getRange empty array should be robust', async () => {
     const streakChecks = []
     const range = getRange(streakChecks, [])
     expect(range.length).toBe(0)
   })
 
-  test.only('getRange expect it to skip {maximumStreakFreeze} days (good case)', async () => {
+  test('getRange expect it to skip {maximumStreakFreeze} days (good case)', async () => {
     const streakChecks = [
       moment('2021-10-19').unix(),
       moment('2021-10-18').unix(),

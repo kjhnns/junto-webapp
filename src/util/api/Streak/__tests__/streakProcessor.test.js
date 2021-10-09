@@ -2,21 +2,277 @@ import moment from 'moment'
 import { streakProcessor } from '..'
 
 describe('StreakProcessor', () => {
-  test('After 7 continious days it should count a seven day streak', async () => {
+  test('Last streak is more than {maxfreezedays} so it should not be a streak', async () => {
     const days = [
-      moment('2021-10-07').unix(),
-      moment('2021-10-06').unix(),
-      moment('2021-10-05').unix(),
-      moment('2021-10-04').unix(),
-      moment('2021-10-03').unix(),
-      moment('2021-10-02').unix(),
-      moment('2021-10-01').unix(),
+      moment('2000-10-07').unix(),
+      moment('2000-10-06').unix(),
+      moment('2000-10-05').unix(),
+      moment('2000-10-04').unix(),
+      moment('2000-10-03').unix(),
+      moment('2000-10-02').unix(),
+      moment('2000-10-01').unix(),
     ]
 
-    const { streak, streakIncToday, streakDays } = streakProcessor(days)
+    const {
+      streak,
+      streakIncToday,
+      streakDays,
+      streakFrozen,
+      streakFreezes,
+    } = streakProcessor(days)
 
-    expect(streakDays).toBe(7)
+    expect(streakFreezes).toBe(0)
+    expect(streakDays).toBe(0)
     expect(streakIncToday).toBe(false)
+    expect(streakFrozen).toBe(false)
+    expect(streak).toBe(false)
+  })
+
+  test('After 8 continious days it should count an 8 day streak', async () => {
+    const days = [
+      moment().unix(),
+      moment()
+        .subtract(1, 'day')
+        .unix(),
+      moment()
+        .subtract(2, 'day')
+        .unix(),
+      moment()
+        .subtract(3, 'day')
+        .unix(),
+      moment()
+        .subtract(4, 'day')
+        .unix(),
+      moment()
+        .subtract(5, 'day')
+        .unix(),
+      moment()
+        .subtract(6, 'day')
+        .unix(),
+      moment()
+        .subtract(7, 'day')
+        .unix(),
+    ]
+
+    const {
+      streak,
+      streakIncToday,
+      streakDays,
+      streakFrozen,
+      streakFreezes,
+    } = streakProcessor(days)
+
+    expect(streakDays).toBe(8)
+    expect(streakFreezes).toBe(1)
+    expect(streakIncToday).toBe(true)
+    expect(streakFrozen).toBe(false)
     expect(streak).toBe(true)
+  })
+
+  test('After 12 continious days it should have a 2 freezes', async () => {
+    const days = [
+      moment().unix(),
+      moment()
+        .subtract(1, 'day')
+        .unix(),
+      moment()
+        .subtract(2, 'day')
+        .unix(),
+      moment()
+        .subtract(3, 'day')
+        .unix(),
+      moment()
+        .subtract(4, 'day')
+        .unix(),
+      moment()
+        .subtract(5, 'day')
+        .unix(),
+      moment()
+        .subtract(6, 'day')
+        .unix(),
+      moment()
+        .subtract(7, 'day')
+        .unix(),
+      moment()
+        .subtract(8, 'day')
+        .unix(),
+      moment()
+        .subtract(9, 'day')
+        .unix(),
+      moment()
+        .subtract(10, 'day')
+        .unix(),
+      moment()
+        .subtract(11, 'day')
+        .unix(),
+    ]
+
+    const {
+      streak,
+      streakIncToday,
+      streakDays,
+      streakFrozen,
+      streakFreezes,
+    } = streakProcessor(days)
+
+    expect(streakDays).toBe(12)
+    expect(streakFreezes).toBe(2)
+    expect(streakIncToday).toBe(true)
+    expect(streakFrozen).toBe(false)
+    expect(streak).toBe(true)
+  })
+
+  test('When not checking today, the today flag should be off', async () => {
+    const days = [
+      moment()
+        .subtract(1, 'day')
+        .unix(),
+      moment()
+        .subtract(2, 'day')
+        .unix(),
+      moment()
+        .subtract(3, 'day')
+        .unix(),
+      moment()
+        .subtract(4, 'day')
+        .unix(),
+      moment()
+        .subtract(5, 'day')
+        .unix(),
+      moment()
+        .subtract(6, 'day')
+        .unix(),
+      moment()
+        .subtract(7, 'day')
+        .unix(),
+      moment()
+        .subtract(8, 'day')
+        .unix(),
+      moment()
+        .subtract(9, 'day')
+        .unix(),
+      moment()
+        .subtract(10, 'day')
+        .unix(),
+      moment()
+        .subtract(11, 'day')
+        .unix(),
+    ]
+
+    const {
+      streak,
+      streakIncToday,
+      streakDays,
+      streakFrozen,
+      streakFreezes,
+    } = streakProcessor(days)
+
+    expect(streakDays).toBe(11)
+    expect(streakFreezes).toBe(2)
+    expect(streakIncToday).toBe(false)
+    expect(streakFrozen).toBe(false)
+    expect(streak).toBe(true)
+  })
+
+  test('When not checking for 2 days, today flag should be false and streakflag should be true and freezes should be minus 1', async () => {
+    const days = [
+      // moment().subtract(1,'day').unix(),
+      moment()
+        .subtract(2, 'day')
+        .unix(),
+      moment()
+        .subtract(3, 'day')
+        .unix(),
+      moment()
+        .subtract(4, 'day')
+        .unix(),
+      moment()
+        .subtract(5, 'day')
+        .unix(),
+      moment()
+        .subtract(6, 'day')
+        .unix(),
+      moment()
+        .subtract(7, 'day')
+        .unix(),
+      moment()
+        .subtract(8, 'day')
+        .unix(),
+      moment()
+        .subtract(9, 'day')
+        .unix(),
+      moment()
+        .subtract(10, 'day')
+        .unix(),
+      moment()
+        .subtract(11, 'day')
+        .unix(),
+    ]
+
+    const {
+      streak,
+      streakIncToday,
+      streakDays,
+      streakFrozen,
+      streakFreezes,
+    } = streakProcessor(days)
+
+    expect(streakDays).toBe(10)
+    expect(streakFreezes).toBe(1)
+    expect(streakIncToday).toBe(false)
+    expect(streakFrozen).toBe(true)
+    expect(streak).toBe(true)
+  })
+
+  test('When not checking for 3 days, today flag should be false and streakflag should be true and freezes should be 0', async () => {
+    const days = [
+      // moment().unix(),
+      // moment().subtract(1,'day').unix(),
+      // moment().subtract(2,'day').unix(),
+      moment()
+        .subtract(3, 'day')
+        .unix(),
+      moment()
+        .subtract(4, 'day')
+        .unix(),
+      moment()
+        .subtract(5, 'day')
+        .unix(),
+      moment()
+        .subtract(6, 'day')
+        .unix(),
+      moment()
+        .subtract(7, 'day')
+        .unix(),
+      moment()
+        .subtract(8, 'day')
+        .unix(),
+      moment()
+        .subtract(9, 'day')
+        .unix(),
+      moment()
+        .subtract(10, 'day')
+        .unix(),
+      moment()
+        .subtract(11, 'day')
+        .unix(),
+      moment()
+        .subtract(12, 'day')
+        .unix(),
+    ]
+
+    const {
+      streak,
+      streakIncToday,
+      streakDays,
+      streakFrozen,
+      streakFreezes,
+    } = streakProcessor(days)
+
+    expect(streak).toBe(true)
+    expect(streakDays).toBe(10)
+    expect(streakIncToday).toBe(false)
+    expect(streakFrozen).toBe(true)
+    expect(streakFreezes).toBe(0)
   })
 })
