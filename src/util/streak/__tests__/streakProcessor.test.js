@@ -325,4 +325,60 @@ describe('StreakProcessor', () => {
     expect(streakFrozen).toBe(false)
     expect(streakFreezes).toBe(0)
   })
+
+  test('Streakfreeze should be 0 when you used one', async () => {
+    const days = [
+      // moment().unix(),
+      // moment().subtract(1,'day').unix(),
+      moment()
+        .subtract(2, 'day')
+        .unix(),
+      moment()
+        .subtract(3, 'day')
+        .unix(),
+      moment()
+        .subtract(4, 'day')
+        .unix(),
+      moment()
+        .subtract(5, 'day')
+        .unix(),
+      // moment().subtract(6,'day').unix(),
+      moment()
+        .subtract(7, 'day')
+        .unix(),
+      // moment().subtract(8,'day').unix(),
+      moment()
+        .subtract(9, 'day')
+        .unix(),
+      moment()
+        .subtract(10, 'day')
+        .unix(),
+      moment()
+        .subtract(11, 'day')
+        .unix(),
+      moment()
+        .subtract(12, 'day')
+        .unix(),
+      moment()
+        .subtract(13, 'day')
+        .unix(),
+      moment()
+        .subtract(14, 'day')
+        .unix(),
+    ]
+
+    const {
+      streak,
+      streakIncToday,
+      streakDays,
+      streakFrozen,
+      streakFreezes,
+    } = streakProcessor(days)
+
+    expect(streak).toBe(true)
+    expect(streakDays).toBe(4)
+    expect(streakIncToday).toBe(false)
+    expect(streakFrozen).toBe(true)
+    expect(streakFreezes).toBe(0)
+  })
 })
