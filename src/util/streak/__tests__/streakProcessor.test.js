@@ -224,7 +224,7 @@ describe('StreakProcessor', () => {
     expect(streak).toBe(true)
   })
 
-  test('When not checking for 3 days, today flag should be false and streakflag should be true and freezes should be 0', async () => {
+  test('When 3 days not checked, today flag=false, and streakflag=true, and freezes=0', async () => {
     const days = [
       // moment().unix(),
       // moment().subtract(1,'day').unix(),

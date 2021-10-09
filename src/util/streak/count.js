@@ -12,7 +12,7 @@ const incrementFreezeDays = freeze =>
   )
 
 const isStopCriteriaMet = (currDate, stopDate) =>
-  currDate.isSameOrAfter(stopDate)
+  currDate.isSameOrAfter(stopDate, 'day')
 
 const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
   const failSafeCounter = counter || 0
@@ -102,7 +102,7 @@ const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
       'no more checks',
       currDate,
       stopDate,
-      currDate.isSame(stopDate, 'day')
+      currDate.isSameOrAfter(stopDate, 'day')
     )
 
     // Stop Date criteria is met
