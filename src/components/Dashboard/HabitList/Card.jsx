@@ -16,6 +16,7 @@ const Card = ({
   streak,
   streakDays,
   streakIncToday,
+  streakFrozen,
 }) => {
   return (
     <motion.div layout>
@@ -58,6 +59,7 @@ const Card = ({
                   py: 2,
                   pl: 3,
                   color: streakIncToday ? 'gray.800' : 'gray.500',
+                  fontStyle: streakFrozen ? 'italic' : 'none',
                 }}
               >
                 {streakDays}

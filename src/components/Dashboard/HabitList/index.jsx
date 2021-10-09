@@ -38,7 +38,15 @@ const HabitList = ({
         <Flex flexDirection="column" my={[2, 3]}>
           <AnimateSharedLayout>
             {sortedHabits.map(
-              ({ id, title, checked, streak, streakDays, streakIncToday }) => {
+              ({
+                id,
+                title,
+                checked,
+                streak,
+                streakDays,
+                streakFrozen,
+                streakIncToday,
+              }) => {
                 return (
                   <Box key={id} width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
                     <Card
@@ -47,6 +55,7 @@ const HabitList = ({
                       checked={checked > 0}
                       streakDays={streakDays}
                       streakIncToday={streakIncToday}
+                      streakFrozen={streakFrozen}
                       streak={streak}
                       handleClick={() => {
                         if (checked > 0) {
