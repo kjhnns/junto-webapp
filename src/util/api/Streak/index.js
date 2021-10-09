@@ -1,5 +1,11 @@
 import moment from 'moment'
-import { count, getMax, getRange, maximumStreakFreezes } from './count'
+import {
+  count,
+  getMax,
+  getLatest,
+  getRange,
+  maximumStreakFreezes,
+} from './count'
 
 const streakProcessor = checkedTimeStamps => {
   if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
@@ -40,7 +46,7 @@ const streakProcessor = checkedTimeStamps => {
   }
 
   const checkedObjsAscending = getRange(checkedObjsDescending, [])
-  const [streakDayCount, streakFreezes] = getMax(
+  const [streakDayCount, streakFreezes] = getLatest(
     checkedObjsAscending,
     0,
     yesterday
@@ -67,7 +73,7 @@ const longestStreak = checkedTimeStamps => {
 
   const longestStreak = getMax(checkedObjsAscending, 0)
 
-  return longestStreak
+  return longestStreak[0]
 }
 
 export { streakProcessor, longestStreak, count }

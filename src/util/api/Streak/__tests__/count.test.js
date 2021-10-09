@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { count, getRange, getMax } from '../count'
+import { count, getRange, getMax, getLatest } from '../count'
 
 describe('StreakProcessor - count', () => {
   test('After 7 continious days it should count a seven day streak', async () => {
@@ -233,7 +233,7 @@ describe('StreakProcessor - count', () => {
     const selectedTimeFrame = getRange(checkedObjs, [])
 
     const countedMax = getMax(selectedTimeFrame, 0)
-    expect(countedMax[0]).toBe(1)
+    expect(countedMax).toBe(1)
   })
 
   test('After 10 days you have 2 streak freezes - you should find the longest streak in a given range with getMax', async () => {
@@ -265,6 +265,77 @@ describe('StreakProcessor - count', () => {
     const selectedTimeFrame = getRange(checkedObjs, [])
 
     const countedMax = getMax(selectedTimeFrame, 0)
-    expect(countedMax[0]).toBe(14)
+    expect(countedMax).toBe(14)
+  })
+
+  test('getMax should always return the longest streak not the most recent', async () => {
+    const streakChecks = [
+      moment('2021-10-09').unix(),
+      moment('2021-10-08').unix(),
+      moment('2021-10-07').unix(),
+      moment('2021-10-06').unix(),
+      moment('2021-10-05').unix(),
+      // moment('2021-10-19').unix(),
+      // moment('2021-10-18').unix(),
+      moment('2021-09-17').unix(),
+      moment('2021-09-16').unix(),
+      moment('2021-09-15').unix(),
+      moment('2021-09-14').unix(),
+      moment('2021-09-13').unix(),
+      moment('2021-09-12').unix(),
+      moment('2021-09-11').unix(),
+      moment('2021-09-10').unix(),
+      moment('2021-09-09').unix(),
+      moment('2021-09-08').unix(),
+      moment('2021-09-07').unix(),
+      moment('2021-09-06').unix(),
+      moment('2021-09-05').unix(),
+      // moment('2021-10-04').unix(),
+      // moment('2021-10-03').unix(),
+      moment('2021-08-02').unix(),
+      moment('2021-08-01').unix(),
+    ]
+
+    const sortedTsps = streakChecks.sort((a, b) => a - b)
+    const selectedTimeFrame = sortedTsps.map(moment.unix)
+
+    const countedMax = getMax(selectedTimeFrame, 0)
+    expect(countedMax).toBe(13)
+  })
+
+  test('getLatest should always return the latest streak', async () => {
+    const streakChecks = [
+      moment('2021-10-09').unix(),
+      moment('2021-10-08').unix(),
+      moment('2021-10-07').unix(),
+      moment('2021-10-06').unix(),
+      moment('2021-10-05').unix(),
+      // moment('2021-10-19').unix(),
+      // moment('2021-10-18').unix(),
+      moment('2021-09-17').unix(),
+      moment('2021-09-16').unix(),
+      moment('2021-09-15').unix(),
+      moment('2021-09-14').unix(),
+      moment('2021-09-13').unix(),
+      moment('2021-09-12').unix(),
+      moment('2021-09-11').unix(),
+      moment('2021-09-10').unix(),
+      moment('2021-09-09').unix(),
+      moment('2021-09-08').unix(),
+      moment('2021-09-07').unix(),
+      moment('2021-09-06').unix(),
+      moment('2021-09-05').unix(),
+      // moment('2021-10-04').unix(),
+      // moment('2021-10-03').unix(),
+      moment('2021-08-02').unix(),
+      moment('2021-08-01').unix(),
+    ]
+
+    const sortedTsps = streakChecks.sort((a, b) => b - a)
+    const checkedObjs = sortedTsps.map(moment.unix)
+    const selectedTimeFrame = getRange(checkedObjs, [])
+
+    const countedMax = getLatest(selectedTimeFrame, 0)
+    expect(countedMax[0]).toBe(5)
   })
 })
