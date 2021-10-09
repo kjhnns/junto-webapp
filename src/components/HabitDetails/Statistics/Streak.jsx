@@ -119,7 +119,7 @@ const Streak = ({ habit }) => {
               </Text>
             </Flex>
             <Text py={2} px={3}>
-              Build a streak to motivate yourself!
+              This is boring without a streak.
             </Text>
           </Flex>
         )}

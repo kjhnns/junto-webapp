@@ -73,7 +73,7 @@ const longestStreak = checkedTimeStamps => {
 
   const longestStreak = getMax(checkedObjsAscending, 0)
 
-  return longestStreak[0]
+  return longestStreak
 }
 
 export { streakProcessor, longestStreak, count }

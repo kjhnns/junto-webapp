@@ -42,7 +42,7 @@ const TagCard = ({
           />
         </Flex>
         <Flex alignItems="flex-start" flexDirection="column" flex="1">
-          <Box flex="1" pt={2}>
+          <Box flex="1" pt={2} sx={{ width: '100%' }}>
             <Text
               // as="h2"
               sx={{
@@ -51,6 +51,7 @@ const TagCard = ({
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
                 cursor: 'pointer',
+                textOverflow: 'ellipsis',
               }}
             >
               {label}
