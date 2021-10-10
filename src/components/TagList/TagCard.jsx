@@ -48,7 +48,7 @@ const TagCard = ({
           <Text
             sx={{
               textAlign: 'center',
-              fontSize: [3, 4, 4],
+              fontSize: [4, 5, 5],
               color: streakIncToday ? 'gray.900' : 'gray.600',
             }}
           >
@@ -61,18 +61,18 @@ const TagCard = ({
         {actions
           ? actions.map(action => {
               return (
-                <Box mt={3} mr={4}>
-                  <Box
-                    sx={{
-                      // color: 'gray.100',
-                      cursor: 'pointer',
-                    }}
-                    onClick={async () => {
-                      await navigate(`/dashboard/details/${action.id}`)
-                    }}
-                  >
-                    {action.title}
-                  </Box>
+                <Box
+                  sx={{
+                    // color: 'gray.100',
+                    cursor: 'pointer',
+                  }}
+                  mt={3}
+                  mr={4}
+                  onClick={async () => {
+                    await navigate(`/dashboard/details/${action.id}`)
+                  }}
+                >
+                  {action.title}
                 </Box>
               )
             })
