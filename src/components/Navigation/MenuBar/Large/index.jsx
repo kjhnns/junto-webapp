@@ -10,15 +10,24 @@ const Large = () => (
     sx={{
       display: ['none', 'flex', null, null],
       width: '100%',
-      maxWidth: '1800px',
       margin: 'auto',
-      py: 3,
       flexDirection: 'row',
       bg: 'gray.900',
     }}
   >
-    <Logo href="/dashboard" />
-    <Menu />
+    <Box
+      sx={{
+        display: ['none', 'flex', null, null],
+        width: '100%',
+        maxWidth: '1800px',
+        margin: 'auto',
+        py: 3,
+        flexDirection: 'row',
+      }}
+    >
+      <Logo href="/dashboard" />
+      <Menu />
+    </Box>
   </Box>
 )
 

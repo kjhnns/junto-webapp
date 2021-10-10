@@ -17,11 +17,12 @@ const EditTag = ({ tagId }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const resFetch = await TagManager.get()
+      const resFetch = await TagManager.getAll()
       if (!resFetch) {
         setLoadingState('ERROR')
         return null
       }
+      console.log(resFetch)
       const res = resFetch.filter(ptag => ptag.id === tagId)[0]
       if (!res) {
         setLoadingState('ERROR')

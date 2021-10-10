@@ -41,7 +41,7 @@ const PureEditTag = ({ tag, handleSubmit }) => {
             }
             if (response.success) {
               setSubmitting(false)
-              navigate(`/dashboard`)
+              navigate(`/dashboard/tags`)
             }
             setSubmitting(false)
           }}
@@ -78,11 +78,7 @@ const PureEditTag = ({ tag, handleSubmit }) => {
                     {isSubmitting ? `Editing ...` : `Edit`}
                   </Button>
                   <Box pt={[2, 0]}>
-                    <Button
-                      variant="clear"
-                      as={Link}
-                      to={`/dashboard/details/${tag.id}`}
-                    >
+                    <Button variant="clear" as={Link} to={`/dashboard/tags`}>
                       cancel
                     </Button>
                   </Box>

@@ -56,7 +56,7 @@ const PureCreateNewTag = ({ handleSubmit }) => {
             <Form onSubmit={submit}>
               <Box maxWidth="500px" mx="auto">
                 <Heading as="h1" fontSize={5} mb={3}>
-                  New tag
+                  New Motivation
                 </Heading>
                 <Box mb={3}>
                   <Text fontWeight="bold">Label</Text>
@@ -84,7 +84,7 @@ const PureCreateNewTag = ({ handleSubmit }) => {
                     {isSubmitting ? `Creating ...` : `Create`}
                   </Button>
                   <Box pt={[2, 0]}>
-                    <Button variant="clear" as={Link} to="/dashboard">
+                    <Button variant="clear" as={Link} to="/dashboard/tags">
                       cancel
                     </Button>
                   </Box>

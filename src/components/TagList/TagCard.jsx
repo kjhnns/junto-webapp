@@ -25,15 +25,23 @@ const TagCard = ({
         flex="1"
         p={2}
       >
-        <Flex justifyContent="center" alignItems="center" pr={3}>
-          <DeleteDialog
-            deleteHandler={async () => {
-              const result = await TagManager.deleteTag(id)
-              if (result) {
-                await navigate('/dashboard')
-              }
-            }}
-          />
+        <Flex justifyContent="center" alignItems="center" width="15%">
+          <Box pr={3} flex="1" width="100%">
+            <Flex alignItems="center" flexDirection="row" width="100%">
+              <Text
+                sx={{
+                  textAlign: 'center',
+                  pt: 2,
+                  fontSize: 3,
+                  pr: 3,
+                  width: '100%',
+                  color: streakIncToday ? 'gray.800' : 'gray.500',
+                }}
+              >
+                {streak ? streakDays : '-'}
+              </Text>
+            </Flex>
+          </Box>
         </Flex>
         <Flex alignItems="flex-start" flexDirection="column" flex="1">
           <Box flex="1" pt={2} sx={{ width: '100%' }}>
@@ -47,6 +55,9 @@ const TagCard = ({
                 cursor: 'pointer',
                 textOverflow: 'ellipsis',
               }}
+              onClick={async () => {
+                await navigate(`/dashboard/tags/edit/${id}`)
+              }}
             >
               {label}
             </Text>
@@ -57,11 +68,19 @@ const TagCard = ({
               flexDirection="row"
               flex="1"
               sx={{ flexFlow: 'wrap' }}
+              px={2}
+              py={2}
             >
               {actions
                 ? actions.map(action => {
                     return (
-                      <Box py={2} pr={2}>
+                      <Box
+                        pt={3}
+                        pr={3}
+                        onClick={async () => {
+                          await navigate(`/dashboard/details/${action.id}`)
+                        }}
+                      >
                         {action.title}
                       </Box>
                     )
@@ -69,26 +88,17 @@ const TagCard = ({
                 : ''}
             </Flex>
           </Box>
-        </Flex>
-        <Flex justifyContent="center" alignItems="center">
-          <Box pl={3} flex="1">
-            {streak ? (
-              <Flex alignItems="center" flexDirection="row">
-                <Text
-                  sx={{
-                    textAlign: 'center',
-                    pt: 2,
-                    fontSize: 3,
-                    pl: 3,
-                    color: streakIncToday ? 'gray.800' : 'gray.500',
-                  }}
-                >
-                  {streakDays}
-                </Text>
-              </Flex>
-            ) : (
-              ''
-            )}
+          <Box width="100%">
+            <Flex justifyContent="right" alignItems="center">
+              <DeleteDialog
+                deleteHandler={async () => {
+                  const result = await TagManager.deleteTag(id)
+                  if (result) {
+                    await navigate('/dashboard')
+                  }
+                }}
+              />
+            </Flex>
           </Box>
         </Flex>
       </Flex>

@@ -24,7 +24,7 @@ const DeleteDialog = ({ deleteHandler }) => {
   return (
     <Box>
       <Button onClick={open} variant="clear">
-        X
+        Delete
       </Button>
       <ResponsiveDialog
         aria-label="Warning about next steps"

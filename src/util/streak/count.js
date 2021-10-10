@@ -92,6 +92,9 @@ const count = (stopDate, currDate, checkDates, freezeDays, counter) => {
     // Reset the counter and continue counting with the next day
     printLog('6 return +0 done')
     return [failSafeCounter, freezeDays]
+    // TODO: This should actually be the return statement, some parts of the scripts
+    // especially the parts responsible for the longest streak, expect this script
+    // to terminate when a streak has reached its end.
     // return count(
     //   stopDate,
     //   currDate.add(1, 'days'),

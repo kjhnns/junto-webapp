@@ -5,7 +5,7 @@ import { Habit as HabitManager, Tag as TagManager } from '@api'
 import { Layout } from '@components/Layout'
 import { Button } from '@components/Button'
 import { SEO } from '@components/SEO'
-import { Flex } from '@components/Grid'
+import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 import { MenuBar } from '@components/Navigation'
 import { Link } from '@components/Link'
@@ -81,62 +81,73 @@ const HabitTagList = ({ habitId }) => {
         }}
         flexDirection="column"
       >
-        <SEO title="Motivations" />
-        <Flex
+        <MenuBar />
+        <Box
+          maxWidth="800px"
           sx={{
-            p: [3, 4],
-            flex: '1',
-            minHeight: '100%',
-            bg: 'gray.100',
-            flexDirection: 'column',
+            width: '100%',
           }}
+          flex="1"
+          mx="auto"
         >
-          <h1>Motivations</h1>
-          {tags.map(tag => {
-            const active =
-              habit.tags &&
-              habit.tags.filter(htag => htag.id === tag.id).length > 0
-            return (
-              <TagCard
-                key={tag.id}
-                onClickHandler={async () => {
-                  if (active) {
-                    if (await TagManager.remove({ habitId, tagId: tag.id })) {
-                      const updatedTags = habit.tags.filter(
-                        tagp => tagp.id !== tag.id
-                      )
-                      setHabit({ ...habit, tags: updatedTags })
-                    }
-                  } else {
-                    await TagManager.append({ habitId, tagId: tag.id })
-                    if (habit.tags !== null) {
-                      const updatedTags = [
-                        { id: tag.id, label: tag.label },
-                        ...habit.tags,
-                      ]
-                      setHabit({ ...habit, tags: updatedTags })
+          <SEO title="Motivations" />
+          <Flex
+            sx={{
+              p: [3, 4],
+              flex: '1',
+              minHeight: '100%',
+              width: '100%',
+              bg: 'gray.100',
+              flexDirection: 'column',
+            }}
+          >
+            <h1>Motivations</h1>
+            {tags.map(tag => {
+              const active =
+                habit.tags &&
+                habit.tags.filter(htag => htag.id === tag.id).length > 0
+              return (
+                <TagCard
+                  key={tag.id}
+                  onClickHandler={async () => {
+                    if (active) {
+                      if (await TagManager.remove({ habitId, tagId: tag.id })) {
+                        const updatedTags = habit.tags.filter(
+                          tagp => tagp.id !== tag.id
+                        )
+                        setHabit({ ...habit, tags: updatedTags })
+                      }
                     } else {
-                      const updatedTags = [{ id: tag.id, label: tag.label }]
-                      setHabit({ ...habit, tags: updatedTags })
+                      await TagManager.append({ habitId, tagId: tag.id })
+                      if (habit.tags !== null) {
+                        const updatedTags = [
+                          { id: tag.id, label: tag.label },
+                          ...habit.tags,
+                        ]
+                        setHabit({ ...habit, tags: updatedTags })
+                      } else {
+                        const updatedTags = [{ id: tag.id, label: tag.label }]
+                        setHabit({ ...habit, tags: updatedTags })
+                      }
                     }
-                  }
-                }}
-                tag={tag}
-                active={active}
-              />
-            )
-          })}
+                  }}
+                  tag={tag}
+                  active={active}
+                />
+              )
+            })}
 
-          <Flex flexDirection="column" alignItems="center" my={3}>
-            <Button
-              variant="clear"
-              as={Link}
-              to={`/dashboard/details/${habitId}`}
-            >
-              close
-            </Button>
+            <Flex flexDirection="column" alignItems="center" my={3}>
+              <Button
+                variant="clear"
+                as={Link}
+                to={`/dashboard/details/${habitId}`}
+              >
+                close
+              </Button>
+            </Flex>
           </Flex>
-        </Flex>
+        </Box>
       </Flex>
     </Layout>
   )

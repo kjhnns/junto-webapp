@@ -78,17 +78,30 @@ const TagList = () => {
       <SEO title="Motivations" />
       <Box width="100%">
         <MenuBar active="tags" />
-        <h1>Motivations</h1>
 
-        {tags.map(tag => (
-          <TagCard tag={tag} />
-        ))}
+        <Box
+          maxWidth="800px"
+          sx={{
+            width: '100%',
+          }}
+          flex="1"
+          mx="auto"
+        >
+          <h1>Motivations</h1>
 
-        <Flex flexDirection="column" alignItems="center" my={3}>
-          <Link sx={{ fontWeight: 600, fontSize: 4 }} to="/dashboard/tags/new">
-            Add Motivation
-          </Link>
-        </Flex>
+          {tags.map(tag => (
+            <TagCard tag={tag} />
+          ))}
+
+          <Flex flexDirection="column" alignItems="center" my={3}>
+            <Link
+              sx={{ fontWeight: 600, fontSize: 4 }}
+              to="/dashboard/tags/new"
+            >
+              Add Motivation
+            </Link>
+          </Flex>
+        </Box>
       </Box>
     </Layout>
   )

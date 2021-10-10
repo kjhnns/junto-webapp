@@ -2,6 +2,7 @@ import { create } from './create'
 import { getAll } from './getAll'
 import { append } from './append'
 import { remove } from './remove'
+import { update } from './update'
 import { deleteTag } from './deleteTag'
 
 const Tag = {
@@ -9,6 +10,7 @@ const Tag = {
   deleteTag,
   remove,
   getAll,
+  update,
   create,
 }
 
