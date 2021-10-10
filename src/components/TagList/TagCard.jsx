@@ -49,7 +49,7 @@ const TagCard = ({
             sx={{
               textAlign: 'center',
               fontSize: [3, 4, 4],
-              color: streakIncToday ? 'gray.100' : 'gray.600',
+              color: streakIncToday ? 'gray.900' : 'gray.600',
             }}
           >
             {streak ? streakDays : ''}
