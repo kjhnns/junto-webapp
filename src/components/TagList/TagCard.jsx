@@ -57,7 +57,7 @@ const TagCard = ({
         </Box>
       </Flex>
 
-      <Flex flexDirection="row" flex="1" pt={2} flexFlow="wrap">
+      <Flex flexDirection="row" flex="1" pt={2} sx={{ flexFlow: 'wrap' }}>
         {actions
           ? actions.map(action => {
               return (
@@ -65,6 +65,7 @@ const TagCard = ({
                   sx={{
                     // color: 'gray.100',
                     cursor: 'pointer',
+                    whiteSpace: 'nowrap',
                   }}
                   mt={3}
                   mr={4}
