@@ -87,13 +87,11 @@ const TagList = () => {
           flex="1"
           mx="auto"
         >
-          <h1>Motivations</h1>
-
           {tags.map(tag => (
             <TagCard tag={tag} />
           ))}
 
-          <Flex flexDirection="column" alignItems="center" my={3}>
+          <Flex flexDirection="column" alignItems="center" my={4}>
             <Link
               sx={{ fontWeight: 600, fontSize: 4 }}
               to="/dashboard/tags/new"
