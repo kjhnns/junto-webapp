@@ -10,28 +10,29 @@ import { Text } from '@components/Typography'
 import { MenuBar } from '@components/Navigation'
 import { Link } from '@components/Link'
 
-import TagCard from './TagCard'
+import HabitCard from './HabitCard'
 
-const HabitTagList = ({ habitId }) => {
+const TagHabitList = ({ tagId }) => {
   const [loadingState, setLoadingState] = useState('LOADING')
-  const [habit, setHabit] = useState({})
-  const [tags, setTags] = useState([])
+  const [habits, setHabits] = useState([])
+  const [tag, setTag] = useState({})
 
   useEffect(() => {
     const fetchData = async () => {
-      const resHabit = await HabitManager.getOne(habitId)
+      const resHabits = await HabitManager.getAll()
       const resTags = await TagManager.getAll()
-      if (resHabit === null) {
+      if (resTags === null) {
         setLoadingState('ERROR')
         return null
       }
-      setHabit(resHabit)
-      setTags(resTags)
+      const tag = resTags.filter(t => t.id === tagId)
+      setHabits(resHabits)
+      setTag(tag[0])
       setLoadingState('SUCCESSFUL')
       return true
     }
     fetchData()
-  }, [habitId])
+  }, [tagId])
 
   if (loadingState === 'LOADING') {
     return (
@@ -101,48 +102,48 @@ const HabitTagList = ({ habitId }) => {
               flexDirection: 'column',
             }}
           >
-            <h1>Motivations</h1>
-            {tags.map(tag => {
+            <h1>{tag.label}</h1>
+            {habits.map(habit => {
               const active =
-                habit.tags &&
-                habit.tags.filter(htag => htag.id === tag.id).length > 0
+                tag.actions &&
+                tag.actions.filter(a => a.id === habit.id).length > 0
               return (
-                <TagCard
-                  key={tag.id}
+                <HabitCard
+                  key={habit.id}
                   onClickHandler={async () => {
                     if (active) {
-                      if (await TagManager.remove({ habitId, tagId: tag.id })) {
-                        const updatedTags = habit.tags.filter(
-                          tagp => tagp.id !== tag.id
+                      if (
+                        await TagManager.remove({ habitId: habit.id, tagId })
+                      ) {
+                        const updatedHabits = tag.actions.filter(
+                          h => h.id !== habit.id
                         )
-                        setHabit({ ...habit, tags: updatedTags })
+                        setTag({ ...tag, actions: updatedHabits })
                       }
                     } else {
-                      await TagManager.append({ habitId, tagId: tag.id })
-                      if (habit.tags !== null) {
-                        const updatedTags = [
-                          { id: tag.id, label: tag.label },
-                          ...habit.tags,
+                      await TagManager.append({ tagId, habitId: habit.id })
+                      if (tag.actions !== null) {
+                        const updatedHabits = [
+                          { id: habit.id, title: habit.title },
+                          ...tag.actions,
                         ]
-                        setHabit({ ...habit, tags: updatedTags })
+                        setTag({ ...tag, actions: updatedHabits })
                       } else {
-                        const updatedTags = [{ id: tag.id, label: tag.label }]
-                        setHabit({ ...habit, tags: updatedTags })
+                        const updatedHabits = [
+                          { id: habit.id, title: habit.title },
+                        ]
+                        setTag({ ...tag, actions: updatedHabits })
                       }
                     }
                   }}
-                  tag={tag}
+                  habit={habit}
                   active={active}
                 />
               )
             })}
 
             <Flex flexDirection="column" alignItems="center" my={3}>
-              <Button
-                variant="clear"
-                as={Link}
-                to={`/dashboard/details/${habitId}`}
-              >
+              <Button variant="clear" as={Link} to={`/dashboard/tags`}>
                 close
               </Button>
             </Flex>
@@ -153,9 +154,9 @@ const HabitTagList = ({ habitId }) => {
   )
 }
 
-HabitTagList.propTypes = {
-  habitId: PropTypes.string.isRequired,
-  tag: PropTypes.string.isRequired,
+TagHabitList.propTypes = {
+  tagId: PropTypes.string.isRequired,
+  habit: PropTypes.string.isRequired,
 }
 
-export { HabitTagList }
+export { TagHabitList }

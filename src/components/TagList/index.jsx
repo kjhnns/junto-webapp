@@ -88,7 +88,7 @@ const TagList = () => {
           mx="auto"
         >
           {tags.map(tag => (
-            <TagCard tag={tag} />
+            <TagCard key={tag.id} tag={tag} />
           ))}
 
           <Flex flexDirection="column" alignItems="center" my={4}>

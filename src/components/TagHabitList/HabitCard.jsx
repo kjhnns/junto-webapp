@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 
-const TagCard = ({ tag, active, onClickHandler }) => (
+const HabitCard = ({ habit, active, onClickHandler }) => (
   <Box width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
     <Flex
       sx={{
@@ -33,22 +33,22 @@ const TagCard = ({ tag, active, onClickHandler }) => (
                 cursor: 'pointer',
               }}
             >
-              {tag.label}
+              {habit.title}
             </Text>
           </Box>
-          <Box pl={2}>{active ? ' (active)' : ''}</Box>
+          <Box pl={2}>{active ? ' (selected)' : ''}</Box>
         </Flex>
       </Flex>
     </Flex>
   </Box>
 )
 
-TagCard.propTypes = {
-  tag: PropTypes.objectOf({
-    label: PropTypes.string.isRequired,
+HabitCard.propTypes = {
+  habit: PropTypes.objectOf({
+    title: PropTypes.string.isRequired,
   }).isRequired,
   active: PropTypes.bool.isRequired,
   onClickHandler: PropTypes.func.isRequired,
 }
 
-export default TagCard
+export default HabitCard

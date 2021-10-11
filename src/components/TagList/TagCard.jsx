@@ -28,11 +28,11 @@ const TagCard = ({
         flex="1"
         pt={4}
       >
-        <Box>
+        <Flex alignItems="center">
           <Text
             // as="h2"
             sx={{
-              fontSize: [4, 5, 5],
+              fontSize: [5, 6, 6],
               textOverflow: 'ellipsis',
               overflow: 'hidden',
               whiteSpace: 'nowrap',
@@ -42,19 +42,19 @@ const TagCard = ({
           >
             {label}
           </Text>
-        </Box>
+        </Flex>
 
-        <Box>
+        <Flex alignItems="center">
           <Text
             sx={{
               textAlign: 'center',
-              fontSize: [4, 5, 5],
-              color: streakIncToday ? 'gray.900' : 'gray.600',
+              fontSize: [5, 6, 6],
+              color: streakIncToday ? 'gray.900' : 'gray.400',
             }}
           >
             {streak ? streakDays : ''}
           </Text>
-        </Box>
+        </Flex>
       </Flex>
 
       <Flex flexDirection="row" flex="1" pt={2} sx={{ flexFlow: 'wrap' }}>
@@ -62,6 +62,7 @@ const TagCard = ({
           ? actions.map(action => {
               return (
                 <Box
+                  key={action.id}
                   sx={{
                     // color: 'gray.100',
                     cursor: 'pointer',
@@ -79,7 +80,19 @@ const TagCard = ({
             })
           : ''}
       </Flex>
+
       <Flex flexDirection="row" flex="1" py={2}>
+        <Box>
+          <Button
+            variant="clear"
+            onClick={async () => {
+              await navigate(`/dashboard/tags/${id}`)
+            }}
+            variant="clear"
+          >
+            Habits
+          </Button>
+        </Box>
         <Box>
           <Button
             variant="clear"

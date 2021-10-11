@@ -130,16 +130,6 @@ const HabitDetails = ({ habitId }) => {
               <Box mr={2}>
                 <Button
                   onClick={async () => {
-                    await navigate(`/dashboard/tags/${habitId}`)
-                  }}
-                  variant="outline"
-                >
-                  Motivations
-                </Button>
-              </Box>
-              <Box mr={2}>
-                <Button
-                  onClick={async () => {
                     await navigate(`/dashboard/edit/${habitId}`)
                   }}
                   variant="outline"

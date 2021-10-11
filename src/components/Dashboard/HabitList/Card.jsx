@@ -86,7 +86,7 @@ Card.propTypes = {
   streak: PropTypes.bool.isRequired,
   streakIncToday: PropTypes.bool.isRequired,
   streakDays: PropTypes.number.isRequired,
-  streakFrozen: PropTypes.number.isRequired,
+  streakFrozen: PropTypes.bool.isRequired,
 }
 
 export default Card
