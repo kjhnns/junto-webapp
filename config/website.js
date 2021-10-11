@@ -1,6 +1,6 @@
 module.exports = {
   pathPrefix: `/`,
-  url: `https://junto-pwa.netlify.app/`,
+  url: `https://app.junto-habits.com/`,
   title: `junto – simple habit tracking`,
   titleTemplate: `%s — junto`,
   description: `Build healthy habits and break bad habits.`,
@@ -10,7 +10,7 @@ module.exports = {
   // Web App Manifest
   favicon: `src/images/favicon.png`, // Used for manifest favicon generation
   shortName: `junto`, // shortname for manifest. *Must* be shorter than 12 characters
-  themeColor: `#ffffff`,
+  themeColor: `#28282A`,
   backgroundColor: `#ffffff`,
 
   // schema.org JSONLD
