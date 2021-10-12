@@ -10,13 +10,12 @@ import { Button } from '@components/Button'
 const TagCard = ({
   tag: { id, label, actions, streak, streakDays, streakIncToday },
 }) => (
-  <Box width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
+  <Box width="100%" my={[3, 4]} px={[2, 3, 4, 0]}>
     <Flex
       sx={{
         px: [3, 4, 4],
         // minHeight: ['80px', '93px', '93px'],
         flex: '1',
-        borderBottom: '2px #888 solid',
         // bg: 'gray.800',
         flexDirection: 'column',
       }}
@@ -32,6 +31,7 @@ const TagCard = ({
           <Text
             // as="h2"
             sx={{
+              pt: 3,
               fontSize: [5, 6, 6],
               textOverflow: 'ellipsis',
               overflow: 'hidden',
@@ -113,6 +113,9 @@ const TagCard = ({
             }}
           />
         </Box>
+      </Flex>
+      <Flex justifyContent="center" my={3}>
+        <Box sx={{ width: '60%', borderBottom: '3px #CCC solid' }}></Box>
       </Flex>
     </Flex>
   </Box>
