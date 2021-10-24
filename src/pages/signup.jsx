@@ -26,6 +26,13 @@ const validationSchema = Yup.object().shape({
     .required('Required'),
 })
 
+const sendSignUpEvent = () => {
+  if (typeof window !== 'undefined') {
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({ event: 'sign_up' })
+  }
+}
+
 const PureSignupPage = ({ errors, handleSubmit, isSubmitting }) => (
   <Layout>
     <SEO title="Signup" />
@@ -114,9 +121,7 @@ const Signup = withFormik({
       setErrors({ response: result.message })
     }
     if (result.success) {
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'new_user')
-      }
+      sendSignUpEvent()
       await handleLogin(values)
       await navigate('/dashboard')
     }
