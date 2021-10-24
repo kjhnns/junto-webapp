@@ -90,6 +90,12 @@ module.exports = {
       resolve: 'gatsby-plugin-google-tagmanager',
       options: {
         id: 'GTM-WG8Z79D',
+        // Puts tracking script in the head instead of the body
+        pluginConfig: {
+          head: true,
+          // anonymize: true,
+          // includeInDevelopment: true,
+        },
         // datalayer to be set before GTM is loaded
         // should be a stringified object or object
         // Defaults to null
