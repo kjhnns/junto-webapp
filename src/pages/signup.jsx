@@ -114,7 +114,7 @@ const Signup = withFormik({
       setErrors({ response: result.message })
     }
     if (result.success) {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== 'undefined' && window.gtag) {
         window.gtag('event', 'new_user')
       }
       await handleLogin(values)
