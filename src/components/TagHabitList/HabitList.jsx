@@ -3,33 +3,13 @@ import React from 'react'
 import { Tag as TagManager } from '@api'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
+import { Button } from '@components/Button'
 
 import { Link } from '@components/Link'
 
 import HabitCard from './HabitCard'
 
-const clickHandler = async () => {
-  if (active) {
-    if (await TagManager.remove({ habitId: habit.id, tagId })) {
-      const updatedHabits = tag.actions.filter(h => h.id !== habit.id)
-      setTag({ ...tag, actions: updatedHabits })
-    }
-  } else {
-    await TagManager.append({ tagId, habitId: habit.id })
-    if (tag.actions !== null) {
-      const updatedHabits = [
-        { id: habit.id, title: habit.title },
-        ...tag.actions,
-      ]
-      setTag({ ...tag, actions: updatedHabits })
-    } else {
-      const updatedHabits = [{ id: habit.id, title: habit.title }]
-      setTag({ ...tag, actions: updatedHabits })
-    }
-  }
-}
-
-const HabitList = ({ habits }) => {
+const HabitList = ({ habits, tag, setTag }) => {
   if (!habits.length) {
     return (
       <Flex flexDirection="column" alignItems="center" my={[2, 3]}>
@@ -45,6 +25,8 @@ const HabitList = ({ habits }) => {
     )
   }
 
+  const tagId = tag.id
+
   return (
     <Box>
       <Box>
@@ -54,7 +36,28 @@ const HabitList = ({ habits }) => {
           return (
             <HabitCard
               key={habit.id}
-              onClickHandler={clickHandler}
+              onClickHandler={async () => {
+                if (active) {
+                  if (await TagManager.remove({ habitId: habit.id, tagId })) {
+                    const updatedHabits = tag.actions.filter(
+                      h => h.id !== habit.id
+                    )
+                    setTag({ ...tag, actions: updatedHabits })
+                  }
+                } else {
+                  await TagManager.append({ tagId, habitId: habit.id })
+                  if (tag.actions !== null) {
+                    const updatedHabits = [
+                      { id: habit.id, title: habit.title },
+                      ...tag.actions,
+                    ]
+                    setTag({ ...tag, actions: updatedHabits })
+                  } else {
+                    const updatedHabits = [{ id: habit.id, title: habit.title }]
+                    setTag({ ...tag, actions: updatedHabits })
+                  }
+                }
+              }}
               habit={habit}
               active={active}
             />

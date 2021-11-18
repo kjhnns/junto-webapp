@@ -102,7 +102,7 @@ const TagHabitList = ({ tagId }) => {
             }}
           >
             <h1>{tag.label}</h1>
-            <HabitList habits={habits} />
+            <HabitList habits={habits} tag={tag} setTag={setTag} />
           </Flex>
         </Box>
       </Flex>
