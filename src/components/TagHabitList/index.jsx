@@ -8,9 +8,8 @@ import { SEO } from '@components/SEO'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 import { MenuBar } from '@components/Navigation'
-import { Link } from '@components/Link'
 
-import HabitCard from './HabitCard'
+import HabitList from './HabitList'
 
 const TagHabitList = ({ tagId }) => {
   const [loadingState, setLoadingState] = useState('LOADING')
@@ -103,50 +102,7 @@ const TagHabitList = ({ tagId }) => {
             }}
           >
             <h1>{tag.label}</h1>
-            {habits.map(habit => {
-              const active =
-                tag.actions &&
-                tag.actions.filter(a => a.id === habit.id).length > 0
-              return (
-                <HabitCard
-                  key={habit.id}
-                  onClickHandler={async () => {
-                    if (active) {
-                      if (
-                        await TagManager.remove({ habitId: habit.id, tagId })
-                      ) {
-                        const updatedHabits = tag.actions.filter(
-                          h => h.id !== habit.id
-                        )
-                        setTag({ ...tag, actions: updatedHabits })
-                      }
-                    } else {
-                      await TagManager.append({ tagId, habitId: habit.id })
-                      if (tag.actions !== null) {
-                        const updatedHabits = [
-                          { id: habit.id, title: habit.title },
-                          ...tag.actions,
-                        ]
-                        setTag({ ...tag, actions: updatedHabits })
-                      } else {
-                        const updatedHabits = [
-                          { id: habit.id, title: habit.title },
-                        ]
-                        setTag({ ...tag, actions: updatedHabits })
-                      }
-                    }
-                  }}
-                  habit={habit}
-                  active={active}
-                />
-              )
-            })}
-
-            <Flex flexDirection="column" alignItems="center" my={3}>
-              <Button variant="clear" as={Link} to={`/dashboard/tags`}>
-                close
-              </Button>
-            </Flex>
+            <HabitList habits={habits} />
           </Flex>
         </Box>
       </Flex>

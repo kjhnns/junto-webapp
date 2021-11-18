@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 
-const HabitCard = ({ habit, active, onClickHandler }) => (
+const MotivationCard = ({ habit, active, onClickHandler }) => (
   <Box width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
     <Flex
       sx={{
@@ -43,7 +43,7 @@ const HabitCard = ({ habit, active, onClickHandler }) => (
   </Box>
 )
 
-HabitCard.propTypes = {
+MotivationCard.propTypes = {
   habit: PropTypes.objectOf({
     title: PropTypes.string.isRequired,
   }).isRequired,
@@ -51,4 +51,4 @@ HabitCard.propTypes = {
   onClickHandler: PropTypes.func.isRequired,
 }
 
-export default HabitCard
+export default MotivationCard

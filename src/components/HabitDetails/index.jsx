@@ -14,6 +14,61 @@ import { MenuBar } from '@components/Navigation'
 import { Statistics } from './Statistics'
 import { DeleteDialog } from './DeleteDialog'
 
+const Header = ({ habit: { title, created_at } }) => (
+  <Flex width="100%" flexDirection="column" justifyContent="left">
+    <Box
+      sx={{
+        display: ['flex', 'none', null, null],
+        bg: 'gray.800',
+        pt: 4,
+        pb: 3,
+        color: 'white',
+      }}
+    >
+      <Box maxWidth="800px" width="100%">
+        <Heading
+          as="h1"
+          sx={{
+            fontSize: 5,
+            px: [3, 0],
+            pt: 3,
+          }}
+        >{`${title}`}</Heading>
+        <Text px={[3, 0]}>
+          Created on {`${moment.unix(created_at).format('YYYY-MM-DD')}`}
+        </Text>
+      </Box>
+    </Box>
+    <Box
+      width="100%"
+      sx={{
+        display: ['none', 'flex', null, null],
+      }}
+    >
+      <Flex
+        width="100%"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="left"
+      >
+        <Box width="100%" maxWidth="800px">
+          <Heading
+            as="h1"
+            sx={{
+              fontSize: 5,
+              px: [3, 0],
+              pt: 3,
+            }}
+          >{`${title}`}</Heading>
+          <Text px={[3, 0]}>
+            Created on {`${moment.unix(created_at).format('YYYY-MM-DD')}`}
+          </Text>
+        </Box>
+      </Flex>
+    </Box>
+  </Flex>
+)
+
 const HabitDetails = ({ habitId }) => {
   const [loadingState, setLoadingState] = useState('LOADING')
   const [habit, setHabit] = useState({})
@@ -104,19 +159,8 @@ const HabitDetails = ({ habitId }) => {
             alignItems: 'center',
           }}
         >
+          <Header habit={habit} />
           <Box maxWidth="800px" width="100%">
-            <Heading
-              as="h1"
-              sx={{
-                fontSize: 5,
-                px: [3, 0],
-                pt: 3,
-              }}
-            >{`${habit.title}`}</Heading>
-            <Text px={[3, 0]}>
-              Created on{' '}
-              {`${moment.unix(habit.created_at).format('YYYY-MM-DD')}`}
-            </Text>
             <Box>
               {habit.checked ? (
                 <Statistics habit={habit} />

@@ -7,10 +7,9 @@ import { SEO } from '@components/SEO'
 import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 import { MenuBar } from '@components/Navigation'
-import { Link } from '@components/Link'
 import { streakProcessor } from '@streak'
 
-import TagCard from './TagCard'
+import List from './List'
 
 const TagList = () => {
   const [loadingState, setLoadingState] = useState('LOADING')
@@ -73,33 +72,13 @@ const TagList = () => {
     ...tag,
     ...streakProcessor(tag.checked),
   }))
+
   return (
     <Layout>
       <SEO title="Motivations" />
       <Box width="100%">
         <MenuBar active="tags" />
-
-        <Box
-          maxWidth="800px"
-          sx={{
-            width: '100%',
-          }}
-          flex="1"
-          mx="auto"
-        >
-          {tags.map(tag => (
-            <TagCard key={tag.id} tag={tag} />
-          ))}
-
-          <Flex flexDirection="column" alignItems="center" my={4}>
-            <Link
-              sx={{ fontWeight: 600, fontSize: 4 }}
-              to="/dashboard/tags/new"
-            >
-              Add Motivation
-            </Link>
-          </Flex>
-        </Box>
+        <List tags={tags} />
       </Box>
     </Layout>
   )
