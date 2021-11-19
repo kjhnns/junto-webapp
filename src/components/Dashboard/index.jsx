@@ -143,7 +143,7 @@ const Dashboard = () => {
   // transform habits
   const habits = rawHabits.map(habit => ({
     ...habit,
-    cached: habit.cached ? habit.cached : { ...streakProcessor(habit.checked) },
+    ...(habit.cached ? habit.cached : { ...streakProcessor(habit.checked) }),
     checked: getHabitTimestampOfSelectedDay(habit.checked, selectedDate),
   }))
 
