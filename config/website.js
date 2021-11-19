@@ -1,7 +1,7 @@
 module.exports = {
   pathPrefix: `/`,
   url: `https://app.junto-habits.com/`,
-  title: `junto – simple habit tracking`,
+  title: `junto – sustainable habits`,
   titleTemplate: `%s — junto`,
   description: `Build healthy habits and break bad habits.`,
   image: `/images/meta-image-default.png`, // Path to the default meta image in `static` folder

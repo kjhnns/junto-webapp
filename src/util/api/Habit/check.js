@@ -1,4 +1,5 @@
 import { getIdToken, axios } from '@auth'
+import { streakProcessor } from '@streak'
 
 const callName = 'check'
 
@@ -31,7 +32,12 @@ const updateModel = (model, { id, timestamp }) => {
         // eslint-disable-next-line no-param-reassign
         habit.checked = [timestamp]
       }
-      const res = { ...habit }
+      const res = {
+        ...habit,
+        cached: {
+          ...streakProcessor(habit.checked),
+        },
+      }
       return res
     }
     return habit
