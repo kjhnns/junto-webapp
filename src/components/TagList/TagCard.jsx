@@ -31,7 +31,6 @@ const TagCard = ({
           <Text
             // as="h2"
             sx={{
-              pt: 3,
               fontSize: [5, 6, 6],
               textOverflow: 'ellipsis',
               overflow: 'hidden',
