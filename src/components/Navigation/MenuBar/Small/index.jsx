@@ -50,7 +50,7 @@ const Small = ({ active }) => (
           fontSize={0}
           sx={{ color: active === 'dashboard' ? 'gray.200' : 'gray.600' }}
         >
-          Dashboard
+          Track
         </Text>
       </Flex>
     </Box>
