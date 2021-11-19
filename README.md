@@ -2,6 +2,19 @@
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/kjhnns/junto-webapp)
 
+## Exporting PWA to App Stores
+
+Online bundling service
+
+- https://www.pwabuilder.com/
+
+## App Logo
+
+Resources on the topic:
+
+- https://web.dev/add-manifest/
+- https://www.w3.org/TR/appmanifest/#examples-of-masks
+
 ## Features
 
 All the Gatsby goodness included in most other starters (SEO, [offline support](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-offline), [Web App Manifest](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-manifest), etc.) plus:
