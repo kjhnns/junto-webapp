@@ -1,56 +1,12 @@
 import * as UpdateQueue from './UpdateQueue'
 import * as Updates from './Updates'
 import * as Storage from './Storage'
+import isModelEqual from './isModelEqual'
 
 const self = {
   syncWorkerProcessId: false,
   syncingApi: false,
   pendingModelUpdates: [],
-}
-
-const isArrayIteratable = a => a !== null && a.length !== 0
-
-const isModelEqual = (a, b) => {
-  if (!isArrayIteratable(a) || !isArrayIteratable(b)) {
-    return false
-  }
-  const aSorted = a.sort((x, y) => (x.created_at < y.created_at ? 1 : -1))
-  const bSorted = b.sort((x, y) => (x.created_at < y.created_at ? 1 : -1))
-  const equalMap = aSorted.map((modelx, idx) => {
-    const modely = bSorted[idx]
-    const equalMeta =
-      modelx.title === modely.title &&
-      modelx.id === modely.id &&
-      modelx.created_at === modely.created_at
-
-    const equalChecks = (x, y) => {
-      if (!isArrayIteratable(x.checked) || !isArrayIteratable(y.checked)) {
-        return x.checked === y.checked
-      }
-      return (
-        x.checked
-          .map((xitem, itemIdx) => xitem === y.checked[itemIdx])
-          .reduce((i, j) => i && j) && x.checked.length === y.checked.length
-      )
-    }
-
-    const equalTags = (x, y) => {
-      if (!isArrayIteratable(x.tags) || !isArrayIteratable(y.tags)) {
-        return x.tags === y.tags
-      }
-      const xsorted = x.tags.sort()
-      const ysorted = y.tags.sort()
-      return (
-        xsorted
-          .map((xitem, itemIdx) => xitem === ysorted[itemIdx])
-          .reduce((i, j) => i && j) && x.tags.length === y.tags.length
-      )
-    }
-
-    return equalMeta && equalChecks(modelx, modely) && equalTags(modelx, modely)
-  })
-
-  return equalMap.reduce((i, j) => i && j)
 }
 
 const delay = (t, v) => {
