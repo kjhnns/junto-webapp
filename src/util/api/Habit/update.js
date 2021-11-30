@@ -1,12 +1,13 @@
 import { axios, getIdToken } from '@auth'
 
-const update = async ({ id, title }) => {
+const update = async ({ id, title, description }) => {
   try {
     const idToken = await getIdToken()
     const result = await axios.put(
       `${process.env.GATSBY_API_URL}/action/${id}`,
       {
         title,
+        description,
       },
       {
         headers: {

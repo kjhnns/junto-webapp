@@ -1,0 +1,254 @@
+[
+  {
+    "templateId": 101,
+    "motivation": "Physical Fitness",
+    "title": "Exercise (run/gym/swim)",
+    "trigger": "After work",
+    "action": "I will do an excercise, where the goal is not to become the best, but just to show up and improve"
+  },
+  {
+    "templateId": 102,
+    "motivation": "Physical Fitness",
+    "title": "Push ups",
+    "trigger": "Before going to bed",
+    "action": "I will do min 5 push ups (if I do more thats great, but doing 5 is better than nothing)"
+  },
+  {
+    "templateId": 103,
+    "motivation": "Physical Fitness",
+    "title": "Sit ups",
+    "trigger": "Before going to bed",
+    "action": "I will do min 10 sit ups (if I do more thats great, but doing 10 is better than nothing)"
+  },
+  {
+    "templateId": 104,
+    "motivation": "Physical Fitness",
+    "title": "Squads",
+    "trigger": "Before going to bed",
+    "action": "I will do min 10 squads (if I do more thats great, but doing 10 is better than nothing)"
+  },
+  {
+    "templateId": 105,
+    "motivation": "Physical Fitness",
+    "title": "Pull ups",
+    "trigger": "Before going to bed",
+    "action": "I will do a pull up (use your legs to support you)"
+  },
+  {
+    "templateId": 106,
+    "motivation": "Physical Fitness",
+    "title": "Recreational sport",
+    "trigger": "When feeling bored",
+    "action": "I will play a sport that is not meant to be exercise"
+  },
+  {
+    "templateId": 107,
+    "motivation": "Physical Fitness",
+    "title": "Yoga",
+    "trigger": "After I wake up",
+    "action": "I will spend min 5 minutes to do a yoga session"
+  },
+  {
+    "templateId": 201,
+    "motivation": "Studying",
+    "title": "No digital entertainment",
+    "trigger": "For the whole day",
+    "action": "I will not use an app for entertainment (i.e., when you are bored) for 1 whole day"
+  },
+  {
+    "templateId": 202,
+    "motivation": "Studying",
+    "title": "Meditate",
+    "trigger": "Before opening my laptop",
+    "action": "I will sit down (preferably somewhere calm) for 5 minutes and breath conciously with your eyes closed"
+  },
+  {
+    "templateId": 203,
+    "motivation": "Studying",
+    "title": "Eat mindfully",
+    "trigger": "When I take my lunch plate",
+    "action": "I will turn off the television/ radio/ computer and just take the time to enjoy your meal."
+  },
+  {
+    "templateId": 204,
+    "motivation": "Studying",
+    "title": "Armish hour",
+    "trigger": "After dinner",
+    "action": "I will turn off/leave the smartphone 1hr before going to sleep"
+  },
+  {
+    "templateId": 205,
+    "motivation": "Studying",
+    "title": "Make the bed",
+    "trigger": "After I get up",
+    "action": "I will make my bed"
+  },
+  {
+    "templateId": 206,
+    "motivation": "Studying",
+    "title": "Chess",
+    "trigger": "After going to the toilette",
+    "action": "I will play a round of chess on my phone"
+  },
+  {
+    "templateId": 301,
+    "motivation": "Mindfulness",
+    "title": "Write down 3 expectations",
+    "trigger": "After breakfast",
+    "action": "I will think about three things I want to do today (these expectations should be in your control, it just takes you to do it and you do not rely on someone else to do it)"
+  },
+  {
+    "templateId": 302,
+    "motivation": "Mindfulness",
+    "title": "Take a picture",
+    "trigger": "After I got dressed",
+    "action": "I will take a picture to conserve memories"
+  },
+  {
+    "templateId": 303,
+    "motivation": "Mindfulness",
+    "title": "Talk with a friend/ or family member",
+    "trigger": "When I am feel stressed",
+    "action": "I will spend 5 minutes to talk to a friend or family member"
+  },
+  {
+    "templateId": 304,
+    "motivation": "Mindfulness",
+    "title": "Write down 3 things you are grateful for",
+    "trigger": "After breakfast",
+    "action": "I will write down 3 things that I am grateful for"
+  },
+  {
+    "templateId": 305,
+    "motivation": "Mindfulness",
+    "title": "Take some \"me\" time",
+    "trigger": "When I feel stressed",
+    "action": "I will spend 10 minutes to have some time by myself"
+  },
+  {
+    "templateId": 401,
+    "motivation": "Productivity",
+    "title": "Read",
+    "trigger": "Before going to sleep",
+    "action": "I will spend 1 minute reading a book"
+  },
+  {
+    "templateId": 402,
+    "motivation": "Productivity",
+    "title": "Learn language",
+    "trigger": "After the toilette",
+    "action": "I will spend 1 minute to learn vocabulary for a foreign language (use apps such as duolingo, etc.)"
+  },
+  {
+    "templateId": 403,
+    "motivation": "Productivity",
+    "title": "Write down your thoughts",
+    "trigger": "After work",
+    "action": "I will spend 1 minute a day to write down what I believe is true."
+  },
+  {
+    "templateId": 404,
+    "motivation": "Productivity",
+    "title": "Deep work",
+    "trigger": "First hour at work",
+    "action": "I will spend 1 hour with deep work (no distractions and no interruptions)"
+  },
+  {
+    "templateId": 405,
+    "motivation": "Productivity",
+    "title": "Track financial expenses",
+    "trigger": "After dinner",
+    "action": "I will spend 2 minutes to track my financial expenses (use WalletApp or similar)"
+  },
+  {
+    "templateId": 406,
+    "motivation": "Productivity",
+    "title": "Reflect and post it online",
+    "trigger": "When I am bored",
+    "action": "I will spend 30 minutes to write about something that was on my mind for the past week and post it online"
+  },
+  {
+    "templateId": 501,
+    "motivation": "Healthy Nutrition",
+    "title": "No sweets and snack",
+    "trigger": "For the whole day",
+    "action": "I will avoid foods, drinks, and snacks that contain a lot of sugar"
+  },
+  {
+    "templateId": 502,
+    "motivation": "Healthy Nutrition",
+    "title": "Complex Carbs",
+    "trigger": "For the whole day",
+    "action": "I will minimize (1 small serving) simple carbs (white bread, white rice, white pasta, white potatoes, etc.)"
+  },
+  {
+    "templateId": 503,
+    "motivation": "Healthy Nutrition",
+    "title": "No soft drinks",
+    "trigger": "For the whole day",
+    "action": "I will try to drink water instead of soft drinks (cola, juices, etc.)"
+  },
+  {
+    "templateId": 504,
+    "motivation": "Healthy Nutrition",
+    "title": "Drink tea",
+    "trigger": "When preparing dinner",
+    "action": "I will prepare a cup of tea (preferably something that is calming and unnerving)"
+  },
+  {
+    "templateId": 505,
+    "motivation": "Healthy Nutrition",
+    "title": "Eat nuts",
+    "trigger": "When I feel hungry",
+    "action": "I will eat nuts"
+  },
+  {
+    "templateId": 506,
+    "motivation": "Healthy Nutrition",
+    "title": "Minimise saturated fats",
+    "trigger": "For the whole day",
+    "action": "I will avoid saturated fats (such as cheese, fat meat)"
+  },
+  {
+    "templateId": 601,
+    "motivation": "Physical Health",
+    "title": "Drink 2L of Water",
+    "trigger": "For the whole day",
+    "action": "I will try to drink at least 2L of water (prepare a bottle and aim to drink that)"
+  },
+  {
+    "templateId": 602,
+    "motivation": "Physical Health",
+    "title": "Cold shower",
+    "trigger": "When I take a shower",
+    "action": "I will spend at least 10 seconds at the end of my shower with cold water"
+  },
+  {
+    "templateId": 603,
+    "motivation": "Physical Health",
+    "title": "Floss",
+    "trigger": "When I finished brushing my teeth",
+    "action": "I will floss my teeth"
+  },
+  {
+    "templateId": 604,
+    "motivation": "Physical Health",
+    "title": "Walk",
+    "trigger": "After dinner",
+    "action": "I will spend 10 minutes to go for a walk around the block"
+  },
+  {
+    "templateId": 605,
+    "motivation": "Physical Health",
+    "title": "Sleep 8 hours",
+    "trigger": "When going to sleep",
+    "action": "I will set my alarm so that I can sleep 8 hours"
+  },
+  {
+    "templateId": 606,
+    "motivation": "Physical Health",
+    "title": "Sun bath",
+    "trigger": "When the sun shines",
+    "action": "I will spend 5 minutes outside to sun bath"
+  }
+]

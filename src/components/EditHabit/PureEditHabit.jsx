@@ -6,13 +6,14 @@ import * as Yup from 'yup'
 import { Box, Flex } from '@components/Grid'
 import { Button } from '@components/Button'
 import { Heading, Text } from '@components/Typography'
-import { Formik, Form, Input } from '@components/Form'
+import { Formik, Form, Input, Textarea } from '@components/Form'
 import { Link } from '@components/Link'
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
     .max(80)
     .required('Required'),
+  description: Yup.string().max(200),
 })
 
 const PureEditHabit = ({ habit, handleSubmit }) => {
@@ -52,9 +53,13 @@ const PureEditHabit = ({ habit, handleSubmit }) => {
                 <Heading as="h1" fontSize={5} mb={3}>
                   Edit habit
                 </Heading>
-                <Box mb={3}>
+                <Box my={3}>
                   <Text fontWeight="bold">Title</Text>
                   <Input name="title" />
+                </Box>
+                <Box mb={3}>
+                  <Text fontWeight="bold">Description</Text>
+                  <Textarea name="description" />
                 </Box>
                 {errorMessage && (
                   <Box
@@ -98,6 +103,7 @@ const PureEditHabit = ({ habit, handleSubmit }) => {
 
 PureEditHabit.propTypes = {
   habit: PropTypes.objectOf({
+    description: PropTypes.string,
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }).isRequired,

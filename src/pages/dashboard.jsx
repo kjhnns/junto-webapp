@@ -4,6 +4,7 @@ import React from 'react'
 import { Router } from '@reach/router'
 import { SEO } from '@components/SEO'
 import { Dashboard } from '@components/Dashboard'
+import HabitCatalog from '@components/HabitCatalog'
 import { CreateNewHabit } from '@components/CreateNewHabit'
 import { CreateNewTag } from '@components/CreateNewTag'
 import { TagHabitList } from '@components/TagHabitList'
@@ -18,7 +19,8 @@ const DashboardPage = () => (
     <SEO />
     <Router>
       <PrivateRoute path="/dashboard" component={Dashboard} />
-      <PrivateRoute path="/dashboard/new" component={CreateNewHabit} />
+      <PrivateRoute path="/dashboard/new" component={HabitCatalog} />
+      <PrivateRoute path="/dashboard/new/custom" component={CreateNewHabit} />
       <PrivateRoute path="/dashboard/edit/:habitId" component={EditHabit} />
       <PrivateRoute path="/dashboard/tags" component={TagList} />
       <PrivateRoute path="/dashboard/tags/new" component={CreateNewTag} />

@@ -21,7 +21,7 @@ const colors = {
   primary: 'hsl(0, 0%, 0%)',
   secondary: 'hsl(10, 2%, 30%)',
   accent: 'pink',
-  highlight: 'yellow',
+  highlight: 'hsl(10, 2%, 90%)',
   muted: 'hsl(10, 2%, 83%)',
   pageBackground: 'hsl(0, 0%, 100%)',
   white: 'hsl(0, 0%, 100%)',

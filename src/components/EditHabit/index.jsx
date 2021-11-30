@@ -53,7 +53,6 @@ const EditHabit = ({ habitId }) => {
             <Text textAlign="center" fontWeight="600" fontSize={4} m={5}>
               Oops... Something went wrong.
             </Text>
-            s
             <Flex justifyContent="center">
               <Button
                 variant="clear"

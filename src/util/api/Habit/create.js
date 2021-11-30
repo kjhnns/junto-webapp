@@ -1,12 +1,14 @@
 import { getIdToken, axios } from '@auth'
 
-const create = async ({ title }) => {
+const create = async ({ title, description, templateId }) => {
   try {
     const idToken = await getIdToken()
     const result = await axios.post(
       `${process.env.GATSBY_API_URL}/action`,
       {
         title,
+        description,
+        templateId,
       },
       {
         headers: {

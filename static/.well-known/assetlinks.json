@@ -1,0 +1,19 @@
+{
+  "statements": [
+    {
+      "source": {
+        "web": {
+          "site": "https://app.junto-habits.com/"
+        }
+      },
+      "target": {
+        "androidApp": {
+          "packageName": "com.junto_habits.app.twa",
+          "certificate": {
+            "sha256Fingerprint": "7C:49:AE:23:A8:E9:4C:F4:4D:2E:F2:FF:88:F0:36:D9:C2:CA:84:C6:B9:1F:82:83:6B:CB:44:D3:BB:2F:78:00"
+          }
+        }
+      }
+    }
+  ]
+}

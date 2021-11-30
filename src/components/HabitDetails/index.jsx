@@ -170,6 +170,28 @@ const HabitDetails = ({ habitId }) => {
                 </Text>
               )}
             </Box>
+            {habit.description ? (
+              <Box>
+                <Text as="h2" px={[3, 0]} py={3}>
+                  Description
+                </Text>
+                <Flex
+                  flexDirection="row"
+                  sx={{
+                    bg: 'white',
+                    flex: 1,
+                    borderRadius: [0, 'default'],
+                    py: 3,
+                    px: [3, 4, 4],
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  {habit.description}
+                </Flex>
+              </Box>
+            ) : (
+              ''
+            )}
             <Flex my={3} px={[3, 0]}>
               <Box mr={2}>
                 <Button
