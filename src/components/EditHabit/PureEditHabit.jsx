@@ -58,8 +58,14 @@ const PureEditHabit = ({ habit, handleSubmit }) => {
                   <Input name="title" />
                 </Box>
                 <Box mb={3}>
-                  <Text fontWeight="bold">Description</Text>
-                  <Textarea name="description" />
+                  <Text fontWeight="bold">Recipe</Text>
+                  <Textarea
+                    name="description"
+                    placeholder="After/Before/When I ..., I will ..."
+                  />
+                  <Text fontSize={1}>
+                    (After/Before/When I ..., I will ...)
+                  </Text>
                 </Box>
                 {errorMessage && (
                   <Box

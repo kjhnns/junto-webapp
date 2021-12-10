@@ -66,7 +66,10 @@ const equalChecks = (x, y) => {
 }
 
 const equalMeta = (x, y) =>
-  x.title === y.title && x.id === y.id && x.created_at === y.created_at
+  x.title === y.title &&
+  x.id === y.id &&
+  x.created_at === y.created_at &&
+  x.description === y.description
 
 const isModelEqual = (a, b) => {
   if (!isArrayIteratable(a) || !isArrayIteratable(b)) {

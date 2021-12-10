@@ -173,7 +173,7 @@ const HabitDetails = ({ habitId }) => {
             {habit.description ? (
               <Box>
                 <Text as="h2" px={[3, 0]} py={3}>
-                  Description
+                  Recipe
                 </Text>
                 <Flex
                   flexDirection="row"

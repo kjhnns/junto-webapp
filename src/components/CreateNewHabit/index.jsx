@@ -9,13 +9,14 @@ import { SEO } from '@components/SEO'
 import { Box, Flex } from '@components/Grid'
 import { Button } from '@components/Button'
 import { Heading, Text } from '@components/Typography'
-import { Formik, Form, Input } from '@components/Form'
+import { Formik, Form, Input, Textarea } from '@components/Form'
 import { Link } from '@components/Link'
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
     .max(80)
     .required('Required'),
+  description: Yup.string().max(200),
 })
 
 const PureCreateNewHabit = ({ handleSubmit }) => {
@@ -60,6 +61,16 @@ const PureCreateNewHabit = ({ handleSubmit }) => {
                 <Box mb={3}>
                   <Text fontWeight="bold">Title</Text>
                   <Input name="title" />
+                </Box>
+                <Box mb={3}>
+                  <Text fontWeight="bold">Recipe</Text>
+                  <Textarea
+                    name="description"
+                    placeholder="After/Before/When I ..., I will ..."
+                  />
+                  <Text fontSize={1}>
+                    (After/Before/When I ..., I will ...)
+                  </Text>
                 </Box>
                 {errorMessage && (
                   <Box
