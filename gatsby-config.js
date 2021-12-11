@@ -55,17 +55,7 @@ module.exports = {
         },
       },
     },
-    {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        precachePages: [
-          `/dashboard/`,
-          `/dashboard/*`,
-          `/dashboard/details/*`,
-          `/settings/*`,
-        ],
-      },
-    },
+    `gatsby-plugin-offline`,
     {
       resolve: 'gatsby-plugin-firebase',
       options: {
