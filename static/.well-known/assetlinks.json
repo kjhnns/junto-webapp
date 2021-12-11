@@ -1,19 +1,13 @@
-{
-  "statements": [
-    {
-      "source": {
-        "web": {
-          "site": "https://app.junto-habits.com/"
-        }
-      },
-      "target": {
-        "androidApp": {
-          "packageName": "com.junto_habits.app.twa",
-          "certificate": {
-            "sha256Fingerprint": "7C:49:AE:23:A8:E9:4C:F4:4D:2E:F2:FF:88:F0:36:D9:C2:CA:84:C6:B9:1F:82:83:6B:CB:44:D3:BB:2F:78:00"
-          }
-        }
-      }
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.junto_habits.app.twa",
+      "sha256_cert_fingerprints": [
+        "E3:AF:16:3C:AE:FC:73:82:D7:E8:E2:7F:6F:75:1F:CF:09:29:17:DE:9D:42:8B:01:FF:05:6B:4E:EE:1B:52:C3",
+        "7C:49:AE:23:A8:E9:4C:F4:4D:2E:F2:FF:88:F0:36:D9:C2:CA:84:C6:B9:1F:82:83:6B:CB:44:D3:BB:2F:78:00"
+      ]
     }
-  ]
-}
+  }
+]
