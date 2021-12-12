@@ -47,6 +47,7 @@ module.exports = {
         start_url: `${pathPrefix}/dashboard`,
         background_color: website.backgroundColor,
         theme_color: website.themeColor,
+        cache_busting_mode: 'none',
         display: `standalone`,
         icon: website.favicon,
         orientation: `portrait`,
@@ -55,7 +56,14 @@ module.exports = {
         },
       },
     },
-    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        workboxConfig: {
+          globPatterns: ['**/*.{js,jpg,png,html,css}'],
+        },
+      },
+    },
     {
       resolve: 'gatsby-plugin-firebase',
       options: {
