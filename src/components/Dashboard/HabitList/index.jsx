@@ -10,7 +10,7 @@ import { Container } from '@components/Container'
 import Card from './Card'
 
 const HabitList = ({
-  selectedTimestamp,
+  selectedDate,
   habits,
   handleUnCheckClick,
   handleCheckClick,
@@ -46,28 +46,26 @@ const HabitList = ({
                 streakDays,
                 streakFrozen,
                 streakIncToday,
-              }) => {
-                return (
-                  <Box key={id} width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
-                    <Card
-                      title={title}
-                      linkTo={`/dashboard/details/${id}`}
-                      checked={checked > 0}
-                      streakDays={streakDays}
-                      streakIncToday={streakIncToday}
-                      streakFrozen={streakFrozen}
-                      streak={streak}
-                      handleClick={() => {
-                        if (checked > 0) {
-                          handleUnCheckClick(id, checked)
-                        } else {
-                          handleCheckClick(id, selectedTimestamp)
-                        }
-                      }}
-                    />
-                  </Box>
-                )
-              }
+              }) => (
+                <Box key={id} width="100%" my={[2, 3]} px={[2, 3, 4, 0]}>
+                  <Card
+                    title={title}
+                    linkTo={`/dashboard/details/${id}`}
+                    checked={checked > 0}
+                    streakDays={streakDays}
+                    streakIncToday={streakIncToday}
+                    streakFrozen={streakFrozen}
+                    streak={streak}
+                    handleClick={() => {
+                      if (checked > 0) {
+                        handleUnCheckClick(id, checked)
+                      } else {
+                        handleCheckClick(id, selectedDate)
+                      }
+                    }}
+                  />
+                </Box>
+              )
             )}
           </AnimateSharedLayout>
           <Flex flexDirection="column" alignItems="center" my={3}>
@@ -86,7 +84,7 @@ HabitList.defaultProps = {
 }
 
 HabitList.propTypes = {
-  selectedTimestamp: PropTypes.number.isRequired,
+  selectedDate: PropTypes.number.isRequired,
   habits: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,

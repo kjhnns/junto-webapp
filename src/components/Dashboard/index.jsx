@@ -15,13 +15,13 @@ import { HabitList } from './HabitList'
 import { HabitListLoading } from './HabitListLoading'
 import { useEventListener } from './EventListener'
 
-const getHabitTimestampOfSelectedDay = (checkedTimeStamps, selectedDay) => {
-  if (checkedTimeStamps === null || checkedTimeStamps.length === 0) {
+const getHabitDateOfSelectedDay = (checkedDates, selectedDay) => {
+  if (checkedDates === null || checkedDates.length === 0) {
     return null
   }
-  const checkedObjs = checkedTimeStamps.map(moment.unix)
+  const checkedObjs = checkedDates.map(d => moment(`${d}`, 'YYYYMMDD'))
   const checked = checkedObjs.map(date =>
-    date.isSame(selectedDay, 'day') ? date.unix() : 0
+    date.isSame(selectedDay, 'day') ? +date.format('YYYYMMDD') : 0
   )
   return checked.reduce((pv, cv) => Math.max(pv, cv))
 }
@@ -38,7 +38,7 @@ const getLast5Days = habits => {
 
   return last5Days.map(selectedDate => {
     const countHabitChecks = habits.map(habit =>
-      getHabitTimestampOfSelectedDay(habit.checked, selectedDate)
+      getHabitDateOfSelectedDay(habit.checked, selectedDate)
     )
     if (countHabitChecks.length <= 0) {
       return { count: 0, date: selectedDate, progress: 0 }
@@ -144,7 +144,7 @@ const Dashboard = () => {
   const habits = rawHabits.map(habit => ({
     ...habit,
     ...(habit.cached ? habit.cached : { ...streakProcessor(habit.checked) }),
-    checked: getHabitTimestampOfSelectedDay(habit.checked, selectedDate),
+    checked: getHabitDateOfSelectedDay(habit.checked, selectedDate),
   }))
 
   return (
@@ -158,7 +158,7 @@ const Dashboard = () => {
           handleClickOnDate={setSelectedDate}
         />
         <HabitList
-          selectedTimestamp={selectedDate.unix()}
+          selectedDate={+selectedDate.format('YYYYMMDD')}
           habits={habits}
           handleUnCheckClick={async (id, tsp) => {
             const updatedModel = await Habit.uncheck(id, tsp)

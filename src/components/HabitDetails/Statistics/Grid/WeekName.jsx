@@ -18,6 +18,7 @@ const WeekName = ({ weekIdx, week }) => {
           // eslint-disable-next-line react/jsx-key
           <text
             // eslint-disable-next-line react/no-array-index-key
+            key={ii}
             style={{
               fontSize: 9,
               fill: 'gray.500',

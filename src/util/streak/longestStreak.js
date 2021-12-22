@@ -7,7 +7,9 @@ const longestStreak = checkedTimeStamps => {
   }
 
   const sortedTsps = checkedTimeStamps.sort((a, b) => a - b)
-  const checkedObjsAscending = sortedTsps.map(moment.unix)
+  const checkedObjsAscending = sortedTsps
+    .map(d => moment(`${d}`, 'YYYYMMDD'))
+    .filter(x => x.isValid())
 
   return getMax(checkedObjsAscending, 0)
 }

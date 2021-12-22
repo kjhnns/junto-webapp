@@ -56,12 +56,11 @@ const Grid = ({ habit }) => {
   const ref = useRef()
   const { width: componentWidth } = useResize(ref)
 
-  const momentChecked = habit.checked.map(check => moment.unix(check))
+  const momentChecked = habit.checked.map(d => moment(`${d}`, 'YYYYMMDD'))
   const weeksFromSpace = Defaults.calcColumns(componentWidth)
 
   const weeksFromFirstDay = moment().diff(
-    // momentChecked[0] ||
-    moment.unix(habit.created_at),
+    momentChecked[0], // || moment.unix(habit.created_at),
     'weeks'
   )
   const adjustedWeeks = Math.min(weeksFromFirstDay, weeksFromSpace)
@@ -106,7 +105,10 @@ const Grid = ({ habit }) => {
                   !grid[idx + 1][6].isSame(week[6], 'month')) ||
                 idx === grid.length - 1
               return (
-                <>
+                <React.Fragment
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={idx}
+                >
                   <MonthName
                     show={showMonth}
                     columns={adjustedWeeks}
@@ -115,15 +117,13 @@ const Grid = ({ habit }) => {
                   />
                   <WeekName weekIdx={idx} week={week} />
                   <Week
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={idx}
                     columns={adjustedWeeks}
                     column={idx}
                     checks={filteredChecks}
                     week={week}
-                    createdAt={habit.created_at}
+                    createdAt={momentChecked[0].unix()}
                   />
-                </>
+                </React.Fragment>
               )
             })}
           </svg>

@@ -13,13 +13,15 @@ describe('StreakProcessor', () => {
       moment('2000-10-01').unix(),
     ]
 
+    const daysConverted = days.map(moment.unix).map(d => +d.format('YYYYMMDD'))
+    console.log(daysConverted)
     const {
       streak,
       streakIncToday,
       streakDays,
       streakFrozen,
       streakFreezes,
-    } = streakProcessor(days)
+    } = streakProcessor(daysConverted)
 
     expect(streakFreezes).toBe(0)
     expect(streakDays).toBe(0)
@@ -54,16 +56,17 @@ describe('StreakProcessor', () => {
         .unix(),
     ]
 
+    const daysConverted = days.map(moment.unix).map(d => +d.format('YYYYMMDD'))
     const {
       streak,
       streakIncToday,
       streakDays,
       streakFrozen,
       streakFreezes,
-    } = streakProcessor(days)
+    } = streakProcessor(daysConverted)
 
     expect(streakDays).toBe(8)
-    expect(streakFreezes).toBe(1)
+    expect(streakFreezes).toBe(2)
     expect(streakIncToday).toBe(true)
     expect(streakFrozen).toBe(false)
     expect(streak).toBe(true)
@@ -107,13 +110,14 @@ describe('StreakProcessor', () => {
         .unix(),
     ]
 
+    const daysConverted = days.map(moment.unix).map(d => +d.format('YYYYMMDD'))
     const {
       streak,
       streakIncToday,
       streakDays,
       streakFrozen,
       streakFreezes,
-    } = streakProcessor(days)
+    } = streakProcessor(daysConverted)
 
     expect(streakDays).toBe(12)
     expect(streakFreezes).toBe(2)
@@ -159,13 +163,14 @@ describe('StreakProcessor', () => {
         .unix(),
     ]
 
+    const daysConverted = days.map(moment.unix).map(d => +d.format('YYYYMMDD'))
     const {
       streak,
       streakIncToday,
       streakDays,
       streakFrozen,
       streakFreezes,
-    } = streakProcessor(days)
+    } = streakProcessor(daysConverted)
 
     expect(streakDays).toBe(11)
     expect(streakFreezes).toBe(2)
@@ -209,13 +214,14 @@ describe('StreakProcessor', () => {
         .unix(),
     ]
 
+    const daysConverted = days.map(moment.unix).map(d => +d.format('YYYYMMDD'))
     const {
       streak,
       streakIncToday,
       streakDays,
       streakFrozen,
       streakFreezes,
-    } = streakProcessor(days)
+    } = streakProcessor(daysConverted)
 
     expect(streakDays).toBe(10)
     expect(streakFreezes).toBe(1)
@@ -261,13 +267,14 @@ describe('StreakProcessor', () => {
         .unix(),
     ]
 
+    const daysConverted = days.map(moment.unix).map(d => +d.format('YYYYMMDD'))
     const {
       streak,
       streakIncToday,
       streakDays,
       streakFrozen,
       streakFreezes,
-    } = streakProcessor(days)
+    } = streakProcessor(daysConverted)
 
     expect(streak).toBe(true)
     expect(streakDays).toBe(10)
@@ -311,13 +318,14 @@ describe('StreakProcessor', () => {
         .unix(),
     ]
 
+    const daysConverted = days.map(moment.unix).map(d => +d.format('YYYYMMDD'))
     const {
       streak,
       streakIncToday,
       streakDays,
       streakFrozen,
       streakFreezes,
-    } = streakProcessor(days)
+    } = streakProcessor(daysConverted)
 
     expect(streak).toBe(false)
     expect(streakDays).toBe(0)
@@ -367,13 +375,14 @@ describe('StreakProcessor', () => {
         .unix(),
     ]
 
+    const daysConverted = days.map(moment.unix).map(d => +d.format('YYYYMMDD'))
     const {
       streak,
       streakIncToday,
       streakDays,
       streakFrozen,
       streakFreezes,
-    } = streakProcessor(days)
+    } = streakProcessor(daysConverted)
 
     expect(streak).toBe(true)
     expect(streakDays).toBe(4)

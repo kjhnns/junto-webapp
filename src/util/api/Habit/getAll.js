@@ -3,6 +3,18 @@ import { streakProcessor } from '@streak'
 
 const callName = 'getAll'
 
+const convertCheckTimeStamps = input => {
+  const standardFormat = moment(`${input}`, 'YYYYMMDD')
+  if (standardFormat.isValid()) {
+    return +standardFormat.format('YYYYMMDD')
+  }
+  const unixTspFormat = moment.unix(input)
+  if (unixTspFormat.isValid()) {
+    return +unixTspFormat.format('YYYYMMDD')
+  }
+  return null
+}
+
 const loadApi = async () => {
   try {
     const idToken = await getIdToken()
@@ -15,13 +27,19 @@ const loadApi = async () => {
       return false
     }
     const habitData = habits.data.data === null ? [] : habits.data.data
-    const habitDataEnriched = habitData.map(habit => ({
+    const habitDataNormalized = habitData.map(habit => ({
+      ...habit,
+      checked: habit.checked
+        .map(convertCheckTimeStamps)
+        .filter(x => x !== null),
+    }))
+    const habitDataNormalizedEnriched = habitDataNormalized.map(habit => ({
       ...habit,
       cached: {
         ...streakProcessor(habit.checked),
       },
     }))
-    const result = habitDataEnriched.sort(
+    const result = habitDataNormalizedEnriched.sort(
       (a, b) => b.cached.streakDays - a.cached.streakDays
     )
 

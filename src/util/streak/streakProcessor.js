@@ -16,7 +16,9 @@ const streakProcessor = checkedTimeStamps => {
   }
 
   const sortedTsps = checkedTimeStamps.sort((a, b) => b - a)
-  const checkedObjsDescending = sortedTsps.map(moment.unix)
+  const checkedObjsDescending = sortedTsps
+    .map(d => moment(`${d}`, 'YYYYMMDD'))
+    .filter(x => x.isValid())
 
   const today = moment()
   const yesterday = moment().subtract(1, 'day')

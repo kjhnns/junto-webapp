@@ -6,7 +6,7 @@ import { Flex, Box } from '@components/Grid'
 import { Text } from '@components/Typography'
 
 const Overall = ({ habitChecks }) => {
-  const momentHabitChecks = habitChecks.map(check => moment.unix(check))
+  const momentHabitChecks = habitChecks.map(d => moment(`${d}`, 'YYYYMMDD'))
   const today = moment()
 
   const thisYear = momentHabitChecks
