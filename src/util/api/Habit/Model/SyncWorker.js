@@ -62,11 +62,13 @@ const syncApi = async () => {
     self.syncingApi = false
 
     if (model === false) {
+      console.log('syncapi false')
       // sync was not possible
       return respawnSyncWorker()
     }
     const syncedModel = await applyPendingModelUpdates(model)
     const currentModel = Storage.read()
+
     if (isModelEqual(currentModel, syncedModel) === false) {
       Storage.write(syncedModel)
       sendHabitUpdateModelEvent(model)
@@ -79,6 +81,7 @@ const syncApi = async () => {
 }
 
 const start = async processId => {
+  console.log('triggered')
   if (self.syncingApi === true) {
     self.pendingModelUpdates = UpdateQueue.copy()
     return respawnSyncWorker(processId)

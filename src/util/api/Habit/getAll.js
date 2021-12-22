@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { getIdToken, axios } from '@auth'
 import { streakProcessor } from '@streak'
 
@@ -29,7 +30,7 @@ const loadApi = async () => {
     const habitData = habits.data.data === null ? [] : habits.data.data
     const habitDataNormalized = habitData.map(habit => ({
       ...habit,
-      checked: habit.checked
+      checked: (habit.checked || [])
         .map(convertCheckTimeStamps)
         .filter(x => x !== null),
     }))
@@ -45,6 +46,7 @@ const loadApi = async () => {
 
     return result
   } catch (error) {
+    console.log(error)
     return false
   }
 }
