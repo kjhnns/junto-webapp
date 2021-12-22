@@ -4,14 +4,10 @@ import { streakProcessor } from '@streak'
 
 const callName = 'getAll'
 
-const convertCheckTimeStamps = input => {
+const normalizeCheckTimeStamps = input => {
   const standardFormat = moment(`${input}`, 'YYYYMMDD')
   if (standardFormat.isValid()) {
     return +standardFormat.format('YYYYMMDD')
-  }
-  const unixTspFormat = moment.unix(input)
-  if (unixTspFormat.isValid()) {
-    return +unixTspFormat.format('YYYYMMDD')
   }
   return null
 }
@@ -31,7 +27,7 @@ const loadApi = async () => {
     const habitDataNormalized = habitData.map(habit => ({
       ...habit,
       checked: (habit.checked || [])
-        .map(convertCheckTimeStamps)
+        .map(normalizeCheckTimeStamps)
         .filter(x => x !== null),
     }))
     const habitDataNormalizedEnriched = habitDataNormalized.map(habit => ({
