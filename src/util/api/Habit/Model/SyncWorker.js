@@ -62,7 +62,6 @@ const syncApi = async () => {
     self.syncingApi = false
 
     if (model === false) {
-      console.log('syncapi false')
       // sync was not possible
       return respawnSyncWorker()
     }
@@ -81,7 +80,6 @@ const syncApi = async () => {
 }
 
 const start = async processId => {
-  console.log('triggered')
   if (self.syncingApi === true) {
     self.pendingModelUpdates = UpdateQueue.copy()
     return respawnSyncWorker(processId)
