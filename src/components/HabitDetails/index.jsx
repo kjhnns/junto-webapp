@@ -162,11 +162,12 @@ const HabitDetails = ({ habitId }) => {
           <Header habit={habit} />
           <Box maxWidth="800px" width="100%">
             <Box>
-              {habit.checked ? (
+              {habit.checked && habit.checked.length > 0 ? (
                 <Statistics habit={habit} />
               ) : (
                 <Text py={4} px={[3, 0]}>
-                  No statistics available
+                  No data, no stats - just do it, then we will show you some
+                  numbers
                 </Text>
               )}
             </Box>
