@@ -4,7 +4,7 @@ import { streakProcessor } from '@streak'
 
 const callName = 'getAll'
 
-const normalizeCheckTimeStamps = input => {
+const validateChecks = input => {
   const standardFormat = moment(`${input}`, 'YYYYMMDD')
   if (standardFormat.isValid()) {
     return +standardFormat.format('YYYYMMDD')
@@ -27,7 +27,7 @@ const loadApi = async () => {
     const habitDataNormalized = habitData.map(habit => ({
       ...habit,
       checked: (habit.checked || [])
-        .map(normalizeCheckTimeStamps)
+        .map(validateChecks)
         .filter(x => x !== null),
     }))
     const habitDataNormalizedEnriched = habitDataNormalized.map(habit => ({

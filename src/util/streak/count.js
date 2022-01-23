@@ -1,7 +1,7 @@
 import { maximumStreakFreezes, streakFreezeSpeed } from './common'
 
 const isDebugMode = false
-const printLog = (...msg) => isDebugMode && console.log(...msg)
+const printLog = (...msg) => isDebugMode && null //console.log(...msg)
 
 const incrementFreezeDays = freeze =>
   Math.min(
