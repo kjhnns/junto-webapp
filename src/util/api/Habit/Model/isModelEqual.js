@@ -81,6 +81,7 @@ const isModelEqual = (a, b) => {
   const habitMap = aSorted.map((habitx, idx) => {
     const habity = bSorted[idx]
     return (
+      console.log(habitx, habity);
       equalMeta(habitx, habity) &&
       equalChecks(habitx, habity) &&
       object_equals(habitx.tags, habity.tags) &&
