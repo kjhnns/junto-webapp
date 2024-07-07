@@ -22,7 +22,7 @@ const EditTag = ({ tagId }) => {
         setLoadingState('ERROR')
         return null
       }
-      console.log(resFetch)
+      // console.log(resFetch)
       const res = resFetch.filter(ptag => ptag.id === tagId)[0]
       if (!res) {
         setLoadingState('ERROR')
