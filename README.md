@@ -1,6 +1,8 @@
 # junto - web app
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/kjhnns/junto-webapp)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/kjhnns/junto-webapp)
+[![Open in Codeanywhere](https://codeanywhere.com/img/open-in-codeanywhere-btn.svg)](https://app.codeanywhere.com/#https://github.com/kjhnns/junto-webapp)
 
 ## Exporting PWA to App Stores
 
