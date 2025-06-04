@@ -1,0 +1,27 @@
+➤ YN0000: · Yarn 4.9.1
+➤ YN0000: ┌ Resolution step
+➤ YN0085: │ + jest-environment-jsdom@npm:29.7.0, @tootallnate/once@npm:2.0.0, @types/jsdom@npm:20.0.1, @types/tough-cookie@npm:4.0.5, abab@npm:2.0.6, and 34 more.
+➤ YN0000: └ Completed in 2s 236ms
+➤ YN0000: ┌ Post-resolution validation
+➤ YN0060: │ @testing-library/dom is listed by your project with version 9.3.4 (pc2789), which doesn't satisfy what @testing-library/react and other dependencies request (^10.0.0).
+➤ YN0060: │ eslint is listed by your project with version 9.28.0 (p4b48a), which doesn't satisfy what eslint-config-airbnb and other dependencies request (^8.57.0).
+➤ YN0060: │ eslint-plugin-react-hooks is listed by your project with version 5.2.0 (pcf9e1), which doesn't satisfy what eslint-config-airbnb requests (^4.3.0).
+➤ YN0060: │ firebase is listed by your project with version 11.8.1 (pa0216), which doesn't satisfy what react-firebaseui and other dependencies request (^9.1.3).
+➤ YN0060: │ gatsby is listed by your project with version 5.14.3 (p8dd7a), which doesn't satisfy what gatsby-plugin-create-client-paths and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 18.2.0 (pa5a1c), which doesn't satisfy what @reach/dialog and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react-dom is listed by your project with version 18.2.0 (pfc798), which doesn't satisfy what @reach/dialog and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0002: │ junto-webapp@workspace:. doesn't provide @mdx-js/react (p4b306), requested by gatsby-plugin-theme-ui.
+➤ YN0002: │ junto-webapp@workspace:. doesn't provide @theme-ui/css (pa16fc), requested by gatsby-plugin-theme-ui.
+➤ YN0002: │ junto-webapp@workspace:. doesn't provide @theme-ui/mdx (p38219), requested by gatsby-plugin-theme-ui.
+➤ YN0002: │ junto-webapp@workspace:. doesn't provide core-js (pe14ad), requested by babel-preset-gatsby.
+➤ YN0002: │ junto-webapp@workspace:. doesn't provide styled-components (pf03d2), requested by jest-styled-components.
+➤ YN0002: │ junto-webapp@workspace:. doesn't provide styled-system (pe6d40), requested by @styled-system/prop-types.
+➤ YN0086: │ Some peer dependencies are incorrectly met by your project; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code.
+➤ YN0086: │ Some peer dependencies are incorrectly met by dependencies; run yarn explain peer-requirements for details.
+➤ YN0000: └ Completed
+➤ YN0000: ┌ Fetch step
+➤ YN0013: │ 39 packages were added to the project (+ 6.66 MiB).
+➤ YN0000: └ Completed in 3s 731ms
+➤ YN0000: ┌ Link step
+➤ YN0000: └ Completed in 1s 991ms
+➤ YN0000: · Done with warnings in 8s 490ms
