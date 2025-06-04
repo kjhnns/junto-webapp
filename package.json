@@ -27,10 +27,13 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@feedback-fish/react": "^1.2.2",
+    "@mdx-js/react": "^3.1.0",
     "@reach/dialog": "^0.18.0",
     "@rebass/forms": "^4.0.6",
     "@styled-system/prop-types": "^5.1.5",
     "@styled-system/theme-get": "^5.1.2",
+    "@theme-ui/css": "^0.17.2",
+    "@theme-ui/mdx": "^0.17.2",
     "axios": "^1.9.0",
     "dotenv": "^16.5.0",
     "firebase": "^11.8.1",
