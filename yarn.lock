@@ -1839,7 +1839,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.20.13":
+"@babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.20.13, @babel/runtime@npm:^7.27.4":
   version: 7.27.4
   resolution: "@babel/runtime@npm:7.27.4"
   checksum: 10c0/ca99e964179c31615e1352e058cc9024df7111c829631c90eec84caba6703cc32acc81503771847c306b3c70b815609fe82dde8682936debe295b0b283b2dc6e
@@ -11180,18 +11180,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-firebase@npm:^0.2.0-beta.4":
-  version: 0.2.0-beta.4
-  resolution: "gatsby-plugin-firebase@npm:0.2.0-beta.4"
-  peerDependencies:
-    firebase: ">=6.x"
-    gatsby: ">=2.x"
-    react: ">=16.8.x"
-    react-dom: ">=16.8.x"
-  checksum: 10c0/3ff0b97f110e4321795115f6b7dd7220978dfd436fe7cb0044b0dbfed7f10cdcddfb15e505a1df85927f5b6d8016cc49e99346d465292ae52c96dd0f5c024046
-  languageName: node
-  linkType: hard
-
 "gatsby-plugin-google-tagmanager@npm:^5.14.0":
   version: 5.14.0
   resolution: "gatsby-plugin-google-tagmanager@npm:5.14.0"
@@ -14119,6 +14107,7 @@ __metadata:
   resolution: "junto-webapp@workspace:."
   dependencies:
     "@babel/core": "npm:^7.27.4"
+    "@babel/runtime": "npm:^7.27.4"
     "@emotion/react": "npm:^11.11.3"
     "@feedback-fish/react": "npm:^1.2.2"
     "@mdx-js/react": "npm:^3.1.0"
@@ -14157,7 +14146,6 @@ __metadata:
     gatsby-image: "npm:^3.11.0"
     gatsby-plugin-catch-links: "npm:^5.14.0"
     gatsby-plugin-create-client-paths: "npm:^4.9.0"
-    gatsby-plugin-firebase: "npm:^0.2.0-beta.4"
     gatsby-plugin-google-tagmanager: "npm:^5.14.0"
     gatsby-plugin-lodash: "npm:^6.14.0"
     gatsby-plugin-manifest: "npm:^5.14.0"

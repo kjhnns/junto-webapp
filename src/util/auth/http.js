@@ -1,4 +1,4 @@
-import firebase from 'gatsby-plugin-firebase'
+import firebase from '../firebase'
 import axios from 'axios'
 import { navigate } from 'gatsby'
 
