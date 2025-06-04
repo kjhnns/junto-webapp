@@ -3756,6 +3756,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mdx-js/react@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@mdx-js/react@npm:3.1.0"
+  dependencies:
+    "@types/mdx": "npm:^2.0.0"
+  peerDependencies:
+    "@types/react": ">=16"
+    react: ">=16"
+  checksum: 10c0/381ed1211ba2b8491bf0ad9ef0d8d1badcdd114e1931d55d44019d4b827cc2752586708f9c7d2f9c3244150ed81f1f671a6ca95fae0edd5797fb47a22e06ceca
+  languageName: node
+  linkType: hard
+
 "@mischnic/json-sourcemap@npm:^0.1.0":
   version: 0.1.1
   resolution: "@mischnic/json-sourcemap@npm:0.1.1"
@@ -5001,6 +5013,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@theme-ui/mdx@npm:^0.17.2":
+  version: 0.17.2
+  resolution: "@theme-ui/mdx@npm:0.17.2"
+  dependencies:
+    "@theme-ui/core": "npm:^0.17.2"
+    "@theme-ui/css": "npm:^0.17.2"
+  peerDependencies:
+    "@emotion/react": ^11.13.3
+    "@types/mdx": ^2.0.2
+    react: ">=18"
+  checksum: 10c0/ea7c8e96509587d180b7d193a59422df7e7faf92a055bcc2a9c4f65c99f7b137c0dbf82ea600aacc1149f379117eb5c7c9ce585d7258dea9aaae0a27389f68a5
+  languageName: node
+  linkType: hard
+
 "@theme-ui/theme-provider@npm:^0.17.2":
   version: 0.17.2
   resolution: "@theme-ui/theme-provider@npm:0.17.2"
@@ -5302,6 +5328,13 @@ __metadata:
   version: 4.17.6
   resolution: "@types/lodash@npm:4.17.6"
   checksum: 10c0/3b197ac47af9443fee8c4719c5ffde527d7febc018b827d44a6bc2523c728c7adfdd25196fdcfe3eed827993e0c41a917d0da6e78938b18b2be94164789f1117
+  languageName: node
+  linkType: hard
+
+"@types/mdx@npm:^2.0.0":
+  version: 2.0.13
+  resolution: "@types/mdx@npm:2.0.13"
+  checksum: 10c0/5edf1099505ac568da55f9ae8a93e7e314e8cbc13d3445d0be61b75941226b005e1390d9b95caecf5dcb00c9d1bab2f1f60f6ff9876dc091a48b547495007720
   languageName: node
   linkType: hard
 
@@ -14088,6 +14121,7 @@ __metadata:
     "@babel/core": "npm:^7.27.4"
     "@emotion/react": "npm:^11.11.3"
     "@feedback-fish/react": "npm:^1.2.2"
+    "@mdx-js/react": "npm:^3.1.0"
     "@reach/dialog": "npm:^0.18.0"
     "@rebass/forms": "npm:^4.0.6"
     "@styled-system/prop-types": "npm:^5.1.5"
@@ -14096,6 +14130,8 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.6.3"
     "@testing-library/react": "npm:^16.3.0"
     "@testing-library/user-event": "npm:^14.6.1"
+    "@theme-ui/css": "npm:^0.17.2"
+    "@theme-ui/mdx": "npm:^0.17.2"
     axios: "npm:^1.9.0"
     babel-eslint: "npm:^10.1.0"
     babel-jest: "npm:^29.7.0"
